@@ -1,15 +1,14 @@
 #if ! defined ( TrajetCompose_H )
 #define TrajetCompose_H
 
+#include "liste.h"
+
 
 class TrajetCompose : public Trajet
 {
 
 public:
 
-    TrajetCompose & operator = ( const TrajetCompose & unTrajetCompose );
- 
-    TrajetCompose ( const TrajetCompose & unTrajetCompose );
 
     TrajetCompose ( );
 
@@ -18,6 +17,9 @@ public:
  
 
 protected:
+
+Liste<TrajetSimple> ListeTrajetCompose;
+
 };
 
 #endif 
