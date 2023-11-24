@@ -2,8 +2,6 @@
 #if ! defined ( TrajetSimple_H )
 #define TrajetSimple_H
 
-
-
 class TrajetSimple : public Trajet 
 {
 
