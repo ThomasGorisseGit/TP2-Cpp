@@ -5,10 +5,9 @@ using namespace std;
 
 
 
+TrajetSimple::Ajouter
 
-
-TrajetSimple::TrajetSimple ( )
-
+TrajetSimple::TrajetSimple (const char * Depart, const char * Arrivee ) DepartVille(Depart), ArriveeVille(Arrivee)
 {
 #ifdef MAP
     cout << "Appel au constructeur de <TrajetSimple>" << endl;
@@ -23,5 +22,5 @@ TrajetSimple::~TrajetSimple ( )
 #ifdef MAP
     cout << "Appel au destructeur de <TrajetSimple>" << endl;
 #endif
-} s
+}
 
