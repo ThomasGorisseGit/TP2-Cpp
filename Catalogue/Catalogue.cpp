@@ -16,8 +16,6 @@ using namespace std;
 
 //------------------------------------------------------ Include personnel
 #include "Catalogue.h"
-#include "../Liste/Liste.h"
-#include "../Trajet/Trajet.h"
 //------------------------------------------------------------- Constantes
 
 //----------------------------------------------------------------- PUBLIC
@@ -43,9 +41,6 @@ Catalogue::Catalogue ( )
     #ifdef MAP
         cout << "Appel au constructeur de <Catalogue>" << endl;
     #endif
-
-    this->listeTrajet = new Liste();
-
 } //----- Fin de Catalogue
 
 
@@ -54,8 +49,6 @@ Catalogue::~Catalogue ( )
     #ifdef MAP
         cout << "Appel au destructeur de <Catalogue>" << endl;
     #endif
-
-    delete this->listeTrajet;
 } //----- Fin de ~Catalogue
 
 void Catalogue::Ajouter(const Trajet & trajet){
