@@ -27,37 +27,39 @@ public:
      *
      * @param index L'index du maillon dont on veut la valeur
      */
-    T getValeur(int index) const;
+    T GetValeur(unsigned int index) const;
 
     /**
      * @brief Retourne la taille de la liste
      *
+     * @return La taille de la liste
      */
-    int getTaille() const;
+    unsigned int GetTaille() const;
 
     /**
      * @brief Ajoute un élément à la fin de la liste chaînée
      *
      * @param valeur Le Trajet à ajouter à la liste
      */
-    void ajouter(T valeur);
+    void Ajouter(T valeur);
 
     /**
      * @brief Permet de rechercher un Trajet dans la liste
      *
      * @param valeur Le Trajet à rechercher dans la liste
+     * @return true Si le Trajet est présent dans la liste, false sinon
      */
-    bool rechercher(const T *valeur) const;
+    bool Rechercher(const T *valeur) const;
 
     /**
      * @brief Permet d'afficher la liste
      *
      */
-    void afficher() const;
+    void Afficher() const;
 
 protected:
-    int taille;
-    Maillon *tete;
+    unsigned int taille;
+    Maillon<T> *tete;
 };
 
 #endif // LISTE_H
