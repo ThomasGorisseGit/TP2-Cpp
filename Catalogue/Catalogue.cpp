@@ -16,6 +16,7 @@ using namespace std;
 
 //------------------------------------------------------ Include personnel
 #include "Catalogue.h"
+#include "../Liste/Liste.h"
 
 //------------------------------------------------------------- Constantes
 

@@ -69,6 +69,10 @@ protected:
 
 //----------------------------------------------------- Attributs protégés
 
+
+// Un catalogue possède une liste de trajets (Composés et simples)
+
+Liste listeTrajet;
 };
 
 //-------------------------------- Autres définitions dépendantes de <Catalogue>
