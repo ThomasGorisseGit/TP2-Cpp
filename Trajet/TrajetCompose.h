@@ -2,6 +2,8 @@
 #define TrajetCompose_H
 
 #include "../Liste/Liste.h"
+#include "Trajet.h"
+#include "TrajetSimple.h"
 
 
 class TrajetCompose : public Trajet
@@ -10,7 +12,11 @@ class TrajetCompose : public Trajet
 public:
 
 
-    TrajetCompose (const char * Depart, const char * Arrivee);
+    TrajetCompose (const Liste<TrajetSimple>);
+
+    void Ajouter (const TrajetSimple &trajet);
+
+    void Afficher() const;
 
 
     virtual ~TrajetCompose ( );
@@ -18,7 +24,7 @@ public:
 
 protected:
 
-Liste<TrajetSimple> ListeTrajetComposee;
+    Liste<TrajetSimple> ListeTrajetCompose;
 
 };
 

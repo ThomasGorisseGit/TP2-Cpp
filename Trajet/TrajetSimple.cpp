@@ -1,17 +1,19 @@
 #include <iostream>
 using namespace std;
 #include "TrajetSimple.h"
+#include "Trajet.h"
 
 
 
 
-TrajetSimple::Ajouter
+//TrajetSimple::Ajouter
 
-TrajetSimple::TrajetSimple (const char * Depart, const char * Arrivee ) DepartVille(Depart), ArriveeVille(Arrivee)
+TrajetSimple::TrajetSimple (char * Depart,  char * Arrivee ): Trajet(Depart,Arrivee)
 {
 #ifdef MAP
     cout << "Appel au constructeur de <TrajetSimple>" << endl;
 #endif
+
 } 
 
 

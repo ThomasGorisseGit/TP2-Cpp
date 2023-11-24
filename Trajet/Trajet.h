@@ -33,7 +33,9 @@ public:
     //
     // Contrat :
     //
-
+    char * GetDepart(); //getteur du départ
+    
+    char* GetArrivee(); //getteur de l'arrivée
 
 //------------------------------------------------- Surcharge d'opérateurs
     //Trajet & operator = ( const Trajet & unTrajet );
@@ -50,7 +52,7 @@ public:
     // Contrat :
     //
 
-    Trajet (const char * DepartVille, const char * ArrivéeVille );
+    Trajet (char * DepartVille, char * ArrivéeVille );
     // Mode d'emploi :
     //
     // Contrat :
@@ -71,8 +73,8 @@ protected:
 //----------------------------------------------------- Méthodes protégées
 
 //----------------------------------------------------- Attributs protégés
-char * depart;
-char * arrivee;
+    char * depart;
+    char * arrivee;
 
 };
 

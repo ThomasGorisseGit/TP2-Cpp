@@ -2,20 +2,22 @@
 using namespace std;
 #include <cstring>
 #include "TrajetCompose.h"
+#include "Trajet.h"
+#include "../Liste/Liste.h"
 
 
 
-void TrajetCompose::Ajouter (const Trajet &trajet) {
-    this->ListeTrajetCompose.ajouter(trajet);
+void TrajetCompose::Ajouter (const TrajetSimple &trajet) {
+    ListeTrajetCompose.Ajouter(trajet);
 }
 
-void TrajetCompose::Afficher()
+void TrajetCompose::Afficher() const
 {
 
 }
 
-TrajetCompose::TrajetCompose (Liste<TrajetSimple> listeTrajetSimple): 
-    Trajet(listeTrajetSimple.GetValeur(0).depart,listeTrajetSimple.GetValeur(listeTrajetSimple.GetTaille()-1).arrivee)
+TrajetCompose::TrajetCompose (const Liste<TrajetSimple> listeTrajetSimple): 
+    Trajet( listeTrajetSimple.GetValeur(0).GetDepart(),listeTrajetSimple.GetValeur(listeTrajetSimple.GetTaille()-1).GetArrivee())
 {
     #ifdef MAP
         cout << "Appel au constructeur de <TrajetCompose>" << endl;
@@ -24,7 +26,7 @@ TrajetCompose::TrajetCompose (Liste<TrajetSimple> listeTrajetSimple):
     for (int i = 0; i < taille; i++) 
     { 
         //ajoute éléments par éléments les trajets de la liste en paramètre
-        ListeTrajetComposee.Ajouter(listeTrajetSimple.GetValeur(i));
+        ListeTrajetCompose.Ajouter(listeTrajetSimple.GetValeur(i));
     }
     //création d'un objet Trajet
     
