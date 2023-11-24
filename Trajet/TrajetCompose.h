@@ -2,7 +2,7 @@
 #define TrajetCompose_H
 
 
-class TrajetCompose 
+class TrajetCompose : public Trajet
 {
 
 public:
