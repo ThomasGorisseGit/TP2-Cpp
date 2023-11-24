@@ -25,6 +25,23 @@ Liste<T>::~Liste()
 }
 
 template <typename T>
+T Liste<T>::getValeur(int index) const
+{
+    Maillon *courrent = tete;
+    int i = 0;
+    while (courrent != nullptr)
+    {
+        if (i == index)
+        {
+            return courrent->valeur;
+        }
+        courrent = courrent->suivant;
+        i++;
+    }
+    return nullptr;
+}
+
+template <typename T>
 int Liste<T>::getTaille() const
 {
     return taille;

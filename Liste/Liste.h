@@ -23,6 +23,13 @@ public:
     ~Liste();
 
     /**
+     * @brief Retourne la valeur du maillon à l'index passé en paramètre
+     *
+     * @param index L'index du maillon dont on veut la valeur
+     */
+    T getValeur(int index) const;
+
+    /**
      * @brief Retourne la taille de la liste
      *
      */
