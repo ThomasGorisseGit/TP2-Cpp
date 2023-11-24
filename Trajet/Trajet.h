@@ -56,6 +56,9 @@ public:
     // Contrat :
     //
 
+
+   
+
     virtual ~Trajet ( );
     // Mode d'emploi :
     //
@@ -68,6 +71,8 @@ protected:
 //----------------------------------------------------- Méthodes protégées
 
 //----------------------------------------------------- Attributs protégés
+char * depart;
+char * arrivee;
 
 };
 
