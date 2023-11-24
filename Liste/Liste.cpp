@@ -11,6 +11,7 @@ Liste<T>::Liste()
 #endif
 
     this->tete = nullptr;
+    this->taille = 0;
 }
 
 template <typename T>
@@ -21,6 +22,12 @@ Liste<T>::~Liste()
 #endif
 
     delete tete;
+}
+
+template <typename T>
+int Liste<T>::getTaille() const
+{
+    return taille;
 }
 
 template <typename T>
@@ -42,5 +49,33 @@ void Liste<T>::ajouter(T valeur)
             courrent = courrent->suivant;
         }
         courrent->suivant = nouveauMaillon;
+    }
+    taille++;
+}
+
+template <typename T>
+bool Liste<T>::rechercher(const T *valeur) const
+{
+    Maillon *courrent = tete;
+    while (courrent != nullptr)
+    {
+        if (courrent->valeur == valeur)
+        {
+            return true;
+        }
+        courrent = courrent->suivant;
+    }
+    return false;
+}
+
+template <typename T>
+void Liste<T>::afficher() const
+{
+    Maillon *courrent = tete;
+    while (courrent != nullptr)
+    {
+        T.afficher(); // Ici, on suppose que la classe T possède une méthode afficher()
+        endl;
+        courrent = courrent->suivant;
     }
 }

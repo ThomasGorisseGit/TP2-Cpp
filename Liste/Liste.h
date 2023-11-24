@@ -23,6 +23,12 @@ public:
     ~Liste();
 
     /**
+     * @brief Retourne la taille de la liste
+     *
+     */
+    int getTaille() const;
+
+    /**
      * @brief Ajoute un élément à la fin de la liste chaînée
      *
      * @param valeur Le Trajet à ajouter à la liste
@@ -32,8 +38,9 @@ public:
     /**
      * @brief Permet de rechercher un Trajet dans la liste
      *
+     * @param valeur Le Trajet à rechercher dans la liste
      */
-    void rechercher(const T *valeur) const;
+    bool rechercher(const T *valeur) const;
 
     /**
      * @brief Permet d'afficher la liste
@@ -42,6 +49,7 @@ public:
     void afficher() const;
 
 protected:
+    int taille;
     Maillon *tete;
 };
 
