@@ -6,7 +6,7 @@ using namespace std;
 class TrajetComposee : public Trajet {
 
     public :
-
+    virtual ~TrajetCompose();
     protected :
     
 
