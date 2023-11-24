@@ -17,7 +17,7 @@ using namespace std;
 //------------------------------------------------------ Include personnel
 #include "Catalogue.h"
 #include "../Liste/Liste.h"
-
+#include "../Trajet/Trajet.h"
 //------------------------------------------------------------- Constantes
 
 //----------------------------------------------------------------- PUBLIC
@@ -31,8 +31,6 @@ using namespace std;
 
 //-------------------------------------------- Constructeurs - destructeur
 Catalogue::Catalogue ( const Catalogue & unCatalogue )
-// Algorithme :
-//
 {
 #ifdef MAP
     cout << "Appel au constructeur de copie de <Catalogue>" << endl;
@@ -41,25 +39,37 @@ Catalogue::Catalogue ( const Catalogue & unCatalogue )
 
 
 Catalogue::Catalogue ( )
-// Algorithme :
-//
 {
-#ifdef MAP
-    cout << "Appel au constructeur de <Catalogue>" << endl;
-#endif
+    #ifdef MAP
+        cout << "Appel au constructeur de <Catalogue>" << endl;
+    #endif
+
+    this->listeTrajet = new Liste();
+
 } //----- Fin de Catalogue
 
 
 Catalogue::~Catalogue ( )
-// Algorithme :
-//
 {
-#ifdef MAP
-    cout << "Appel au destructeur de <Catalogue>" << endl;
-#endif
+    #ifdef MAP
+        cout << "Appel au destructeur de <Catalogue>" << endl;
+    #endif
+
+    delete this->listeTrajet;
 } //----- Fin de ~Catalogue
 
+void Catalogue::Ajouter(const Trajet & trajet){
+    this->listeTrajet.ajouter(trajet);
+}
 
+void Catalogue::Afficher() {
+    cout << "-----------------------------------------------------------------" <<endl;
+    cout << "---------------------------BIENVENUE-----------------------------" <<endl;
+    cout << "---------------------------SUR    LE-----------------------------" <<endl;
+    cout << "---------------------------CATALOGUE-----------------------------" <<endl;
+    cout << "-----------------------------------------------------------------" <<endl;
+
+}
 //------------------------------------------------------------------ PRIVE
 
 //----------------------------------------------------- Méthodes protégées

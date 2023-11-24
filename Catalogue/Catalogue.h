@@ -28,11 +28,17 @@ class Catalogue
 
 public:
 //----------------------------------------------------- Méthodes publiques
-    // type Méthode ( liste des paramètres );
+
+
+    void Ajouter(const Trajet & trajet);
+    // Permet d'ajouter un trajet a la liste des trajets proposés dans le catalogue
     // Mode d'emploi :
-    //
-    // Contrat :
-    //
+    //      Appel de la méthode ajouter catalogue.Ajouter(trajet)
+
+    void Afficher();
+    // Permet d'afficher tous les trajets contenus dans la liste des trajets proposés.
+    // Mode d'emploi :
+    //      Appel de la méthode afficher catalogue.Afficher()
 
 
 //------------------------------------------------- Surcharge d'opérateurs
@@ -72,7 +78,7 @@ protected:
 
 // Un catalogue possède une liste de trajets (Composés et simples)
 
-Liste listeTrajet;
+Liste<Trajet> listeTrajet;
 };
 
 //-------------------------------- Autres définitions dépendantes de <Catalogue>
