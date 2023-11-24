@@ -10,4 +10,4 @@ class TrajetComposee : public Trajet {
     protected :
     
 
-}
+};
