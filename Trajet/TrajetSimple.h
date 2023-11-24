@@ -12,4 +12,4 @@ public:
 
 };
 
-#endif // TrajetSimple_H
+#endif
