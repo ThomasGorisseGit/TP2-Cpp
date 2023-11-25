@@ -9,7 +9,8 @@
 //---------- Interface de la classe <Catalogue> (fichier Catalogue.h) ----------------
 #if ! defined ( Catalogue_H )
 #define Catalogue_H
-
+#include "../Trajet/Trajet.h"
+#include "../Liste/Liste.h"
 //--------------------------------------------------- Interfaces utilisées
 
 //------------------------------------------------------------- Constantes
@@ -28,11 +29,17 @@ class Catalogue
 
 public:
 //----------------------------------------------------- Méthodes publiques
-    // type Méthode ( liste des paramètres );
+
+
+    void Ajouter(const Trajet & trajet);
+    // Permet d'ajouter un trajet a la liste des trajets proposés dans le catalogue
     // Mode d'emploi :
-    //
-    // Contrat :
-    //
+    //      Appel de la méthode ajouter catalogue.Ajouter(trajet)
+
+    void Afficher();
+    // Permet d'afficher tous les trajets contenus dans la liste des trajets proposés.
+    // Mode d'emploi :
+    //      Appel de la méthode afficher catalogue.Afficher()
 
 
 //------------------------------------------------- Surcharge d'opérateurs
@@ -69,6 +76,10 @@ protected:
 
 //----------------------------------------------------- Attributs protégés
 
+
+// Un catalogue possède une liste de trajets (Composés et simples)
+
+Liste<Trajet> listeTrajet;
 };
 
 //-------------------------------- Autres définitions dépendantes de <Catalogue>
