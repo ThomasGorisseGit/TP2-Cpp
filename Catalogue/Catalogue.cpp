@@ -52,7 +52,7 @@ Catalogue::~Catalogue ( )
 } //----- Fin de ~Catalogue
 
 void Catalogue::Ajouter(const Trajet & trajet){
-    this->listeTrajet.ajouter(trajet);
+    this->listeTrajet.Ajouter(trajet);
 }
 
 void Catalogue::Afficher() {
@@ -62,8 +62,8 @@ void Catalogue::Afficher() {
     cout << "---------------------------CATALOGUE-----------------------------" <<endl;
     cout << "-----------------------------------------------------------------" <<endl;
     int i =0;
-    while( i<this->listeTrajet.getTaille() ){
-        this->listeTrajet.getValeur(i).Afficher();
+    while( i<this->listeTrajet.GetTaille() ){
+        this->listeTrajet.GetValeur(i).Afficher();
     }
 }
 //------------------------------------------------------------------ PRIVE
