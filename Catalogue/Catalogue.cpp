@@ -16,7 +16,6 @@ using namespace std;
 
 //------------------------------------------------------ Include personnel
 #include "Catalogue.h"
-
 //------------------------------------------------------------- Constantes
 
 //----------------------------------------------------------------- PUBLIC
@@ -30,8 +29,6 @@ using namespace std;
 
 //-------------------------------------------- Constructeurs - destructeur
 Catalogue::Catalogue ( const Catalogue & unCatalogue )
-// Algorithme :
-//
 {
 #ifdef MAP
     cout << "Appel au constructeur de copie de <Catalogue>" << endl;
@@ -40,25 +37,35 @@ Catalogue::Catalogue ( const Catalogue & unCatalogue )
 
 
 Catalogue::Catalogue ( )
-// Algorithme :
-//
 {
-#ifdef MAP
-    cout << "Appel au constructeur de <Catalogue>" << endl;
-#endif
+    #ifdef MAP
+        cout << "Appel au constructeur de <Catalogue>" << endl;
+    #endif
 } //----- Fin de Catalogue
 
 
 Catalogue::~Catalogue ( )
-// Algorithme :
-//
 {
-#ifdef MAP
-    cout << "Appel au destructeur de <Catalogue>" << endl;
-#endif
+    #ifdef MAP
+        cout << "Appel au destructeur de <Catalogue>" << endl;
+    #endif
 } //----- Fin de ~Catalogue
 
+void Catalogue::Ajouter(const Trajet & trajet){
+    this->listeTrajet.Ajouter(trajet);
+}
 
+void Catalogue::Afficher() {
+    cout << "-----------------------------------------------------------------" <<endl;
+    cout << "---------------------------BIENVENUE-----------------------------" <<endl;
+    cout << "---------------------------SUR    LE-----------------------------" <<endl;
+    cout << "---------------------------CATALOGUE-----------------------------" <<endl;
+    cout << "-----------------------------------------------------------------" <<endl;
+    int i =0;
+    while( i<this->listeTrajet.GetTaille() ){
+        this->listeTrajet.GetValeur(i).Afficher();
+    }
+}
 //------------------------------------------------------------------ PRIVE
 
 //----------------------------------------------------- Méthodes protégées

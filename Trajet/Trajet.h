@@ -51,6 +51,7 @@ public:
     //
     // Contrat :
     //
+    void Afficher()const;
 
     Trajet (char * DepartVille, char * ArrivéeVille );
     // Mode d'emploi :
