@@ -25,9 +25,9 @@ Liste<T>::~Liste()
 }
 
 template <typename T>
-T Liste<T>::getValeur(int index) const
+T Liste<T>::GetValeur(unsigned int index) const
 {
-    Maillon *courrent = tete;
+    Maillon<T> *courrent = tete;
     int i = 0;
     while (courrent != nullptr)
     {
@@ -42,16 +42,16 @@ T Liste<T>::getValeur(int index) const
 }
 
 template <typename T>
-int Liste<T>::getTaille() const
+unsigned int Liste<T>::GetTaille() const
 {
     return taille;
 }
 
 template <typename T>
-void Liste<T>::ajouter(T valeur)
+void Liste<T>::Ajouter(T valeur)
 {
     // On crée un nouveau maillon avec la valeur passée en paramètre (il sera placé à la fin de la liste)
-    Maillon *nouveauMaillon = new Maillon(valeur, nullptr);
+    Maillon<T> *nouveauMaillon = new Maillon<T>(valeur, nullptr);
 
     // Si la liste est vide, on ajoute le nouveau maillon en tête
     if (tete == nullptr)
@@ -60,7 +60,7 @@ void Liste<T>::ajouter(T valeur)
     }
     else
     {
-        Maillon *courrent = tete;
+        Maillon<T> *courrent = tete;
         while (courrent->suivant != nullptr)
         {
             courrent = courrent->suivant;
@@ -71,9 +71,9 @@ void Liste<T>::ajouter(T valeur)
 }
 
 template <typename T>
-bool Liste<T>::rechercher(const T *valeur) const
+bool Liste<T>::Rechercher(const T *valeur) const
 {
-    Maillon *courrent = tete;
+    Maillon<T> *courrent = tete;
     while (courrent != nullptr)
     {
         if (courrent->valeur == valeur)
@@ -86,13 +86,12 @@ bool Liste<T>::rechercher(const T *valeur) const
 }
 
 template <typename T>
-void Liste<T>::afficher() const
+void Liste<T>::Afficher() const
 {
-    Maillon *courrent = tete;
+    Maillon<T> *courrent = tete;
     while (courrent != nullptr)
     {
-        T.afficher(); // Ici, on suppose que la classe T possède une méthode afficher()
-        endl;
+        courrent->afficher(); // Ici, on suppose que la classe T possède une méthode afficher()
         courrent = courrent->suivant;
     }
 }

@@ -22,11 +22,15 @@ using namespace std;
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
-// type Trajet::Méthode ( liste des paramètres )
-// Algorithme :
-//
-//{
-//} //----- Fin de Méthode
+char * Trajet::GetDepart()
+{
+    return depart;
+}
+
+char * Trajet::GetArrivee()
+{
+    return arrivee;
+}
 
 
 //------------------------------------------------- Surcharge d'opérateurs
@@ -38,7 +42,7 @@ using namespace std;
 
 
 //-------------------------------------------- Constructeurs - destructeur
-Trajet::Trajet ( const char * DepartVille, const char * ArrivéeVille ) : départ(DepartVille), arrivée(ArrivéeVille)
+Trajet::Trajet ( char * DepartVille, char * ArriveeVille ) : depart(DepartVille), arrivee(ArriveeVille)
 // Algorithme :
 //
 {
