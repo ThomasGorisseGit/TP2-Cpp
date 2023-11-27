@@ -32,6 +32,10 @@ char * Trajet::GetArrivee()
     return arrivee;
 }
 
+void Trajet::Afficher()const{
+    cout<<"Depart | " << this->depart << " | \n Arrivee | "<< this->arrivee <<" |";
+}
+
 
 //------------------------------------------------- Surcharge d'opérateurs
 /*Trajet & Trajet::operator = ( const Trajet & unTrajet )
