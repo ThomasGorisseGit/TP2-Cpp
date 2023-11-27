@@ -33,6 +33,14 @@ Catalogue::Catalogue ( const Catalogue & unCatalogue )
 #ifdef MAP
     cout << "Appel au constructeur de copie de <Catalogue>" << endl;
 #endif
+    delete [] this->listeTrajet;
+    this->listeTrajet = malloc(sizeof(Trajet) * unCatalogue.listeTrajet->GetTaille());
+
+    for(int i = 0 ; i<unCatalogue.listeTrajet.GetTaille(); i ++){
+        this->listeTrajet->Ajouter(
+                unCatalogue.listeTrajet->GetValeur(i);
+                )
+    }
 } //----- Fin de Catalogue (constructeur de copie)
 
 
@@ -41,6 +49,7 @@ Catalogue::Catalogue ( )
     #ifdef MAP
         cout << "Appel au constructeur de <Catalogue>" << endl;
     #endif
+
 } //----- Fin de Catalogue
 
 
