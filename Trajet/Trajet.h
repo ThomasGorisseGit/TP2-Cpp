@@ -28,14 +28,20 @@ class Trajet
 
 public:
 //----------------------------------------------------- Méthodes publiques
-    // type Méthode ( liste des paramètres );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
-    char * GetDepart(); //getteur du départ
-    
-    char* GetArrivee(); //getteur de l'arrivée
+
+    // Méthode de type Get
+    // Elle permet d'accéder au départ d'un trajet.
+    char * GetDepart() const;
+
+    //Méthode de type Get
+    // Elle permet d'accéder à l'arrivée d'un trajet.
+    char* GetArrivee() const; //getteur de l'arrivée
+
+    // Méthode de type affichage
+    // Elle permet d'afficher les attributs d'un trajet.
+    // Notamment le départ et l'arrivée.
+    // L'affichage est élaboré.
+    void Afficher()const;
 
 //------------------------------------------------- Surcharge d'opérateurs
     //Trajet & operator = ( const Trajet & unTrajet );
@@ -51,7 +57,6 @@ public:
     //
     // Contrat :
     //
-    void Afficher()const;
 
     Trajet (char * DepartVille, char * ArrivéeVille );
     // Mode d'emploi :
