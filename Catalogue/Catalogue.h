@@ -79,7 +79,7 @@ protected:
 
 // Un catalogue possède une liste de trajets (Composés et simples)
 
-Liste<Trajet> listeTrajet;
+Liste<Trajet>* listeTrajet;
 };
 
 //-------------------------------- Autres définitions dépendantes de <Catalogue>
