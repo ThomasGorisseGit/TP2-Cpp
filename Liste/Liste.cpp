@@ -20,6 +20,15 @@ Liste<T>::~Liste()
 #ifdef MAP
     cout << "Appel au destructeur de <Liste>" << endl;
 #endif
+    // On parcourt la liste et on supprime chaque maillon
+    //TODO : vérifier que ça marche
+    Maillon<T> *courrent = tete;
+    while (courrent != nullptr)
+    {
+        Maillon<T> *suivant = courrent->suivant;
+        delete courrent;
+        courrent = suivant;
+    }
 
     delete tete;
 }
