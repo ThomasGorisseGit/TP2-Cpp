@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Liste.h"
+#include "Maillon.h"
 
 using namespace std;
 
@@ -100,7 +101,7 @@ void Liste<T>::Afficher() const
     Maillon<T> *courrent = tete;
     while (courrent != nullptr)
     {
-        courrent->afficher(); // Ici, on suppose que la classe T possède une méthode afficher()
+        //FIXME courrent->afficher(); // Ici, on suppose que la classe T possède une méthode afficher()
         courrent = courrent->suivant;
     }
 }
