@@ -1,6 +1,7 @@
 #if !defined(MAILLON_H)
 #define MAILLON_H
 #include <iostream>
+using namespace std;
 
 template <typename T>
 class Maillon
