@@ -37,6 +37,8 @@ public:
     //  Elle permet d'accéder à l'arrivée d'un trajet.
     char *GetArrivee() const; // getteur de l'arrivée
 
+    //Liste<TrajetSimple> & Rechercher(const char* Depart, const char* Arrivee) const;
+
     // Méthode de type affichage
     // Elle permet d'afficher les attributs d'un trajet.
     // Notamment le départ et l'arrivée.

@@ -50,8 +50,21 @@ void Catalogue::Afficher()
     unsigned int i = 0;
     while (i < this->listeTrajet->GetTaille())
     {
-        // cout<<"in";
-        cout << this->listeTrajet->GetValeur(i)->GetDepart() << " -> " << this->listeTrajet->GetValeur(i)->GetArrivee() << endl;
-        i++;
+        this->listeTrajet->GetValeur(i)->Afficher();
     }
 }
+
+void  Catalogue::Rechercher(const char* Depart, const char* Arrivee, Liste<Trajet> & ListeARemplir) const
+{
+    int taille = listeTrajet->GetTaille();
+    for (unsigned int i = 0; i < taille-1; i ++)
+    {
+        if(listeTrajet->GetValeur(i)->GetDepart() == Depart && listeTrajet->GetValeur(i)->GetArrivee() == Arrivee)
+        {
+            ListeARemplir.Ajouter(*listeTrajet->GetValeur(i));
+        }
+    }
+
+}
+
+
