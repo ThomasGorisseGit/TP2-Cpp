@@ -45,7 +45,7 @@ void Trajet::Afficher() const
 } //----- Fin de operator =*/
 
 //-------------------------------------------- Constructeurs - destructeur
-Trajet::Trajet(char *DepartVille, char *ArriveeVille) : depart(DepartVille), arrivee(ArriveeVille)
+Trajet::Trajet(const char *DepartVille,const char *ArriveeVille) : depart(DepartVille), arrivee(ArriveeVille)
 // Algorithme :
 //
 {
