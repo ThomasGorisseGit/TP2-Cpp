@@ -3,28 +3,32 @@ LISTE := Liste/
 TRAJET := Trajet/
 CATALOGUE := Catalogue/
 OBJ := obj/
+EXE := exe
 
 
-trajet :  $(OBJ)Liste.o $(OBJ)Maillon.o $(OBJ)Catalogue.o $(OBJ)Trajet.o $(OBJ)TrajetSimple.o $(OBJ)TrajetCompose.o
-	$(CC)  $(OBJ)Liste.o $(OBJ)Maillon.o $(OBJ)Catalogue.o $(OBJ)Trajet.o $(OBJ)TrajetSimple.o $(OBJ)TrajetCompose.o -o trajet
+$(EXE) :  $(OBJ)Liste.o $(OBJ)Maillon.o $(OBJ)Catalogue.o $(OBJ)Trajet.o $(OBJ)TrajetSimple.o $(OBJ)TrajetCompose.o $(OBJ)main.o
+	$(CC)  $(OBJ)Liste.o $(OBJ)Maillon.o $(OBJ)Catalogue.o $(OBJ)Trajet.o $(OBJ)TrajetSimple.o $(OBJ)TrajetCompose.o $(OBJ)main.o -o $(EXE)
 
-$(OBJ)Liste.o : $(LISTE)Liste.cpp
+$(OBJ)Liste.o : $(LISTE)Liste.cpp $(LISTE)Liste.h
 	$(CC) -c $(LISTE)Liste.cpp -o $(OBJ)Liste.o
 
-$(OBJ)Maillon.o : $(LISTE)Maillon.cpp
+$(OBJ)Maillon.o : $(LISTE)Maillon.cpp $(LISTE)Maillon.h
 	$(CC) -c $(LISTE)Maillon.cpp -o $(OBJ)Maillon.o
 
-$(OBJ)Catalogue.o : $(CATALOGUE)Catalogue.cpp
+$(OBJ)Catalogue.o : $(CATALOGUE)Catalogue.cpp $(CATALOGUE)Catalogue.h
 	$(CC) -c $(CATALOGUE)Catalogue.cpp -o $(OBJ)Catalogue.o
 
-$(OBJ)Trajet.o : $(TRAJET)Trajet.cpp
+$(OBJ)Trajet.o : $(TRAJET)Trajet.cpp $(TRAJET)Trajet.h
 	$(CC) -c $(TRAJET)Trajet.cpp -o $(OBJ)Trajet.o
 
-$(OBJ)TrajetSimple.o : $(TRAJET)TrajetSimple.cpp
+$(OBJ)TrajetSimple.o : $(TRAJET)TrajetSimple.cpp $(TRAJET)TrajetSimple.h
 	$(CC) -c $(TRAJET)TrajetSimple.cpp -o $(OBJ)TrajetSimple.o
 
-$(OBJ)TrajetCompose.o : $(TRAJET)TrajetCompose.cpp
+$(OBJ)TrajetCompose.o : $(TRAJET)TrajetCompose.cpp $(TRAJET)TrajetCompose.h
 	$(CC) -c $(TRAJET)TrajetCompose.cpp -o $(OBJ)TrajetCompose.o
+
+$(OBJ)main.o : main.cpp
+	$(CC) -c main.cpp -o $(OBJ)main.o
 
 clean :
 	rm -f $(OBJ)*.o

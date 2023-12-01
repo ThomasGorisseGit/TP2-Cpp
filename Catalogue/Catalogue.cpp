@@ -22,64 +22,57 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 
-
-
 //------------------------------------------------- Surcharge d'opérateurs
 
-
 //-------------------------------------------- Constructeurs - destructeur
-Catalogue::Catalogue ( const Catalogue & unCatalogue )
+Catalogue::Catalogue(const Catalogue &unCatalogue)
 {
 #ifdef MAP
     cout << "Appel au constructeur de copie de <Catalogue>" << endl;
 #endif
-    delete [] this->listeTrajet;
+    delete[] this->listeTrajet;
     this->listeTrajet = new Liste<Trajet>;
 
-    for(int i = 0 ; i<unCatalogue.listeTrajet->GetTaille(); i ++){
+    for (int i = 0; i < unCatalogue.listeTrajet->GetTaille(); i++)
+    {
         this->listeTrajet->Ajouter(
-                unCatalogue.listeTrajet->GetValeur(i)
-                );
+            unCatalogue.listeTrajet->GetValeur(i));
     }
 } //----- Fin de Catalogue (constructeur de copie)
 
-
-Catalogue::Catalogue ( )
+Catalogue::Catalogue()
 {
-    #ifdef MAP
-        cout << "Appel au constructeur de <Catalogue>" << endl;
-    #endif
+#ifdef MAP
+    cout << "Appel au constructeur de <Catalogue>" << endl;
+#endif
 
 } //----- Fin de Catalogue
 
-
-Catalogue::~Catalogue ( )
+Catalogue::~Catalogue()
 {
-    #ifdef MAP
-        cout << "Appel au destructeur de <Catalogue>" << endl;
-    #endif
+#ifdef MAP
+    cout << "Appel au destructeur de <Catalogue>" << endl;
+#endif
 } //----- Fin de ~Catalogue
 
-void Catalogue::Ajouter(const Trajet & trajet){
+void Catalogue::Ajouter(const Trajet &trajet)
+{
     this->listeTrajet->Ajouter(trajet);
 }
 
-void Catalogue::Afficher() {
-    cout << "-----------------------------------------------------------------" <<endl;
-    cout << "---------------------------BIENVENUE-----------------------------" <<endl;
-    cout << "---------------------------SUR    LE-----------------------------" <<endl;
-    cout << "---------------------------CATALOGUE-----------------------------" <<endl;
-    cout << "-----------------------------------------------------------------" <<endl;
-    int i =0;
-    while( i<this->listeTrajet->GetTaille() ){
+void Catalogue::Afficher()
+{
+    cout << "-----------------------------------------------------------------" << endl;
+    cout << "---------------------------BIENVENUE-----------------------------" << endl;
+    cout << "---------------------------SUR    LE-----------------------------" << endl;
+    cout << "---------------------------CATALOGUE-----------------------------" << endl;
+    cout << "-----------------------------------------------------------------" << endl;
+    int i = 0;
+    while (i < this->listeTrajet->GetTaille())
+    {
         this->listeTrajet->GetValeur(i).Afficher();
     }
 }
 //------------------------------------------------------------------ PRIVE
 
 //----------------------------------------------------- Méthodes protégées
-
-int main(){
-    cout<< "Hello World" <<endl;
-    return 0;
-}
