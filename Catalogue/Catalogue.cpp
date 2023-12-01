@@ -79,3 +79,7 @@ void Catalogue::Afficher() {
 
 //----------------------------------------------------- Méthodes protégées
 
+int main(){
+    cout<< "Hello World" <<endl;
+    return 0;
+}
