@@ -41,7 +41,7 @@ public:
     // Elle permet d'afficher les attributs d'un trajet.
     // Notamment le départ et l'arrivée.
     // L'affichage est élaboré.
-    void Afficher() const;
+    virtual void Afficher() const;
 
     //------------------------------------------------- Surcharge d'opérateurs
     // Trajet & operator = ( const Trajet & unTrajet );
