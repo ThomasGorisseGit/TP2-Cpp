@@ -49,7 +49,7 @@ void Trajet::Afficher() const
 Trajet::Trajet(const char *DepartVille,const char *ArriveeVille)
 {
 #ifdef MAP
-    cout << "Appel au constructeur de copie de <Trajet>" << endl;
+    cout << "Appel au constructeur de <Trajet>" << endl;
 #endif
     depart = new char[sizeof(DepartVille)];
     strcpy(depart,DepartVille);
@@ -66,7 +66,16 @@ Trajet::Trajet(const char *DepartVille,const char *ArriveeVille)
     cout << "Appel au constructeur de <Trajet>" << endl;
 #endif
 } //----- Fin de Trajet*/
-
+Trajet::Trajet( const Trajet& ref){
+    #ifdef MAP
+    cout << "Appel au constructeur de copie de <Trajet>" << endl;
+    #endif
+    this->depart = new char[strlen(ref.depart)+1];
+    this->arrivee = new char[strlen(ref.arrivee)+1];
+    strcpy(this->depart,ref.depart);
+    strcpy(this->arrivee,ref.arrivee);
+    
+}
 Trajet::~Trajet()
 // Algorithme :
 //
