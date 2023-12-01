@@ -29,7 +29,8 @@ TrajetSimple::~TrajetSimple()
 // Algorithme :
 //
 {
-#ifdef MAP
-    cout << "Appel au destructeur de <TrajetSimple>" << endl;
-#endif
+    #ifdef MAP
+        cout << "Appel au destructeur de <TrajetSimple>" << endl;
+    #endif
+    delete[] transport;
 }

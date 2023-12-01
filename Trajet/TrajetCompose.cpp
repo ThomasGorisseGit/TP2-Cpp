@@ -10,7 +10,7 @@ using namespace std;
 
 void TrajetCompose::Afficher() const
 {
-    for(unsigned int i; i < taille; i++)
+    for(unsigned int i; i < *taille; i++)
     {
         ListeTrajetCompose.GetValeur(i)->AfficherPetit();
     }
@@ -22,13 +22,15 @@ ListeTrajetCompose(listeTrajetSimple)
 #ifdef MAP
     cout << "Appel au constructeur de <TrajetCompose>" << endl;
 #endif
-    taille = listeTrajetSimple.GetTaille();
+    taille = new unsigned int;
+    *taille = listeTrajetSimple.GetTaille();
     // création d'un objet Trajet
 }
 
 TrajetCompose::~TrajetCompose()
 {
-#ifdef MAP
-    cout << "Appel au destructeur de <TrajetCompose>" << endl;
-#endif
+    #ifdef MAP
+        cout << "Appel au destructeur de <TrajetCompose>" << endl;
+    #endif
+    delete taille;
 }
