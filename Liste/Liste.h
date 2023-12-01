@@ -2,7 +2,7 @@
 #define LISTE_H
 
 #include <iostream>
-#include "Maillon.h"
+#include "./Maillon.h"
 
 using namespace std;
 
@@ -27,7 +27,7 @@ public:
      *
      * @param index L'index du maillon dont on veut la valeur
      */
-    T GetValeur(unsigned int index) const;
+    T* GetValeur(unsigned int index) const;
 
     /**
      * @brief Retourne la taille de la liste
@@ -62,4 +62,116 @@ protected:
     Maillon<T> *tete;
 };
 
+
+template <typename T>
+Liste<T>::Liste()
+{
+#ifdef MAP
+    cout << "Appel au constructeur par défaut de <Liste>" << endl;
+#endif
+
+    this->tete = nullptr;
+    this->taille = 0;
+}
+
+template <typename T>
+Liste<T>::~Liste()
+{
+#ifdef MAP
+    cout << "Appel au destructeur de <Liste>" << endl;
+#endif
+    // On parcourt la liste et on supprime chaque maillon
+    //TODO : vérifier que ça marche
+    Maillon<T> *courrent = tete;
+    while (courrent != nullptr)
+    {
+        Maillon<T> *suivant = courrent->getSuivant();
+        delete courrent;
+        courrent = suivant;
+    }
+
+    delete tete;
+}
+
+template <typename T>
+T* Liste<T>::GetValeur(unsigned int index) const
+{
+    Maillon<T> *courrent = tete;
+    unsigned int i = 0;
+    while (courrent != nullptr)
+    {
+        if (i == index)
+        {
+            return courrent->getValeur();
+        }
+        courrent = courrent->getSuivant();
+        i++;
+    }
+    return nullptr;
+}
+
+template <typename T>
+unsigned int Liste<T>::GetTaille() const
+{
+    return taille;
+}
+
+template <typename T>
+void Liste<T>::Ajouter(T valeur)
+{
+    // On crée un nouveau maillon avec la valeur passée en paramètre (il sera placé à la fin de la liste)
+    Maillon<T> *nouveauMaillon = new Maillon<T>(&valeur, nullptr);
+
+    // Si la liste est vide, on ajoute le nouveau maillon en tête
+    if (tete == nullptr)
+    {
+        tete = nouveauMaillon;
+    }
+    else
+    {
+        Maillon<T> *courrent = tete;
+        while (courrent->getSuivant() != nullptr)
+        {
+            courrent = courrent->getSuivant();
+        }
+        courrent->setSuivant(nouveauMaillon);
+    }
+    taille++;
+}
+
+template <typename T>
+bool Liste<T>::Rechercher(const T *valeur) const
+{
+    Maillon<T> *courrent = tete;
+    while (courrent != nullptr)
+    {
+        if (courrent->getValeur() == valeur)
+        {
+            return true;
+        }
+        courrent = courrent->getSuivant();
+    }
+    return false;
+}
+
+template <typename T>
+void Liste<T>::Afficher() const
+{
+    Maillon<T> *courrent = tete;
+    while (courrent != nullptr)
+    {
+        //FIXME courrent->afficher(); // Ici, on suppose que la classe T possède une méthode afficher()
+        courrent = courrent->getSuivant();
+    }
+}
+
+
+
+
+
+
+
 #endif // LISTE_H
+
+
+
