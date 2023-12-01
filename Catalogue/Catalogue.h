@@ -20,7 +20,7 @@ class Catalogue
 {
 
 public:
-    void Ajouter(const Trajet &trajet);
+    void Ajouter(Trajet *trajet);
     // Permet d'ajouter un trajet a la liste des trajets proposés dans le catalogue
     // Mode d'emploi :
     //      Appel de la méthode ajouter catalogue.Ajouter(trajet)

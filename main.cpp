@@ -4,6 +4,7 @@
 #include "Trajet/Trajet.h"
 #include "Trajet/TrajetSimple.h"
 #include "Trajet/TrajetCompose.h"
+#define MAX 50
 using namespace std;
 
 
@@ -45,9 +46,9 @@ int main()
                 // Ajout d'un trajet simple
                 if(choixTrajet == 1){
                     // Ajout d'un trajet simple
-                    char* depart = nullptr;
-                    char* arrivee = nullptr;
-                    char* moyenTransport = nullptr;
+                    char* depart = new char[MAX];
+                    char* arrivee = new char[MAX];
+                    char* moyenTransport = new char[MAX];
 
                     cout << "Veuillez rentrer le départ du trajet : " << endl;
                     cin >> depart;
@@ -56,16 +57,20 @@ int main()
                     cout << "Veuillez rentrer le moyen de transport du trajet : " << endl;
                     cin >> moyenTransport;
 
-                    TrajetSimple trajetSimple(depart, arrivee, moyenTransport);  // Création du trajet simple    
+                    TrajetSimple *trajetSimple = new TrajetSimple(depart, arrivee, moyenTransport);  // Création du trajet simple    
+
                     catalogueTrajet.Ajouter(trajetSimple); // Ajout du trajet simple au catalogue
+                    delete[] depart;
+                    delete[] arrivee;
+                    delete[] moyenTransport;
                     cout << "Fin de la création du trajet simple" << endl;
 
                 } else if(choixTrajet == 2){
                     
                     // Ajout d'un trajet composé
                     bool isFirstEtape = true;
-                    char * departTrajetCompose = nullptr;
-                    char * arriveeTrajetCompose = nullptr;
+                    char * departTrajetCompose = new char[MAX];
+                    char * arriveeTrajetCompose = new char[MAX];
 
                     Liste<TrajetSimple> listeTrajetSimple;
                     cout << "Veuillez rentrer le départ du global trajet : " << endl;
@@ -73,9 +78,9 @@ int main()
                     cout << "Veuillez rentrer l'arrivée global du trajet  : " << endl;
                     cin >> arriveeTrajetCompose;
 
-                    char * arriveTrajetSimple = nullptr;
+                    char * arriveTrajetSimple = new char[MAX];
                     do{
-                        char * departTrajetSimple = nullptr;
+                        char * departTrajetSimple = new char[MAX];
 
                         // Si on ajoute le premier trajet simple, on récupère le départ du trajet composé
                         if (isFirstEtape){
@@ -87,14 +92,20 @@ int main()
 
                         cout<< "Veuillez rentrer l'arrivée du trajet simple : " << endl;
                         cin >> arriveTrajetSimple;
-                        char * moyenTransportTrajetSimple = nullptr;
+                        char * moyenTransportTrajetSimple = new char[MAX];
                         cout<< "Veuillez rentrer le moyen de transport du trajet simple : " << endl;
                         cin >> moyenTransportTrajetSimple;
 
-                        TrajetSimple trajetSimple(departTrajetSimple, arriveTrajetSimple, moyenTransportTrajetSimple);
+                        TrajetSimple* trajetSimple= new TrajetSimple(departTrajetSimple, arriveTrajetSimple, moyenTransportTrajetSimple);
                         listeTrajetSimple.Ajouter(trajetSimple);
+                        delete [] moyenTransportTrajetSimple;
+                        delete [] departTrajetSimple;
+
                         
                     }while(strcmp(arriveTrajetSimple, arriveeTrajetCompose) != 0);
+
+                    delete [] arriveTrajetSimple;
+                    
 
                     cout << "Fin de la création du trajet composé" << endl;
                 
