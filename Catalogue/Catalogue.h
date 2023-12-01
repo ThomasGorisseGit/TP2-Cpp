@@ -11,6 +11,8 @@
 #define Catalogue_H
 #include "../Trajet/Trajet.h"
 #include "../Liste/Liste.h"
+#include "../Trajet/TrajetSimple.h"
+#include "../Trajet/TrajetCompose.h"
 //--------------------------------------------------- Interfaces utilisées
 
 //------------------------------------------------------------- Constantes
@@ -40,6 +42,10 @@ public:
     // Permet d'afficher tous les trajets contenus dans la liste des trajets proposés.
     // Mode d'emploi :
     //      Appel de la méthode afficher catalogue.Afficher()
+
+    void Rechercher(const char* Depart, const char* Arrivee, Liste<Trajet> & ListeARemplir) const;
+    //Fonction qui recherche un trajet dans le catalogue et renvoie une liste des trajets ayant les
+    //meme départ et arrivee
 
 
 //------------------------------------------------- Surcharge d'opérateurs
