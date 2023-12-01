@@ -10,7 +10,7 @@ using namespace std;
 
 void TrajetCompose::Afficher() const
 {
-    for(unsigned int i; i < *taille; i++)
+    for(unsigned int i=0; i < *taille; i++)
     {
         ListeTrajetCompose.GetValeur(i)->AfficherPetit();
     }
