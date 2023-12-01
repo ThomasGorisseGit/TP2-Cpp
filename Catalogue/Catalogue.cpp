@@ -14,7 +14,8 @@ Catalogue::Catalogue(const Catalogue &unCatalogue)
     for (unsigned int i = 0; i < unCatalogue.listeTrajet->GetTaille(); i++)
     {
         this->listeTrajet->Ajouter(
-            *(unCatalogue.listeTrajet->GetValeur(i)));
+            unCatalogue.listeTrajet->GetValeur(i)
+            );
     }
 } //----- Fin de Catalogue (constructeur de copie)
 
@@ -33,7 +34,7 @@ Catalogue::~Catalogue()
 #endif
 } //----- Fin de ~Catalogue
 
-void Catalogue::Ajouter(const Trajet &trajet)
+void Catalogue::Ajouter(Trajet* trajet)
 {
     this->listeTrajet->Ajouter(trajet);
 }
@@ -51,17 +52,18 @@ void Catalogue::Afficher()
     while (i < this->listeTrajet->GetTaille())
     {
         this->listeTrajet->GetValeur(i)->Afficher();
+        i++;
     }
 }
 
 void  Catalogue::Rechercher(const char* Depart, const char* Arrivee, Liste<Trajet> & ListeARemplir) const
 {
-    int taille = listeTrajet->GetTaille();
+    unsigned int taille = listeTrajet->GetTaille();
     for (unsigned int i = 0; i < taille-1; i ++)
     {
         if(listeTrajet->GetValeur(i)->GetDepart() == Depart && listeTrajet->GetValeur(i)->GetArrivee() == Arrivee)
         {
-            ListeARemplir.Ajouter(*listeTrajet->GetValeur(i));
+            ListeARemplir.Ajouter(listeTrajet->GetValeur(i));
         }
     }
 

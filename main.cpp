@@ -57,7 +57,8 @@ int main()
                     cout << "Veuillez rentrer le moyen de transport du trajet : " << endl;
                     cin >> moyenTransport;
 
-                    TrajetSimple trajetSimple(depart, arrivee, moyenTransport);  // Création du trajet simple    
+                    TrajetSimple *trajetSimple = new TrajetSimple(depart, arrivee, moyenTransport);  // Création du trajet simple    
+
                     catalogueTrajet.Ajouter(trajetSimple); // Ajout du trajet simple au catalogue
                     delete[] depart;
                     delete[] arrivee;
@@ -95,7 +96,7 @@ int main()
                         cout<< "Veuillez rentrer le moyen de transport du trajet simple : " << endl;
                         cin >> moyenTransportTrajetSimple;
 
-                        TrajetSimple trajetSimple(departTrajetSimple, arriveTrajetSimple, moyenTransportTrajetSimple);
+                        TrajetSimple* trajetSimple= new TrajetSimple(departTrajetSimple, arriveTrajetSimple, moyenTransportTrajetSimple);
                         listeTrajetSimple.Ajouter(trajetSimple);
                         delete [] moyenTransportTrajetSimple;
                         delete [] departTrajetSimple;

@@ -9,7 +9,7 @@ using namespace std;
 
 void TrajetSimple::Afficher() const
 {
-    cout << "Trajet partant de " << depart << " allant à  " << arrivee << "en" << transport << endl;
+    cout << "Trajet partant de " << depart << " allant à " << arrivee << " en " << transport << endl;
 }
 
 void TrajetSimple::AfficherPetit() const
@@ -22,7 +22,7 @@ TrajetSimple::TrajetSimple(const char *Depart, const char *Arrivee, const char *
 #ifdef MAP
     cout << "Appel au constructeur de <TrajetSimple>" << endl;
 #endif
-    transport = new char[sizeof(M_transport)];
+    transport = new char[strlen(M_transport)+ 1];
     strcpy(transport, M_transport);
 }
 TrajetSimple::TrajetSimple(const TrajetSimple &ref) : Trajet(ref)
