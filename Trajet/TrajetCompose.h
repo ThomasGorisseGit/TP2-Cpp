@@ -5,6 +5,7 @@
 #include "Trajet.h"
 #include "TrajetSimple.h"
 
+
 class TrajetCompose : public Trajet
 {
 
