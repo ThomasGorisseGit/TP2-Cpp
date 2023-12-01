@@ -7,6 +7,7 @@ using namespace std;
 
 int main()
 {
+<<<<<<< HEAD
     Catalogue catalogue;
     catalogue.Afficher();
 
@@ -24,5 +25,10 @@ int main()
 
     catalogue.Afficher();
     
+=======
+
+    //ratio : conflit by gabin 
+    cout << "Hello World!" << endl;
+>>>>>>> 0ceb52eb85616a551401e7aceb9e5b830639919a
     return 0;
 }

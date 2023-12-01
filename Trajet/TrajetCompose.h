@@ -5,6 +5,7 @@
 #include "Trajet.h"
 #include "TrajetSimple.h"
 
+
 class TrajetCompose : public Trajet
 {
 
@@ -19,7 +20,7 @@ public:
 
 protected:
     const Liste<TrajetSimple> & ListeTrajetCompose;
-    unsigned int taille = 0;
+    unsigned int * taille;
 };
 
 #endif

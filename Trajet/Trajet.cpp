@@ -46,13 +46,16 @@ void Trajet::Afficher() const
 } //----- Fin de operator =*/
 
 //-------------------------------------------- Constructeurs - destructeur
-Trajet::Trajet(char *DepartVille, char *ArriveeVille) : depart(DepartVille), arrivee(ArriveeVille)
-// Algorithme :
-//
+Trajet::Trajet(const char *DepartVille,const char *ArriveeVille)
 {
 #ifdef MAP
     cout << "Appel au constructeur de <Trajet>" << endl;
 #endif
+    depart = new char[sizeof(DepartVille)];
+    strcpy(depart,DepartVille);
+
+    arrivee = new char[sizeof(ArriveeVille)];
+    strcpy(arrivee,ArriveeVille);
 } //----- Fin de Trajet
 
 /*Trajet::Trajet ( )
@@ -77,9 +80,11 @@ Trajet::~Trajet()
 // Algorithme :
 //
 {
-#ifdef MAP
-    cout << "Appel au destructeur de <Trajet>" << endl;
-#endif
+    #ifdef MAP
+        cout << "Appel au destructeur de <Trajet>" << endl;
+    #endif
+    delete[] depart;
+    delete[] arrivee;
 } //----- Fin de ~Trajet
 
 //------------------------------------------------------------------ PRIVE
