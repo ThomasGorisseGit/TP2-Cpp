@@ -22,20 +22,20 @@ using namespace std;
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
-char * Trajet::GetDepart()
+char *Trajet::GetDepart() const
 {
     return depart;
 }
 
-char * Trajet::GetArrivee()
+char *Trajet::GetArrivee() const
 {
     return arrivee;
 }
 
-void Trajet::Afficher()const{
-    cout<<"Depart | " << this->depart << " | \n Arrivee | "<< this->arrivee <<" |";
+void Trajet::Afficher() const
+{
+    cout << "Depart | " << this->depart << " | \n Arrivee | " << this->arrivee << " |";
 }
-
 
 //------------------------------------------------- Surcharge d'opérateurs
 /*Trajet & Trajet::operator = ( const Trajet & unTrajet )
@@ -44,9 +44,8 @@ void Trajet::Afficher()const{
 {
 } //----- Fin de operator =*/
 
-
 //-------------------------------------------- Constructeurs - destructeur
-Trajet::Trajet ( char * DepartVille, char * ArriveeVille ) : depart(DepartVille), arrivee(ArriveeVille)
+Trajet::Trajet(char *DepartVille, char *ArriveeVille) : depart(DepartVille), arrivee(ArriveeVille)
 // Algorithme :
 //
 {
@@ -54,7 +53,6 @@ Trajet::Trajet ( char * DepartVille, char * ArriveeVille ) : depart(DepartVille)
     cout << "Appel au constructeur de copie de <Trajet>" << endl;
 #endif
 } //----- Fin de Trajet
-
 
 /*Trajet::Trajet ( )
 // Algorithme :
@@ -65,8 +63,7 @@ Trajet::Trajet ( char * DepartVille, char * ArriveeVille ) : depart(DepartVille)
 #endif
 } //----- Fin de Trajet*/
 
-
-Trajet::~Trajet ( )
+Trajet::~Trajet()
 // Algorithme :
 //
 {
@@ -75,8 +72,6 @@ Trajet::~Trajet ( )
 #endif
 } //----- Fin de ~Trajet
 
-
 //------------------------------------------------------------------ PRIVE
 
 //----------------------------------------------------- Méthodes protégées
-

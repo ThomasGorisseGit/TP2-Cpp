@@ -7,7 +7,7 @@
 *************************************************************************/
 
 //---------- Interface de la classe <Trajet> (fichier Trajet.h) ----------------
-#if ! defined ( Trajet_H )
+#if !defined(Trajet_H)
 #define Trajet_H
 
 //--------------------------------------------------- Interfaces utilisées
@@ -22,69 +22,63 @@
 //
 //------------------------------------------------------------------------
 
-class Trajet 
+class Trajet
 {
-//----------------------------------------------------------------- PUBLIC
+    //----------------------------------------------------------------- PUBLIC
 
 public:
-//----------------------------------------------------- Méthodes publiques
+    //----------------------------------------------------- Méthodes publiques
 
     // Méthode de type Get
     // Elle permet d'accéder au départ d'un trajet.
-    char * GetDepart() const;
+    char *GetDepart() const;
 
-    //Méthode de type Get
-    // Elle permet d'accéder à l'arrivée d'un trajet.
-    char* GetArrivee() const; //getteur de l'arrivée
+    // Méthode de type Get
+    //  Elle permet d'accéder à l'arrivée d'un trajet.
+    char *GetArrivee() const; // getteur de l'arrivée
 
     // Méthode de type affichage
     // Elle permet d'afficher les attributs d'un trajet.
     // Notamment le départ et l'arrivée.
     // L'affichage est élaboré.
-    void Afficher()const;
+    void Afficher() const;
 
-//------------------------------------------------- Surcharge d'opérateurs
-    //Trajet & operator = ( const Trajet & unTrajet );
+    //------------------------------------------------- Surcharge d'opérateurs
+    // Trajet & operator = ( const Trajet & unTrajet );
     // Mode d'emploi :
     //
     // Contrat :
     //
 
-
-//-------------------------------------------- Constructeurs - destructeur
-    //Trajet ( const Trajet & unTrajet );
+    //-------------------------------------------- Constructeurs - destructeur
+    // Trajet ( const Trajet & unTrajet );
     // Mode d'emploi (constructeur de copie) :
     //
     // Contrat :
     //
 
-    Trajet (char * DepartVille, char * ArrivéeVille );
+    Trajet(char *DepartVille, char *ArrivéeVille);
     // Mode d'emploi :
     //
     // Contrat :
     //
 
-
-   
-
-    virtual ~Trajet ( );
+    virtual ~Trajet();
     // Mode d'emploi :
     //
     // Contrat :
     //
 
-//------------------------------------------------------------------ PRIVE
+    //------------------------------------------------------------------ PRIVE
 
 protected:
-//----------------------------------------------------- Méthodes protégées
+    //----------------------------------------------------- Méthodes protégées
 
-//----------------------------------------------------- Attributs protégés
-    char * depart;
-    char * arrivee;
-
+    //----------------------------------------------------- Attributs protégés
+    char *depart;
+    char *arrivee;
 };
 
 //-------------------------------- Autres définitions dépendantes de <Trajet>
 
 #endif // Trajet_H
-
