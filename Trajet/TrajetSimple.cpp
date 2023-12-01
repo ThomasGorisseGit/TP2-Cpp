@@ -5,7 +5,7 @@ using namespace std;
 
 // TrajetSimple::Ajouter
 
-TrajetSimple::TrajetSimple(char *Depart, char *Arrivee) : Trajet(Depart, Arrivee)
+TrajetSimple::TrajetSimple(char *Depart, char *Arrivee,char * M_transport) : Trajet(Depart, Arrivee), transport(M_transport)
 {
 #ifdef MAP
     cout << "Appel au constructeur de <TrajetSimple>" << endl;
