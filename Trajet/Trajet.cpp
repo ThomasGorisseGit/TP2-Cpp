@@ -12,6 +12,7 @@
 
 //-------------------------------------------------------- Include système
 #include <iostream>
+#include <cstring>
 using namespace std;
 
 //------------------------------------------------------ Include personnel
@@ -45,13 +46,16 @@ void Trajet::Afficher() const
 } //----- Fin de operator =*/
 
 //-------------------------------------------- Constructeurs - destructeur
-Trajet::Trajet(const char *DepartVille,const char *ArriveeVille) : depart(DepartVille), arrivee(ArriveeVille)
-// Algorithme :
-//
+Trajet::Trajet(const char *DepartVille,const char *ArriveeVille)
 {
 #ifdef MAP
     cout << "Appel au constructeur de copie de <Trajet>" << endl;
 #endif
+    depart = new char[sizeof(DepartVille)];
+    strcpy(depart,DepartVille);
+
+    arrivee = new char[sizeof(ArriveeVille)];
+    strcpy(arrivee,ArriveeVille);
 } //----- Fin de Trajet
 
 /*Trajet::Trajet ( )
