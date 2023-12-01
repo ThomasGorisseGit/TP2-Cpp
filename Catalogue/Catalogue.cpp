@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstring>
 #include "Catalogue.h"
 #include "../Trajet/Trajet.h"
 #include "../Liste/Liste.h"
@@ -55,12 +56,22 @@ void Catalogue::Afficher()
         i++;
     }
 }
+void Catalogue::Afficherl(Liste <Trajet> * liste)
+{
+    unsigned int i = 0;
+    while (i < liste->GetTaille())
+    {
+        liste->GetValeur(i)->Afficher();
+        i++;
+    }
+}
 
 void  Catalogue::Rechercher(const char* Depart, const char* Arrivee, Liste<Trajet> & ListeARemplir) const
 {
-    unsigned int taille = listeTrajet->GetTaopille();
+    unsigned int taille = listeTrajet->GetTaille();
     for (unsigned int i = 0; i < taille-1; i ++)
     {
+        //TODO : Tester et voir si le egal marche comparé aux strcmp
         if(listeTrajet->GetValeur(i)->GetDepart() == Depart && listeTrajet->GetValeur(i)->GetArrivee() == Arrivee)
         {
             ListeARemplir.Ajouter(listeTrajet->GetValeur(i));
@@ -74,7 +85,7 @@ Liste<Trajet> * Catalogue::RechercheDepuisDepart(const char * depart){
     unsigned int taille = listeTrajet->GetTaille();
     for (unsigned int i = 0; i < taille; i ++)
     {
-        if(listeTrajet->GetValeur(i)->GetDepart() == depart)
+        if (strcmp(listeTrajet->GetValeur(i)->GetDepart(), depart) == 0 )
         {
             listeARemplir->Ajouter(listeTrajet->GetValeur(i));
         }
@@ -87,20 +98,24 @@ void RechercherTrajet(const char * depart, const char * arrivee) {
     cout << "Recherche de trajet de " << depart << " à " << arrivee << " :\n";
 }
     
-void Catalogue::initSearch(const char * depart){
+void Catalogue::initSearch(const char * depart,const char * arrivee){
+    
     Liste<Trajet> * maliste = RechercheDepuisDepart(depart);
-    parse(maliste);
-
-    maliste->Afficher();
+    parse(maliste,arrivee);
 }
-void Catalogue::parse(Liste<Trajet> * l){
-    for (int i =0;i<l->GetTaille();i++){
-        if (l->GetValeur(i)->GetArrivee() == arrivee){
+void Catalogue::parse(Liste<Trajet> * l, const char * arrivee){
+    //TODO : 
+    // Le systeme de recherche trouve s'il est possible de faire un trajet
+    // Il faut desormais stocker tous les trajets possibles dans une liste
+    // et les afficher
+    for (unsigned int i =0;i<l->GetTaille();i++){
+
+        if (strcmp(l->GetValeur(i)->GetArrivee(),arrivee) == 0){
             l->GetValeur(i)->Afficher();
         }
         else{
-            Liste<Trajet> * l2 = RechercheDepuisDepart(l->GetValeur(i)->GetArrivee());
-            parse(l2);
+            l = RechercheDepuisDepart(l->GetValeur(i)->GetArrivee());
+            parse(l,arrivee);
         }
     }
 }

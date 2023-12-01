@@ -1,4 +1,4 @@
-CC := g++ -ansi -pedantic -Wall -std=c++11 -DMAP -g
+CC := g++ -ansi -pedantic -Wall -std=c++11 
 LISTE := Liste/
 TRAJET := Trajet/
 CATALOGUE := Catalogue/

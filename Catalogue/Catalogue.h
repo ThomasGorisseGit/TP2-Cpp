@@ -24,8 +24,10 @@ public:
     // Permet d'ajouter un trajet a la liste des trajets proposés dans le catalogue
     // Mode d'emploi :
     //      Appel de la méthode ajouter catalogue.Ajouter(trajet)
-    void parse();
     void Afficher();
+    Liste<Trajet> * RechercheDepuisDepart(const char * depart);
+    void parse(Liste<Trajet> * l, const char * arrivee);
+    void initSearch(const char * depart,const char * arrivee);
     // Permet d'afficher tous les trajets contenus dans la liste des trajets proposés.
     // Mode d'emploi :
     //      Appel de la méthode afficher catalogue.Afficher()
@@ -35,6 +37,7 @@ public:
     //meme départ et arrivee
 
 
+    void Afficherl(Liste <Trajet> * liste);   
     void RechercherTrajet(const char * depart, const char * arrivee) const;
 
 //------------------------------------------------- Surcharge d'opérateurs
