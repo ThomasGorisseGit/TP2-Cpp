@@ -33,7 +33,7 @@ Catalogue::~Catalogue()
 #endif
 } //----- Fin de ~Catalogue
 
-void Catalogue::Ajouter(Trajet trajet)
+void Catalogue::Ajouter(const Trajet &trajet)
 {
     this->listeTrajet->Ajouter(trajet);
 }
