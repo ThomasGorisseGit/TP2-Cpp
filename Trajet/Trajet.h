@@ -65,6 +65,8 @@ public:
     // Contrat :
     //
 
+    Trajet( const Trajet& ref);
+
     virtual ~Trajet();
     // Mode d'emploi :
     //

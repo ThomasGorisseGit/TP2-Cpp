@@ -1,33 +1,9 @@
-/*************************************************************************
-                           Catalogue  -  description
-                             -------------------
-    début                : $DATE$
-    copyright            : (C) $YEAR$ par $AUTHOR$
-    e-mail               : $EMAIL$
-*************************************************************************/
-
-//---------- Réalisation de la classe <Catalogue> (fichier Catalogue.cpp) ------------
-
-//---------------------------------------------------------------- INCLUDE
-
-//-------------------------------------------------------- Include système
 #include <iostream>
-using namespace std;
-
-//------------------------------------------------------ Include personnel
 #include "Catalogue.h"
 #include "../Trajet/Trajet.h"
 #include "../Liste/Liste.h"
+using namespace std;
 
-//------------------------------------------------------------- Constantes
-
-//----------------------------------------------------------------- PUBLIC
-
-//----------------------------------------------------- Méthodes publiques
-
-//------------------------------------------------- Surcharge d'opérateurs
-
-//-------------------------------------------- Constructeurs - destructeur
 Catalogue::Catalogue(const Catalogue &unCatalogue)
 {
 #ifdef MAP
@@ -38,8 +14,7 @@ Catalogue::Catalogue(const Catalogue &unCatalogue)
     for (unsigned int i = 0; i < unCatalogue.listeTrajet->GetTaille(); i++)
     {
         this->listeTrajet->Ajouter(
-            *(unCatalogue.listeTrajet->GetValeur(i))
-        );
+            *(unCatalogue.listeTrajet->GetValeur(i)));
     }
 } //----- Fin de Catalogue (constructeur de copie)
 
@@ -48,7 +23,7 @@ Catalogue::Catalogue()
 #ifdef MAP
     cout << "Appel au constructeur de <Catalogue>" << endl;
 #endif
-
+    this->listeTrajet = new Liste<Trajet>;
 } //----- Fin de Catalogue
 
 Catalogue::~Catalogue()
@@ -65,11 +40,13 @@ void Catalogue::Ajouter(const Trajet &trajet)
 
 void Catalogue::Afficher()
 {
+
     cout << "-----------------------------------------------------------------" << endl;
     cout << "---------------------------BIENVENUE-----------------------------" << endl;
     cout << "---------------------------SUR    LE-----------------------------" << endl;
     cout << "---------------------------CATALOGUE-----------------------------" << endl;
     cout << "-----------------------------------------------------------------" << endl;
+
     unsigned int i = 0;
     while (i < this->listeTrajet->GetTaille())
     {
@@ -91,6 +68,3 @@ void  Catalogue::Rechercher(const char* Depart, const char* Arrivee, Liste<Traje
 }
 
 
-//------------------------------------------------------------------ PRIVE
-
-//----------------------------------------------------- Méthodes protégées

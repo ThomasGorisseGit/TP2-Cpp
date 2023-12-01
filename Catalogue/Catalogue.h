@@ -1,16 +1,8 @@
-/*************************************************************************
-                           Catalogue  -  description
-                             -------------------
-    début                : $DATE$
-    copyright            : (C) $YEAR$ par $AUTHOR$
-    e-mail               : $EMAIL$
-*************************************************************************/
-
-//---------- Interface de la classe <Catalogue> (fichier Catalogue.h) ----------------
-#if ! defined ( Catalogue_H )
+#if !defined(Catalogue_H)
 #define Catalogue_H
 #include "../Trajet/Trajet.h"
 #include "../Liste/Liste.h"
+<<<<<<< HEAD
 #include "../Trajet/TrajetSimple.h"
 #include "../Trajet/TrajetCompose.h"
 //--------------------------------------------------- Interfaces utilisées
@@ -24,16 +16,14 @@
 //
 //
 //------------------------------------------------------------------------
+=======
+>>>>>>> 91c14e20bdc62b2444f5dcab9ffbf26958b2f14a
 
 class Catalogue
 {
-//----------------------------------------------------------------- PUBLIC
 
 public:
-//----------------------------------------------------- Méthodes publiques
-
-
-    void Ajouter(const Trajet & trajet);
+    void Ajouter(const Trajet &trajet);
     // Permet d'ajouter un trajet a la liste des trajets proposés dans le catalogue
     // Mode d'emploi :
     //      Appel de la méthode ajouter catalogue.Ajouter(trajet)
@@ -43,6 +33,7 @@ public:
     // Mode d'emploi :
     //      Appel de la méthode afficher catalogue.Afficher()
 
+<<<<<<< HEAD
     void Rechercher(const char* Depart, const char* Arrivee, Liste<Trajet> & ListeARemplir) const;
     //Fonction qui recherche un trajet dans le catalogue et renvoie une liste des trajets ayant les
     //meme départ et arrivee
@@ -50,45 +41,36 @@ public:
 
 //------------------------------------------------- Surcharge d'opérateurs
     Catalogue & operator = ( const Catalogue & unCatalogue );
+=======
+    //------------------------------------------------- Surcharge d'opérateurs
+    Catalogue &operator=(const Catalogue &unCatalogue);
+>>>>>>> 91c14e20bdc62b2444f5dcab9ffbf26958b2f14a
     // Mode d'emploi :
     //
     // Contrat :
     //
 
-
-//-------------------------------------------- Constructeurs - destructeur
-    Catalogue ( const Catalogue & unCatalogue );
+    //-------------------------------------------- Constructeurs - destructeur
+    Catalogue(const Catalogue &unCatalogue);
     // Mode d'emploi (constructeur de copie) :
     //
     // Contrat :
     //
 
-    Catalogue ( );
+    Catalogue();
     // Mode d'emploi :
     //
     // Contrat :
     //
 
-    virtual ~Catalogue ( );
+    virtual ~Catalogue();
     // Mode d'emploi :
     //
     // Contrat :
     //
-
-//------------------------------------------------------------------ PRIVE
 
 protected:
-//----------------------------------------------------- Méthodes protégées
-
-//----------------------------------------------------- Attributs protégés
-
-
-// Un catalogue possède une liste de trajets (Composés et simples)
-
-Liste<Trajet>* listeTrajet;
+    Liste<Trajet> *listeTrajet;
 };
 
-//-------------------------------- Autres définitions dépendantes de <Catalogue>
-
 #endif // Catalogue_H
-

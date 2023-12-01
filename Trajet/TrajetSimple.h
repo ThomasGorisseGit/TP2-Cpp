@@ -6,14 +6,14 @@ class TrajetSimple : public Trajet
 {
 
 public:
-    TrajetSimple(const char *Depart, const char *Arrivee, const char * M_transport);
+    TrajetSimple(const char *Depart, const char *Arrivee, const char *M_transport);
+    TrajetSimple(const TrajetSimple &ref);
     void Afficher() const;
     void AfficherPetit() const;
     virtual ~TrajetSimple();
 
-
-protected :
-    char * transport;
+protected:
+    char *transport;
 };
 
 #endif
