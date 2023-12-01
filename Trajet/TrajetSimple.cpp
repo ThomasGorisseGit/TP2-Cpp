@@ -15,7 +15,7 @@ void TrajetSimple::AfficherPetit() const
     cout << depart << " -> " << arrivee << " en " << transport << endl;
 }
 
-TrajetSimple::TrajetSimple(char *Depart, char *Arrivee,char * M_transport) : Trajet(Depart, Arrivee), transport(M_transport)
+TrajetSimple::TrajetSimple(const char *Depart,const char *Arrivee,const char * M_transport) : Trajet(Depart, Arrivee), transport(M_transport)
 {
 #ifdef MAP
     cout << "Appel au constructeur de <TrajetSimple>" << endl;
