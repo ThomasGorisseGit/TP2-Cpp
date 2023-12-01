@@ -23,10 +23,9 @@ int main()
     while(true){
         cout << "Que voulez-vous faire ?" << endl;
         cout << "1. Afficher le catalogue" << endl;
-        cout << "2. Ajouter un trajet simple" << endl;
-        cout << "3. Ajouter un trajet composé" << endl;
-        cout << "4. Rechercher un trajet" << endl;
-        cout << "5. Quitter" << endl;
+        cout << "2. Ajouter un trajet au catalogue" << endl;
+        cout << "3. Rechercher un trajet" << endl;
+        cout << "4. Quitter" << endl;
 
         int choix;
         cin >> choix; // Choix de l'utilisateur
@@ -46,9 +45,9 @@ int main()
                 // Ajout d'un trajet simple
                 if(choixTrajet == 1){
                     // Ajout d'un trajet simple
-                    char* depart;
-                    char* arrivee;
-                    char* moyenTransport;
+                    char* depart = nullptr;
+                    char* arrivee = nullptr;
+                    char* moyenTransport = nullptr;
 
                     cout << "Veuillez rentrer le départ du trajet : " << endl;
                     cin >> depart;
@@ -58,38 +57,37 @@ int main()
                     cin >> moyenTransport;
 
                     TrajetSimple trajetSimple(depart, arrivee, moyenTransport);  // Création du trajet simple    
-                    catalogueTrajet.AjouterTrajet(&trajetSimple); // Ajout du trajet simple au catalogue
+                    catalogueTrajet.Ajouter(trajetSimple); // Ajout du trajet simple au catalogue
                     cout << "Fin de la création du trajet simple" << endl;
 
                 } else if(choixTrajet == 2){
                     
                     // Ajout d'un trajet composé
                     bool isFirstEtape = true;
-                    char * departTrajetCompose;
-                    char * arriveeTrajetCompose;
+                    char * departTrajetCompose = nullptr;
+                    char * arriveeTrajetCompose = nullptr;
 
                     Liste<TrajetSimple> listeTrajetSimple;
-                    cout << "Veuillez rentrer le départ du trajet composé : " << endl;
+                    cout << "Veuillez rentrer le départ du global trajet : " << endl;
                     cin >> departTrajetCompose;
-                    cout << "Veuillez rentrer l'arrivée du trajet composé : " << endl;
+                    cout << "Veuillez rentrer l'arrivée global du trajet  : " << endl;
                     cin >> arriveeTrajetCompose;
 
-
+                    char * arriveTrajetSimple = nullptr;
                     do{
-                        char * departTrajetSimple;
+                        char * departTrajetSimple = nullptr;
 
                         // Si on ajoute le premier trajet simple, on récupère le départ du trajet composé
                         if (isFirstEtape){
                             strcpy(departTrajetSimple, departTrajetCompose);
                             isFirstEtape = false;
                         } else {
-                            strcpy(departTrajetSimple, arriveeTrajetCompose);
+                            strcpy(departTrajetSimple, arriveTrajetSimple);
                         }
 
-                        static char * arriveTrajetSimple;
                         cout<< "Veuillez rentrer l'arrivée du trajet simple : " << endl;
                         cin >> arriveTrajetSimple;
-                        char * moyenTransportTrajetSimple;
+                        char * moyenTransportTrajetSimple = nullptr;
                         cout<< "Veuillez rentrer le moyen de transport du trajet simple : " << endl;
                         cin >> moyenTransportTrajetSimple;
 
@@ -106,6 +104,7 @@ int main()
                     cout << "Erreur, veuillez rentrer un choix valide" << endl;
                 }
                 break;
+        }
     }
 
     return 0;
