@@ -38,6 +38,7 @@ void Trajet::Afficher() const
     cout << "Depart | " << depart << " | \n Arrivee | " << arrivee << " |";
 }
 
+
 //------------------------------------------------- Surcharge d'opérateurs
 /*Trajet & Trajet::operator = ( const Trajet & unTrajet )
 // Algorithme :
