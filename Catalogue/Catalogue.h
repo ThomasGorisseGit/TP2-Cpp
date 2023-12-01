@@ -2,7 +2,6 @@
 #define Catalogue_H
 #include "../Trajet/Trajet.h"
 #include "../Liste/Liste.h"
-<<<<<<< HEAD
 #include "../Trajet/TrajetSimple.h"
 #include "../Trajet/TrajetCompose.h"
 //--------------------------------------------------- Interfaces utilisées
@@ -16,8 +15,6 @@
 //
 //
 //------------------------------------------------------------------------
-=======
->>>>>>> 91c14e20bdc62b2444f5dcab9ffbf26958b2f14a
 
 class Catalogue
 {
@@ -33,18 +30,15 @@ public:
     // Mode d'emploi :
     //      Appel de la méthode afficher catalogue.Afficher()
 
-<<<<<<< HEAD
     void Rechercher(const char* Depart, const char* Arrivee, Liste<Trajet> & ListeARemplir) const;
     //Fonction qui recherche un trajet dans le catalogue et renvoie une liste des trajets ayant les
     //meme départ et arrivee
 
 
+    void RechercherTrajet(const char * depart, const char * arrivee) const;
+
 //------------------------------------------------- Surcharge d'opérateurs
     Catalogue & operator = ( const Catalogue & unCatalogue );
-=======
-    //------------------------------------------------- Surcharge d'opérateurs
-    Catalogue &operator=(const Catalogue &unCatalogue);
->>>>>>> 91c14e20bdc62b2444f5dcab9ffbf26958b2f14a
     // Mode d'emploi :
     //
     // Contrat :

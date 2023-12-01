@@ -67,4 +67,13 @@ void  Catalogue::Rechercher(const char* Depart, const char* Arrivee, Liste<Traje
 
 }
 
+// Fonction de recherche de trajet
+void RechercherTrajet(const char * depart, const char * arrivee) {
+    cout << "Recherche de trajet de " << depart << " à " << arrivee << " :\n";
+
+    
+    
+
+
+}
 
