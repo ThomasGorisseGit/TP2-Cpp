@@ -9,16 +9,16 @@ class TrajetCompose : public Trajet
 {
 
 public:
-    TrajetCompose(const Liste<TrajetSimple>);
+    TrajetCompose(const Liste<TrajetSimple> & listeTrajetSimple);
 
-    void Ajouter(const TrajetSimple &trajet);
+    //void Ajouter(const TrajetSimple & trajet);
 
     void Afficher() const;
 
     virtual ~TrajetCompose();
 
 protected:
-    Liste<TrajetSimple> ListeTrajetCompose;
+    const Liste<TrajetSimple> & ListeTrajetCompose;
 };
 
 #endif
