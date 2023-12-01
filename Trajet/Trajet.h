@@ -57,7 +57,7 @@ public:
     // Contrat :
     //
 
-    Trajet(char *DepartVille, char *ArrivéeVille);
+    Trajet(const char *DepartVille, const char *ArrivéeVille);
     // Mode d'emploi :
     //
     // Contrat :
