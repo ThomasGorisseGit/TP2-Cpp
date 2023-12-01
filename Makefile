@@ -1,4 +1,4 @@
-CC := g++ -ansi -pedantic -Wall -std=c++11
+CC := g++ -ansi -pedantic -Wall -std=c++11 -DMAP
 LISTE := Liste/
 TRAJET := Trajet/
 CATALOGUE := Catalogue/
@@ -11,8 +11,8 @@ $(EXE) :  $(OBJ)Catalogue.o $(OBJ)Trajet.o $(OBJ)TrajetSimple.o $(OBJ)TrajetComp
 
 
 
-$(OBJ)Catalogue.o : $(CATALOGUE)Catalogue.cpp $(CATALOGUE)Catalogue.h
-	$(CC) -c $(CATALOGUE)Catalogue.cpp -o $(OBJ)Catalogue.o
+$(OBJ)Catalogue.o : $(CATALOGUE)Catalogue.cpp $(CATALOGUE)Catalogue.h 
+	$(CC) -c $(CATALOGUE)Catalogue.cpp -o $(OBJ)Catalogue.o 
 
 $(OBJ)Trajet.o : $(TRAJET)Trajet.cpp $(TRAJET)Trajet.h
 	$(CC) -c $(TRAJET)Trajet.cpp -o $(OBJ)Trajet.o
