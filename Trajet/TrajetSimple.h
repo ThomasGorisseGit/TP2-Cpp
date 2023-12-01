@@ -6,8 +6,12 @@ class TrajetSimple : public Trajet
 {
 
 public:
-    TrajetSimple(char *depart, char *arrivee);
+    TrajetSimple(char *Depart, char *Arrivee,char * M_transport);
     virtual ~TrajetSimple();
+
+
+protected :
+    char * transport;
 };
 
 #endif
