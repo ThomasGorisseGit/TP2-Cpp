@@ -12,6 +12,7 @@
 
 //-------------------------------------------------------- Include système
 #include <iostream>
+#include <cstring>
 using namespace std;
 
 //------------------------------------------------------ Include personnel
@@ -50,7 +51,7 @@ Trajet::Trajet(char *DepartVille, char *ArriveeVille) : depart(DepartVille), arr
 //
 {
 #ifdef MAP
-    cout << "Appel au constructeur de copie de <Trajet>" << endl;
+    cout << "Appel au constructeur de <Trajet>" << endl;
 #endif
 } //----- Fin de Trajet
 
@@ -62,7 +63,16 @@ Trajet::Trajet(char *DepartVille, char *ArriveeVille) : depart(DepartVille), arr
     cout << "Appel au constructeur de <Trajet>" << endl;
 #endif
 } //----- Fin de Trajet*/
-
+Trajet::Trajet( const Trajet& ref){
+    #ifdef MAP
+    cout << "Appel au constructeur de copie de <Trajet>" << endl;
+    #endif
+    this->depart = new char[strlen(ref.depart)+1];
+    this->arrivee = new char[strlen(ref.arrivee)+1];
+    strcpy(this->depart,ref.depart);
+    strcpy(this->arrivee,ref.arrivee);
+    
+}
 Trajet::~Trajet()
 // Algorithme :
 //
