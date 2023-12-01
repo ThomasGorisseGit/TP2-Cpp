@@ -34,7 +34,7 @@ char *Trajet::GetArrivee() const
 
 void Trajet::Afficher() const
 {
-    cout << "Depart | " << this->depart << " | \n Arrivee | " << this->arrivee << " |";
+    cout << "Depart | " << depart << " | \n Arrivee | " << arrivee << " |";
 }
 
 //------------------------------------------------- Surcharge d'opérateurs
