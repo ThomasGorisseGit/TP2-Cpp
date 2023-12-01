@@ -48,7 +48,7 @@ Catalogue::Catalogue()
 #ifdef MAP
     cout << "Appel au constructeur de <Catalogue>" << endl;
 #endif
-
+    this->listeTrajet = new Liste<Trajet>;
 } //----- Fin de Catalogue
 
 Catalogue::~Catalogue()
@@ -58,22 +58,26 @@ Catalogue::~Catalogue()
 #endif
 } //----- Fin de ~Catalogue
 
-void Catalogue::Ajouter(const Trajet &trajet)
+void Catalogue::Ajouter(Trajet trajet)
 {
     this->listeTrajet->Ajouter(trajet);
 }
 
 void Catalogue::Afficher()
 {
+
     cout << "-----------------------------------------------------------------" << endl;
     cout << "---------------------------BIENVENUE-----------------------------" << endl;
     cout << "---------------------------SUR    LE-----------------------------" << endl;
     cout << "---------------------------CATALOGUE-----------------------------" << endl;
     cout << "-----------------------------------------------------------------" << endl;
+
     unsigned int i = 0;
     while (i < this->listeTrajet->GetTaille())
     {
-        this->listeTrajet->GetValeur(i)->Afficher();
+        //cout<<"in";
+        cout << this->listeTrajet->GetValeur(i)->GetDepart() << " -> " << this->listeTrajet->GetValeur(i)->GetArrivee() << endl;
+        i++;
     }
 }
 //------------------------------------------------------------------ PRIVE
