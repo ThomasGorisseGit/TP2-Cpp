@@ -12,7 +12,12 @@ public:
      * @param valeur Le Trajet lié au maillon
      * @param suivant Le maillon suivant
      */
-    Maillon(const T *valeur = nullptr, Maillon *suivant = nullptr);
+    Maillon(T *valeur = nullptr, Maillon *suivant = nullptr);
+    
+    T* getValeur() const;
+    
+    Maillon<T>* getSuivant() const;
+    inline void setSuivant(Maillon<T> *suivant) { this->suivant = suivant; }
 
     /**
      * @brief Destructeur de la classe Maillon
@@ -25,4 +30,38 @@ private:
     Maillon *suivant;
 };
 
+
+template <typename T>
+Maillon<T>::Maillon(T *valeur, Maillon *suivant)
+{
+#ifdef MAP
+    cout << "Appel au constructeur par défaut de <Maillon>" << endl;
+#endif
+
+    this->valeur = valeur;
+    this->suivant = suivant;
+}
+
+template <typename T>
+Maillon<T>::~Maillon()
+{
+#ifdef MAP
+    cout << "Appel au destructeur de <Maillon>" << endl;
+#endif
+    delete valeur;
+    delete suivant;
+}
+
+template <typename T>
+T* Maillon<T>::getValeur() const
+{
+    return valeur;
+}
+
+
+template <typename T>
+Maillon<T>* Maillon<T>::getSuivant() const
+{
+    return suivant;
+}
 #endif // MAILLON_H

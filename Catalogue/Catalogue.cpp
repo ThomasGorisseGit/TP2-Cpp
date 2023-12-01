@@ -16,6 +16,9 @@ using namespace std;
 
 //------------------------------------------------------ Include personnel
 #include "Catalogue.h"
+#include "../Trajet/Trajet.h"
+#include "../Liste/Liste.h"
+
 //------------------------------------------------------------- Constantes
 
 //----------------------------------------------------------------- PUBLIC
@@ -30,13 +33,13 @@ Catalogue::Catalogue(const Catalogue &unCatalogue)
 #ifdef MAP
     cout << "Appel au constructeur de copie de <Catalogue>" << endl;
 #endif
-    delete[] this->listeTrajet;
     this->listeTrajet = new Liste<Trajet>;
 
-    for (int i = 0; i < unCatalogue.listeTrajet->GetTaille(); i++)
+    for (unsigned int i = 0; i < unCatalogue.listeTrajet->GetTaille(); i++)
     {
         this->listeTrajet->Ajouter(
-            unCatalogue.listeTrajet->GetValeur(i));
+            *(unCatalogue.listeTrajet->GetValeur(i))
+        );
     }
 } //----- Fin de Catalogue (constructeur de copie)
 
@@ -67,10 +70,10 @@ void Catalogue::Afficher()
     cout << "---------------------------SUR    LE-----------------------------" << endl;
     cout << "---------------------------CATALOGUE-----------------------------" << endl;
     cout << "-----------------------------------------------------------------" << endl;
-    int i = 0;
+    unsigned int i = 0;
     while (i < this->listeTrajet->GetTaille())
     {
-        this->listeTrajet->GetValeur(i).Afficher();
+        this->listeTrajet->GetValeur(i)->Afficher();
     }
 }
 //------------------------------------------------------------------ PRIVE

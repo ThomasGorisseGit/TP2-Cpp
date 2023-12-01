@@ -6,14 +6,10 @@ OBJ := obj/
 EXE := exe
 
 
-$(EXE) :  $(OBJ)Liste.o $(OBJ)Maillon.o $(OBJ)Catalogue.o $(OBJ)Trajet.o $(OBJ)TrajetSimple.o $(OBJ)TrajetCompose.o $(OBJ)main.o
-	$(CC)  $(OBJ)Liste.o $(OBJ)Maillon.o $(OBJ)Catalogue.o $(OBJ)Trajet.o $(OBJ)TrajetSimple.o $(OBJ)TrajetCompose.o $(OBJ)main.o -o $(EXE)
+$(EXE) :  $(OBJ)Catalogue.o $(OBJ)Trajet.o $(OBJ)TrajetSimple.o $(OBJ)TrajetCompose.o $(OBJ)main.o
+	$(CC) $(OBJ)Catalogue.o $(OBJ)Trajet.o $(OBJ)TrajetSimple.o $(OBJ)TrajetCompose.o $(OBJ)main.o -o $(EXE)
 
-$(OBJ)Liste.o : $(LISTE)Liste.cpp $(LISTE)Liste.h
-	$(CC) -c $(LISTE)Liste.cpp -o $(OBJ)Liste.o
 
-$(OBJ)Maillon.o : $(LISTE)Maillon.cpp $(LISTE)Maillon.h
-	$(CC) -c $(LISTE)Maillon.cpp -o $(OBJ)Maillon.o
 
 $(OBJ)Catalogue.o : $(CATALOGUE)Catalogue.cpp $(CATALOGUE)Catalogue.h
 	$(CC) -c $(CATALOGUE)Catalogue.cpp -o $(OBJ)Catalogue.o
