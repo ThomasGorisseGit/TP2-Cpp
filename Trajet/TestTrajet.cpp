@@ -5,7 +5,7 @@ using namespace std;
 
 int main()
 {
-    Trajet T ("A","B");
+    Trajet T("A", "B");
 
     return 0;
 }
