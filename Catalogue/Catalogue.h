@@ -20,22 +20,27 @@ class Catalogue
 {
 
 public:
-    void Ajouter(const Trajet &trajet);
+    void Ajouter(Trajet *trajet);
     // Permet d'ajouter un trajet a la liste des trajets proposés dans le catalogue
     // Mode d'emploi :
     //      Appel de la méthode ajouter catalogue.Ajouter(trajet)
-
     void Afficher();
+    Liste<Trajet> * RechercheDepuisDepart(const char * depart);
+    void parse(Liste<Trajet> * l, const char * arrivee);
+    void initSearch(const char * depart,const char * arrivee);
     // Permet d'afficher tous les trajets contenus dans la liste des trajets proposés.
     // Mode d'emploi :
     //      Appel de la méthode afficher catalogue.Afficher()
 
-    void Rechercher(const char *Depart, const char *Arrivee, Liste<Trajet> &ListeARemplir) const;
-    // Fonction qui recherche un trajet dans le catalogue et renvoie une liste des trajets ayant les
-    // meme départ et arrivee
+    void Rechercher(const char* Depart, const char* Arrivee, Liste<Trajet> & ListeARemplir) const;
+    //Fonction qui recherche un trajet dans le catalogue et renvoie une liste des trajets ayant les
+    //meme départ et arrivee
 
-    //------------------------------------------------- Surcharge d'opérateurs
-    Catalogue &operator=(const Catalogue &unCatalogue);
+
+    void Afficherl(Liste <Trajet> * liste);   
+    void RechercherTrajet(const char * depart, const char * arrivee) const;
+
+//------------------------------------------------- Surcharge d'opérateurs
     // Mode d'emploi :
     //
     // Contrat :

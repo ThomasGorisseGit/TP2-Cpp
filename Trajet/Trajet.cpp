@@ -52,10 +52,10 @@ Trajet::Trajet(const char *DepartVille,const char *ArriveeVille)
 #ifdef MAP
     cout << "Appel au constructeur de <Trajet>" << endl;
 #endif
-    depart = new char[sizeof(DepartVille)];
+    depart = new char[strlen(DepartVille)+1];
     strcpy(depart,DepartVille);
 
-    arrivee = new char[sizeof(ArriveeVille)];
+    arrivee = new char[strlen(ArriveeVille)+1];
     strcpy(arrivee,ArriveeVille);
 } //----- Fin de Trajet
 

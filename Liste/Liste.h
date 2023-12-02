@@ -41,7 +41,7 @@ public:
      *
      * @param valeur Le Trajet à ajouter à la liste
      */
-    void Ajouter(T valeur);
+    void Ajouter(T* valeur);
 
     /**
      * @brief Permet de rechercher un Trajet dans la liste
@@ -116,10 +116,10 @@ unsigned int Liste<T>::GetTaille() const
 }
 
 template <typename T>
-void Liste<T>::Ajouter(T valeur)
+void Liste<T>::Ajouter(T* valeur)
 {
     // On crée un nouveau maillon avec la valeur passée en paramètre (il sera placé à la fin de la liste)
-    Maillon<T> *nouveauMaillon = new Maillon<T>(&valeur, nullptr);
+    Maillon<T> *nouveauMaillon = new Maillon<T>(valeur, nullptr);
 
     // Si la liste est vide, on ajoute le nouveau maillon en tête
     if (tete == nullptr)
