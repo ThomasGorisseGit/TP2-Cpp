@@ -35,6 +35,7 @@ public:
     void Rechercher(const char* Depart, const char* Arrivee, Liste<Trajet> & ListeARemplir) const;
     //Fonction qui recherche un trajet dans le catalogue et renvoie une liste des trajets ayant les
     //meme départ et arrivee
+bool TrajetArrivantADestination(Liste<Trajet> * listeTrajetParcourus, const char * arrivee,Liste<Trajet> * listeARemplir);
 
 
     void Afficherl(Liste <Trajet> * liste);   

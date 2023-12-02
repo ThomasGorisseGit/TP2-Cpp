@@ -43,6 +43,8 @@ public:
      */
     void Ajouter(T* valeur);
 
+    void Ajouter(Liste<T> * liste);
+
     /**
      * @brief Permet de rechercher un Trajet dans la liste
      *
@@ -137,6 +139,14 @@ void Liste<T>::Ajouter(T* valeur)
         courrent->setSuivant(nouveauMaillon);
     }
     taille++;
+}
+
+template <typename T>
+void Liste<T>::Ajouter(Liste<T> * liste){
+    for (unsigned int i = 0; i < liste->GetTaille(); i++)
+    {
+        this->Ajouter(liste->GetValeur(i));
+    }
 }
 
 template <typename T>
