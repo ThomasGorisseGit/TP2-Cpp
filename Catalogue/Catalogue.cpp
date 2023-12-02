@@ -104,8 +104,14 @@ void Catalogue::initSearch(const char * depart,const char * arrivee){
         listeARemplirReverse->Ajouter(listeARemplir->GetValeur(taille-i-1));
     }
     this->Afficherl(listeARemplirReverse);
-
-    delete listeARemplirReverse;
+    // TODO : delete listeARemplirReverse
+    // TODO : delete listeARemplir
+    // TODO : delete listeTrajetParcourus
+    /*
+        delete listeARemplirReverse;
+        delete listeARemplir;
+        delete listeTrajetParcourus;
+    */
 
 }
 bool Catalogue::TrajetArrivantADestination(Liste<Trajet> * listeTrajetParcourus, const char * arrivee,Liste<Trajet> * listeARemplir){

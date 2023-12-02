@@ -47,6 +47,7 @@ int main()
                 // Ajout d'un trajet simple
                 if(choixTrajet == 1){
                     // Ajout d'un trajet simple
+                    
                     char* depart = new char[MAX];
                     char* arrivee = new char[MAX];
                     char* moyenTransport = new char[MAX];
