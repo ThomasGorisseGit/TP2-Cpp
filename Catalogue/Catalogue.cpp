@@ -111,6 +111,8 @@ void Catalogue::initSearch(const char * depart,const char * arrivee){
         delete listeARemplirReverse;
         delete listeARemplir;
         delete listeTrajetParcourus;
+
+        // Throw Segmentation error : On call of Trajet Destructor and Maillon Destructor.
     */
 
 }
