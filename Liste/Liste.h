@@ -27,7 +27,7 @@ public:
      *
      * @param index L'index du maillon dont on veut la valeur
      */
-    T* GetValeur(unsigned int index) const;
+    T *GetValeur(unsigned int index) const;
 
     /**
      * @brief Retourne la taille de la liste
@@ -64,7 +64,6 @@ protected:
     Maillon<T> *tete;
 };
 
-
 template <typename T>
 Liste<T>::Liste()
 {
@@ -83,7 +82,7 @@ Liste<T>::~Liste()
     cout << "Appel au destructeur de <Liste>" << endl;
 #endif
     // On parcourt la liste et on supprime chaque maillon
-    //TODO : vérifier que ça marche
+    // TODO : vérifier que ça marche
     Maillon<T> *courrent = tete;
     while (courrent != nullptr)
     {
@@ -96,7 +95,7 @@ Liste<T>::~Liste()
 }
 
 template <typename T>
-T* Liste<T>::GetValeur(unsigned int index) const
+T *Liste<T>::GetValeur(unsigned int index) const
 {
     Maillon<T> *courrent = tete;
     unsigned int i = 0;
@@ -170,18 +169,9 @@ void Liste<T>::Afficher() const
     Maillon<T> *courrent = tete;
     while (courrent != nullptr)
     {
-        //FIXME courrent->afficher(); // Ici, on suppose que la classe T possède une méthode afficher()
+        // FIXME courrent->afficher(); // Ici, on suppose que la classe T possède une méthode afficher()
         courrent = courrent->getSuivant();
     }
 }
 
-
-
-
-
-
-
 #endif // LISTE_H
-
-
-
