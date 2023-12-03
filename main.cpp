@@ -133,7 +133,6 @@ int main()
 
     catalogueTrajet.Ajouter(new TrajetCompose(listeTrajet));
 
-
     
     catalogueTrajet.Ajouter(new TrajetSimple("Lyon", "Marseille", "Train"));
     catalogueTrajet.Ajouter(new TrajetSimple("Lyon", "Cannes", "Train"));
@@ -142,7 +141,5 @@ int main()
     
     catalogueTrajet.Afficher();
 
-    //catalogueTrajet.initSearch("Paris","Cannes");
-    
     return 0;
 }
