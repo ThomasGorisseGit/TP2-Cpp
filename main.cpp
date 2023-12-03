@@ -19,7 +19,7 @@ using namespace std;
 int main()
 {
     // Création d'un catalogue de trajets
-    
+    /*
     Catalogue catalogueTrajet;
 
     while(true){
@@ -120,16 +120,29 @@ int main()
         }
         
     }
-    /*
+    */
+    
     Catalogue catalogueTrajet;
     catalogueTrajet.Ajouter(new TrajetSimple("Paris", "Lyon", "Train"));
+    
+
+    //init empty list
+    Liste<TrajetSimple> listeTrajet ; 
+    listeTrajet.Ajouter(new TrajetSimple("A", "B", "Train"));
+    listeTrajet.Ajouter(new TrajetSimple("C", "D", "Train"));
+
+    catalogueTrajet.Ajouter(new TrajetCompose(listeTrajet));
+
+
+    
     catalogueTrajet.Ajouter(new TrajetSimple("Lyon", "Marseille", "Train"));
     catalogueTrajet.Ajouter(new TrajetSimple("Lyon", "Cannes", "Train"));
     catalogueTrajet.Ajouter(new TrajetSimple("Troucoin", "Cannes", "Train"));
     catalogueTrajet.Ajouter(new TrajetSimple("Marseille", "Cannes", "Train"));
     
+    catalogueTrajet.Afficher();
 
-    catalogueTrajet.initSearch("Paris","Cannes");
-    */
+    //catalogueTrajet.initSearch("Paris","Cannes");
+    
     return 0;
 }
