@@ -16,8 +16,7 @@ Catalogue::Catalogue(const Catalogue &unCatalogue)
     for (unsigned int i = 0; i < unCatalogue.listeTrajet->GetTaille(); i++)
     {
         this->listeTrajet->Ajouter(
-            unCatalogue.listeTrajet->GetValeur(i)
-            );
+            unCatalogue.listeTrajet->GetValeur(i));
     }
 } //----- Fin de Catalogue (constructeur de copie)
 
@@ -37,7 +36,7 @@ Catalogue::~Catalogue()
     delete listeTrajet;
 } //----- Fin de ~Catalogue
 
-void Catalogue::Ajouter(Trajet* trajet)
+void Catalogue::Ajouter(Trajet *trajet)
 {
     this->listeTrajet->Ajouter(trajet);
 }
@@ -58,7 +57,7 @@ void Catalogue::Afficher()
         i++;
     }
 }
-void Catalogue::Afficherl(Liste <Trajet> * liste)
+void Catalogue::Afficherl(Liste<Trajet> *liste)
 {
     unsigned int i = 0;
     while (i < liste->GetTaille())
