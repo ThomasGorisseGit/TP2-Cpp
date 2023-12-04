@@ -1,4 +1,4 @@
-CC := g++ -ansi -pedantic -Wall -std=c++11 -DMAP
+CC := g++ -ansi -pedantic -Wall -std=c++11
 LISTE := Liste/
 TRAJET := Trajet/
 CATALOGUE := Catalogue/
@@ -6,10 +6,13 @@ OBJ := obj/
 EXE := exe
 
 
+# Si on veut utiliser la trace : 'make trace=1'
+ifdef trace
+    CC += -DMAP
+endif
+
 $(EXE) :  $(OBJ)Catalogue.o $(OBJ)Trajet.o $(OBJ)TrajetSimple.o $(OBJ)TrajetCompose.o $(OBJ)main.o
 	$(CC) $(OBJ)Catalogue.o $(OBJ)Trajet.o $(OBJ)TrajetSimple.o $(OBJ)TrajetCompose.o $(OBJ)main.o -o $(EXE)
-
-
 
 $(OBJ)Catalogue.o : $(CATALOGUE)Catalogue.cpp $(CATALOGUE)Catalogue.h 
 	$(CC) -c $(CATALOGUE)Catalogue.cpp -o $(OBJ)Catalogue.o 
@@ -28,4 +31,4 @@ $(OBJ)main.o : main.cpp
 
 clean :
 	rm -f $(OBJ)*.o
-	rm -f trajet
+	rm -f $(EXE)
