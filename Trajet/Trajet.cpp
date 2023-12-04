@@ -84,8 +84,13 @@ Trajet::~Trajet()
     #ifdef MAP
         cout << "Appel au destructeur de <Trajet>" << endl;
     #endif
+<<<<<<< HEAD
     delete [] depart;
     delete [] arrivee;
+=======
+    delete[] depart;
+    delete[] arrivee;
+>>>>>>> main
 } //----- Fin de ~Trajet
 
 //------------------------------------------------------------------ PRIVE

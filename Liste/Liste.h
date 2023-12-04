@@ -27,7 +27,11 @@ public:
      *
      * @param index L'index du maillon dont on veut la valeur
      */
+<<<<<<< HEAD
     T *GetValeur(unsigned int index) const;
+=======
+    T* GetValeur(unsigned int index) const;
+>>>>>>> main
 
     /**
      * @brief Retourne la taille de la liste
@@ -42,8 +46,11 @@ public:
      * @param valeur Le Trajet à ajouter à la liste
      */
     void Ajouter(T* valeur);
+<<<<<<< HEAD
 
     void Ajouter(Liste<T> * liste);
+=======
+>>>>>>> main
 
     /**
      * @brief Permet de rechercher un Trajet dans la liste
@@ -64,6 +71,10 @@ protected:
     Maillon<T> *tete;
 };
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> main
 template <typename T>
 Liste<T>::Liste()
 {
@@ -82,7 +93,11 @@ Liste<T>::~Liste()
     cout << "Appel au destructeur de <Liste>" << endl;
 #endif
     // On parcourt la liste et on supprime chaque maillon
+<<<<<<< HEAD
     // TODO : vérifier que ça marche
+=======
+    //TODO : vérifier que ça marche
+>>>>>>> main
     Maillon<T> *courrent = tete;
     while (courrent != nullptr)
     {
@@ -95,7 +110,11 @@ Liste<T>::~Liste()
 }
 
 template <typename T>
+<<<<<<< HEAD
 T *Liste<T>::GetValeur(unsigned int index) const
+=======
+T* Liste<T>::GetValeur(unsigned int index) const
+>>>>>>> main
 {
     Maillon<T> *courrent = tete;
     unsigned int i = 0;
@@ -141,6 +160,7 @@ void Liste<T>::Ajouter(T* valeur)
 }
 
 template <typename T>
+<<<<<<< HEAD
 void Liste<T>::Ajouter(Liste<T> * liste){
     for (unsigned int i = 0; i < liste->GetTaille(); i++)
     {
@@ -149,6 +169,8 @@ void Liste<T>::Ajouter(Liste<T> * liste){
 }
 
 template <typename T>
+=======
+>>>>>>> main
 bool Liste<T>::Rechercher(const T *valeur) const
 {
     Maillon<T> *courrent = tete;
@@ -169,9 +191,26 @@ void Liste<T>::Afficher() const
     Maillon<T> *courrent = tete;
     while (courrent != nullptr)
     {
+<<<<<<< HEAD
         // FIXME courrent->afficher(); // Ici, on suppose que la classe T possède une méthode afficher()
+=======
+        //FIXME courrent->afficher(); // Ici, on suppose que la classe T possède une méthode afficher()
+>>>>>>> main
         courrent = courrent->getSuivant();
     }
 }
 
+<<<<<<< HEAD
 #endif // LISTE_H
+=======
+
+
+
+
+
+
+#endif // LISTE_H
+
+
+
+>>>>>>> main

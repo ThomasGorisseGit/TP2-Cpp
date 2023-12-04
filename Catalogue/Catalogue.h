@@ -25,9 +25,9 @@ public:
     // Mode d'emploi :
     //      Appel de la méthode ajouter catalogue.Ajouter(trajet)
     void Afficher();
-    Liste<Trajet> *RechercheDepuisDepart(const char *depart);
-    void parse(Liste<Trajet> *l, const char *arrivee);
-    void initSearch(const char *depart, const char *arrivee);
+    Liste<Trajet> * RechercheDepuisDepart(const char * depart);
+    void parse(Liste<Trajet> * l, const char * arrivee);
+    void initSearch(const char * depart,const char * arrivee);
     // Permet d'afficher tous les trajets contenus dans la liste des trajets proposés.
     // Mode d'emploi :
     //      Appel de la méthode afficher catalogue.Afficher()
