@@ -25,23 +25,22 @@ public:
     // Mode d'emploi :
     //      Appel de la méthode ajouter catalogue.Ajouter(trajet)
     void Afficher();
-    Liste<Trajet> * RechercheDepuisDepart(const char * depart);
-    void parse(Liste<Trajet> * l, const char * arrivee);
-    void initSearch(const char * depart,const char * arrivee);
+    Liste<Trajet> *RechercheDepuisDepart(const char *depart);
+    void parse(Liste<Trajet> *l, const char *arrivee);
+    void initSearch(const char *depart, const char *arrivee);
     // Permet d'afficher tous les trajets contenus dans la liste des trajets proposés.
     // Mode d'emploi :
     //      Appel de la méthode afficher catalogue.Afficher()
 
-    void Rechercher(const char* Depart, const char* Arrivee, Liste<Trajet> & ListeARemplir) const;
-    //Fonction qui recherche un trajet dans le catalogue et renvoie une liste des trajets ayant les
-    //meme départ et arrivee
-bool TrajetArrivantADestination(Liste<Trajet> * listeTrajetParcourus, const char * arrivee,Liste<Trajet> * listeARemplir);
+    void Rechercher(const char *Depart, const char *Arrivee, Liste<Trajet> &ListeARemplir) const;
+    // Fonction qui recherche un trajet dans le catalogue et renvoie une liste des trajets ayant les
+    // meme départ et arrivee
+    bool TrajetArrivantADestination(Liste<Trajet> *listeTrajetParcourus, const char *arrivee, Liste<Trajet> *listeARemplir);
 
+    void Afficherl(Liste<Trajet> *liste);
+    void RechercherTrajet(const char *depart, const char *arrivee) const;
 
-    void Afficherl(Liste <Trajet> * liste);   
-    void RechercherTrajet(const char * depart, const char * arrivee) const;
-
-//------------------------------------------------- Surcharge d'opérateurs
+    //------------------------------------------------- Surcharge d'opérateurs
     // Mode d'emploi :
     //
     // Contrat :
