@@ -34,6 +34,7 @@ Catalogue::~Catalogue()
 #ifdef MAP
     cout << "Appel au destructeur de <Catalogue>" << endl;
 #endif
+    delete listeTrajet;
 } //----- Fin de ~Catalogue
 
 void Catalogue::Ajouter(Trajet* trajet)

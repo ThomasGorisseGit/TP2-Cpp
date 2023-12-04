@@ -124,6 +124,7 @@ int main()
             }
             break;
         }
+<<<<<<< HEAD
 
         case 3:
         {
@@ -161,5 +162,30 @@ int main()
 
     // catalogueTrajet.initSearch("Paris", "Cannes");
 
+=======
+        
+    }
+    
+    /*
+    Catalogue catalogueTrajet;
+    catalogueTrajet.Ajouter(new TrajetSimple("Paris", "Lyon", "Train"));
+    
+
+    //init empty list
+    Liste<TrajetSimple> listeTrajet ; 
+    listeTrajet.Ajouter(new TrajetSimple("A", "B", "Train"));
+    listeTrajet.Ajouter(new TrajetSimple("C", "D", "Train"));
+
+    catalogueTrajet.Ajouter(new TrajetCompose(listeTrajet));
+
+    
+    catalogueTrajet.Ajouter(new TrajetSimple("Lyon", "Marseille", "Train"));
+    catalogueTrajet.Ajouter(new TrajetSimple("Lyon", "Cannes", "Train"));
+    catalogueTrajet.Ajouter(new TrajetSimple("Troucoin", "Cannes", "Train"));
+    catalogueTrajet.Ajouter(new TrajetSimple("Marseille", "Cannes", "Train"));
+    
+    catalogueTrajet.Afficher();
+    */
+>>>>>>> a7be7bb3dad7c27ea328ae96502a653c7d0b5900
     return 0;
 }

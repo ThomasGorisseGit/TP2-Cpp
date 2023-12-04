@@ -20,7 +20,7 @@ public:
      * @brief Destructeur de la classe Liste
      *
      */
-    ~Liste();
+    virtual ~Liste();
 
     /**
      * @brief Retourne la valeur du maillon à l'index passé en paramètre
@@ -90,8 +90,6 @@ Liste<T>::~Liste()
         delete courrent;
         courrent = suivant;
     }
-
-    delete tete;
 }
 
 template <typename T>
