@@ -50,10 +50,6 @@ Maillon<T>::~Maillon()
     cout << "Appel au destructeur de <Maillon>" << endl;
 #endif
     delete valeur;
-<<<<<<< HEAD
-=======
-    delete suivant;
->>>>>>> main
 }
 
 template <typename T>
