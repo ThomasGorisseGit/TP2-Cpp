@@ -135,7 +135,7 @@ int main()
             char *arrivee = new char[MAX];
             cin >> arrivee;
 
-            catalogueTrajet.initSearch(depart, arrivee); // Recherche du trajet
+            catalogueTrajet.RechercheAvancee(depart, arrivee); // Recherche du trajet
             delete[] depart;
             delete[] arrivee;
             break;
