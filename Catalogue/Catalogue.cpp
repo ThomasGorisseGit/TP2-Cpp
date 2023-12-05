@@ -57,44 +57,32 @@ void Catalogue::Afficher()
         i++;
     }
 }
-void Catalogue::Afficherl(Liste<Trajet> *liste)
-{
-    unsigned int i = 0;
-    while (i < liste->GetTaille())
-    {
-        liste->GetValeur(i)->Afficher();
-        i++;
-    }
-}
 
-void Catalogue::Rechercher(const char *Depart, const char *Arrivee, Liste<Trajet> &ListeARemplir) const
+void Catalogue::Rechercher(const char *depart, const char *arrivee, Liste<Trajet> &listeARemplir) const
 {
     unsigned int taille = listeTrajet->GetTaille();
     for (unsigned int i = 0; i < taille - 1; i++)
     {
         // TODO : Tester et voir si le egal marche comparé aux strcmp
-        if (strcmp(listeTrajet->GetValeur(i)->GetDepart(), Depart) == 0 && strcmp(listeTrajet->GetValeur(i)->GetArrivee(), Arrivee) == 0)
+        if (strcmp(listeTrajet->GetValeur(i)->GetDepart(), depart) == 0 && strcmp(listeTrajet->GetValeur(i)->GetArrivee(), arrivee) == 0)
         {
-            ListeARemplir.Ajouter(listeTrajet->GetValeur(i));
+            listeARemplir.Ajouter(listeTrajet->GetValeur(i));
         }
     }
 }
 
 // Fonction de recherche de trajet
-void RechercherTrajet(const char *depart, const char *arrivee)
-{
-    cout << "Recherche de trajet de " << depart << " à " << arrivee << " :\n";
-}
 
-void Catalogue::initSearch(const char *depart, const char *arrivee)
+
+void Catalogue::RechercheAvancee(const char *depart, const char *arrivee)
 {
 
-    Liste<Trajet> *listeTrajetParcourus = RechercheDepuisDepart(depart);
+    Liste<Trajet> *listeTrajetParcourus = rechercheDepuisDepart(depart);
     Liste<Trajet> *listeARemplir = new Liste<Trajet>;
 
     // TODO : Split trajet compose en trajet simple
 
-    this->TrajetArrivantADestination(listeTrajetParcourus, arrivee, listeARemplir);
+    this->trajetArrivantADestination(listeTrajetParcourus, arrivee, listeARemplir);
 
     // Reverse listeARemplir :
     Liste<Trajet> *listeARemplirReverse = new Liste<Trajet>;
@@ -103,13 +91,18 @@ void Catalogue::initSearch(const char *depart, const char *arrivee)
     {
         listeARemplirReverse->Ajouter(listeARemplir->GetValeur(taille - i - 1));
     }
-    this->Afficherl(listeARemplirReverse);
+    unsigned int i = 0;
+    while (i < listeARemplirReverse->GetTaille())
+    {
+        listeARemplirReverse->GetValeur(i)->Afficher();
+        i++;
+    }
     // TODO : delete listeARemplirReverse
     // TODO : delete listeARemplir
     // TODO : delete listeTrajetParcourus
 }
 
-bool Catalogue::TrajetArrivantADestination(Liste<Trajet> *listeTrajetParcourus, const char *arrivee, Liste<Trajet> *listeARemplir)
+bool Catalogue::trajetArrivantADestination(Liste<Trajet> *listeTrajetParcourus, const char *arrivee, Liste<Trajet> *listeARemplir)
 {
     unsigned int taille = listeTrajetParcourus->GetTaille();
     for (unsigned int i = 0; i < taille; i++)
@@ -123,8 +116,8 @@ bool Catalogue::TrajetArrivantADestination(Liste<Trajet> *listeTrajetParcourus, 
         }
         else
         {
-            Liste<Trajet> *listeTrajetParcourus2 = RechercheDepuisDepart(listeTrajetParcourus->GetValeur(i)->GetArrivee());
-            if (TrajetArrivantADestination(listeTrajetParcourus2, arrivee, listeARemplir))
+            Liste<Trajet> *listeTrajetParcourus2 = rechercheDepuisDepart(listeTrajetParcourus->GetValeur(i)->GetArrivee());
+            if (trajetArrivantADestination(listeTrajetParcourus2, arrivee, listeARemplir))
             {
                 listeARemplir->Ajouter(listeTrajetParcourus->GetValeur(i));
                 // cout << listeTrajetParcourus->GetValeur(i)->GetDepart() << " -> " << listeTrajetParcourus->GetValeur(i)->GetArrivee() << endl;
@@ -133,7 +126,7 @@ bool Catalogue::TrajetArrivantADestination(Liste<Trajet> *listeTrajetParcourus, 
     }
     return false;
 }
-Liste<Trajet> *Catalogue::RechercheDepuisDepart(const char *depart)
+Liste<Trajet> *Catalogue::rechercheDepuisDepart(const char *depart)
 {
     Liste<Trajet> *listeARemplir = new Liste<Trajet>;
     unsigned int taille = listeTrajet->GetTaille();
