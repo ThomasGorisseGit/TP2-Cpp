@@ -7,6 +7,11 @@
 using namespace std;
 
 Catalogue::Catalogue(const Catalogue &unCatalogue)
+// Constructeur de copie d'un catalogue
+// Réalise une copie en profondeur 
+// Algorithme : 
+//      Parcours la liste des trajets d'un catalogue donné en paramètre,
+//      et les ajoute a la liste des trajets courrants.
 {
 #ifdef MAP
     cout << "Appel au constructeur de copie de <Catalogue>" << endl;
@@ -21,27 +26,40 @@ Catalogue::Catalogue(const Catalogue &unCatalogue)
 } //----- Fin de Catalogue (constructeur de copie)
 
 Catalogue::Catalogue()
+// Constructeur par défaut.
+// Initialise la liste des trajets avec une liste vide.
 {
 #ifdef MAP
     cout << "Appel au constructeur de <Catalogue>" << endl;
 #endif
     this->listeTrajet = new Liste<Trajet>;
-} //----- Fin de Catalogue
+} //----- Fin de Catalogue (Constructeur par défaut)
 
 Catalogue::~Catalogue()
+// Déstructeur de catalogue.
+// Appel le destructeur de la liste.
 {
 #ifdef MAP
     cout << "Appel au destructeur de <Catalogue>" << endl;
 #endif
     delete listeTrajet;
-} //----- Fin de ~Catalogue
+} //----- Fin de ~Catalogue (Destructeur de catalogue)
 
 void Catalogue::Ajouter(Trajet *trajet)
+// Méthode d'ajout d'un trajet à la liste courante.
+// Algorithme : 
+//      Récupère le pointeur de trajet passé en paramètre et l'ajoute a la liste des trajets courant
+//      Grâce à la méthode ajouter de Liste
 {
     this->listeTrajet->Ajouter(trajet);
-}
+} // Fin de la méthode ajouter
 
 void Catalogue::Afficher()
+// Méthode permettant d'afficher de manière sophistiquée (!= de brute) le contenu du catalogue.
+// Algorithme : 
+//      Parcours la liste des trajets courants et appel de la méthode afficher de trajet.
+//      <!> Interdiction de surcharger l'opérateur '<<' <!>
+
 {
 
     cout << "-----------------------------------------------------------------" << endl;
@@ -56,9 +74,14 @@ void Catalogue::Afficher()
         this->listeTrajet->GetValeur(i)->Afficher();
         i++;
     }
-}
+}// Fin de la méthode afficher
 
 void Catalogue::Rechercher(const char *depart, const char *arrivee, Liste<Trajet> &listeARemplir) const
+// Méthode de recherche simple qui trouvent des trajets ayant un départ et une arrivée égale aux constante données en paramètres.
+// Le retour de la méthode se fait dans la listeARemplir.
+// Algorithme : 
+//      Parcours de la liste des trajets et comparaison des chaînes de caractère pour déterminer lesquels sont égales.
+//      On ajoute a la liste à remplir les trajets qui coincides avec les paramètres.
 {
     unsigned int taille = listeTrajet->GetTaille();
     for (unsigned int i = 0; i < taille - 1; i++)
@@ -69,12 +92,13 @@ void Catalogue::Rechercher(const char *depart, const char *arrivee, Liste<Trajet
             listeARemplir.Ajouter(listeTrajet->GetValeur(i));
         }
     }
-}
-
-// Fonction de recherche de trajet
+}// Fin de la méthode de recherche de trajets
 
 
 void Catalogue::RechercheAvancee(const char *depart, const char *arrivee)
+// Méthode permettant la recherche avancee de trajets en combinant les arrivées et les départs afin de proposer un itinéraire optimal.
+// Algorithme :
+//
 {
 
     Liste<Trajet> *listeTrajetParcourus = rechercheDepuisDepart(depart);
