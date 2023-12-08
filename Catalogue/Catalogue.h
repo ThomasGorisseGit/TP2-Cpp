@@ -27,6 +27,11 @@ public:
     // Mode d'emploi :
     //      Appel de la méthode ajouter catalogue.Ajouter(trajet)
 
+    void AjouterMulti(TrajetSimple *trajet);
+    // Permet d'ajouter un trajet a la liste des trajets Multi, ne peut être que des trajets simples
+    // Mode d'emploi :
+    //      Appel de la méthode ajouter catalogue.Ajouter(trajet)
+
 
 
     void Afficher();
@@ -69,7 +74,7 @@ public:
 
 protected:
 
-    Liste<Trajet> *rechercheDepuisDepart(const char *depart);
+    Liste<Trajet> *rechercheDepuisDepart(const char *depart,Liste<Trajet> *listeARemplir);
     // Renvoie une liste de trajets qui partent du départ passé en paramètre.
     // Mode d'emploi : 
     // Utilisé dans les méthodes permettant une recherche avancee
@@ -85,6 +90,7 @@ protected:
 
     Liste<Trajet> *listeTrajet;
     // Attribut représentant la liste des trajets contenus dans un catalogue.
+    
 };
 
 #endif // Catalogue_H

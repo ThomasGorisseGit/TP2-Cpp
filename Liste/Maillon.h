@@ -49,6 +49,7 @@ Maillon<T>::~Maillon()
 #ifdef MAP
     cout << "Appel au destructeur de <Maillon>" << endl;
 #endif
+
     delete valeur;
 }
 

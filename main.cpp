@@ -16,6 +16,7 @@ using namespace std;
 
 int main()
 {
+    /*
     // Création d'un catalogue de trajets
     Catalogue catalogueTrajet;
 
@@ -63,6 +64,7 @@ int main()
                 TrajetSimple *trajetSimple = new TrajetSimple(depart, arrivee, moyenTransport); // Création du trajet simple
 
                 catalogueTrajet.Ajouter(trajetSimple); // Ajout du trajet simple au catalogue
+                catalogueTrajet.AjouterMulti(trajetSimple); //Ajoute à la liste multi du catalogue le trajet simple (Gabin)
                 delete[] depart;
                 delete[] arrivee;
                 delete[] moyenTransport;
@@ -108,12 +110,20 @@ int main()
 
                     TrajetSimple *trajetSimple = new TrajetSimple(departTrajetSimple, arriveTrajetSimple, moyenTransportTrajetSimple);
                     listeTrajetSimple.Ajouter(trajetSimple);
+
+                    catalogueTrajet.AjouterMulti(trajetSimple); //ajoute dans la liste multi du catalogue (Gabin)
                     delete[] moyenTransportTrajetSimple;
                     delete[] departTrajetSimple;
                     Etape++; // Incrémentation du numéro de l'étape
                 } while (strcmp(arriveTrajetSimple, arriveeTrajetCompose) != 0);
-
                 delete[] arriveTrajetSimple;
+
+                //Ajout du trajet composé au catalogue
+                TrajetCompose * trajetCompose = new TrajetCompose(listeTrajetSimple);
+                catalogueTrajet.Ajouter(trajetCompose);
+                delete trajetCompose;
+                
+                
 
                 cout << "Fin de la création du trajet composé" << endl;
             }
@@ -150,15 +160,16 @@ int main()
             cout << "Erreur, veuillez rentrer un choix valide" << endl;
             break;
         }
-    }
+    }*/
 
-    // Catalogue catalogueTrajet;
-    // catalogueTrajet.Ajouter(new TrajetSimple("Paris", "Lyon", "Train"));
-    // catalogueTrajet.Ajouter(new TrajetSimple("Lyon", "Marseille", "Train"));
-    // catalogueTrajet.Ajouter(new TrajetSimple("Lyon", "Cannes", "Train"));
+    Catalogue catalogueTrajet;
+    catalogueTrajet.Ajouter(new TrajetSimple("Paris", "Lyon", "Train"));
+    catalogueTrajet.Ajouter(new TrajetSimple("Lyon", "Marseille", "Train"));
+    catalogueTrajet.Ajouter(new TrajetSimple("Lyon", "Cannes", "Train"));
+    // catalogueTrajet.Ajouter(new TrajetSimple("Troucoin", "Marseille", "Train"));
     // catalogueTrajet.Ajouter(new TrajetSimple("Troucoin", "Cannes", "Train"));
-    // catalogueTrajet.Ajouter(new TrajetSimple("Marseille", "Cannes", "Train"));
-
-    // catalogueTrajet.initSearch("Paris", "Cannes");
+    // catalogueTrajet.Ajouter(new TrajetSimple("Marseille", "Nice", "Train"));
+    // catalogueTrajet.Ajouter(new TrajetSimple("Nice", "Lyon", "Train"));
+    catalogueTrajet.RechercheAvancee("Paris", "Cannes");
     return 0;
 }

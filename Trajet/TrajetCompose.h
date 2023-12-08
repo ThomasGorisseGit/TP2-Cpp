@@ -10,7 +10,7 @@ class TrajetCompose : public Trajet
 {
 
 public:
-    TrajetCompose(const Liste<TrajetSimple> & listeTrajetSimple);
+    TrajetCompose(Liste<TrajetSimple>  listeTrajetSimple);
 
     //void Ajouter(const TrajetSimple & trajet);
 
@@ -19,7 +19,7 @@ public:
     virtual ~TrajetCompose();
 
 protected:
-    const Liste<TrajetSimple> & ListeTrajetCompose;
+    Liste<TrajetSimple> * listeTrajetCompose;
     unsigned int * taille;
 };
 
