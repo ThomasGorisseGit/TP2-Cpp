@@ -160,7 +160,7 @@ void Liste<T>::Afficher() const
     Maillon<T> *courrent = tete;
     while (courrent != nullptr)
     {
-        // FIXME courrent->afficher(); // Ici, on suppose que la classe T possède une méthode afficher()
+        courrent->Afficher(); // Ici, on suppose que la classe T possède une méthode afficher()
         courrent = courrent->getSuivant();
     }
 }

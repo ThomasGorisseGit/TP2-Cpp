@@ -24,6 +24,11 @@ public:
     // Mode d'emploi :
     //       Appel de la méthode avec Mailon<T> maillon = maillon.getSuivant();
 
+    void Afficher() const;
+    // Méthode permettant d'appeller la méthode Afficher() de la valeur en supposant quelle existe
+    // Mode d'emploi :
+    //       Appel de la méthode avec Mailon<T> maillon = maillon.Afficher();
+
     inline void setSuivant(Maillon<T> *suivant) { this->suivant = suivant; }
     // Méthode permettant de modifier le maillon suivant
     // Methode définie avec inline pour optimiser le code
@@ -69,5 +74,11 @@ template <typename T>
 Maillon<T> *Maillon<T>::getSuivant() const
 {
     return suivant;
+}
+
+template <typename T>
+void Maillon<T>::Afficher() const
+{
+    valeur->Afficher();
 }
 #endif // MAILLON_H
