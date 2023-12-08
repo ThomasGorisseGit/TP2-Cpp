@@ -8,8 +8,8 @@ using namespace std;
 
 Catalogue::Catalogue(const Catalogue &unCatalogue)
 // Constructeur de copie d'un catalogue
-// Réalise une copie en profondeur 
-// Algorithme : 
+// Réalise une copie en profondeur
+// Algorithme :
 //      Parcours la liste des trajets d'un catalogue donné en paramètre,
 //      et les ajoute a la liste des trajets courrants.
 {
@@ -17,7 +17,6 @@ Catalogue::Catalogue(const Catalogue &unCatalogue)
     cout << "Appel au constructeur de copie de <Catalogue>" << endl;
 #endif
     this->listeTrajet = new Liste<Trajet>;
-    
 
     for (unsigned int i = 0; i < unCatalogue.listeTrajet->GetTaille(); i++)
     {
@@ -49,7 +48,7 @@ Catalogue::~Catalogue()
 
 void Catalogue::Ajouter(Trajet *trajet)
 // Méthode d'ajout d'un trajet à la liste courante.
-// Algorithme : 
+// Algorithme :
 //      Récupère le pointeur de trajet passé en paramètre et l'ajoute a la liste des trajets courant
 //      Grâce à la méthode ajouter de Liste
 {
@@ -58,7 +57,7 @@ void Catalogue::Ajouter(Trajet *trajet)
 
 void Catalogue::Afficher()
 // Méthode permettant d'afficher de manière sophistiquée (!= de brute) le contenu du catalogue.
-// Algorithme : 
+// Algorithme :
 //      Parcours la liste des trajets courants et appel de la méthode afficher de trajet.
 //      <!> Interdiction de surcharger l'opérateur '<<' <!>
 
@@ -71,29 +70,33 @@ void Catalogue::Afficher()
     cout << "-----------------------------------------------------------------" << endl;
 
     unsigned int i = 0;
-    cout << "nb Trajet " << this->listeTrajet->GetTaille() << endl;
+    if (this->listeTrajet->GetTaille() == 0)
+    {
+        cout << "Le catalogue est vide" << endl;
+    }
+
     while (i < this->listeTrajet->GetTaille())
     {
         this->listeTrajet->GetValeur(i)->Afficher();
         i++;
     }
-}// Fin de la méthode afficher
+} // Fin de la méthode afficher
 
 void Catalogue::Rechercher(const char *depart, const char *arrivee) const
 // Méthode de recherche simple qui trouvent des trajets ayant un départ et une arrivée égale aux constante données en paramètres.
 // Le retour de la méthode se fait dans la listeARemplir.
-// Algorithme : 
+// Algorithme :
 //      Parcours de la liste des trajets et comparaison des chaînes de caractère pour déterminer lesquels sont égales.
 //      On ajoute a la liste à remplir les trajets qui coincides avec les paramètres.
 {
-    
+
     unsigned int cptTrajet = 0;
-    //cout << "1 : " << listeTrajet->GetValeur(0)->GetDepart()  <<" Taille "<<  listeTrajet->GetTaille() <<endl;
+    // cout << "1 : " << listeTrajet->GetValeur(0)->GetDepart()  <<" Taille "<<  listeTrajet->GetTaille() <<endl;
     unsigned int taille = listeTrajet->GetTaille();
-    for (unsigned int i = 0; i < taille ; i++)
+    for (unsigned int i = 0; i < taille; i++)
     {
-        
-        if (strcmp(listeTrajet->GetValeur(i)->GetDepart(),depart) == 0 && strcmp(listeTrajet->GetValeur(i)->GetArrivee(), arrivee) == 0)
+
+        if (strcmp(listeTrajet->GetValeur(i)->GetDepart(), depart) == 0 && strcmp(listeTrajet->GetValeur(i)->GetArrivee(), arrivee) == 0)
         {
             listeTrajet->GetValeur(i)->Afficher();
             cptTrajet++;
@@ -104,9 +107,7 @@ void Catalogue::Rechercher(const char *depart, const char *arrivee) const
         cout << "Pas de trajet correspondant trouvé" << endl;
     }
 
-    
-}// Fin de la méthode de recherche de trajets
-
+} // Fin de la méthode de recherche de trajets
 
 void Catalogue::RechercheAvancee(const char *depart, const char *arrivee)
 // Méthode permettant la recherche avancee de trajets en combinant les arrivées et les départs afin de proposer un itinéraire optimal.
@@ -118,14 +119,13 @@ void Catalogue::RechercheAvancee(const char *depart, const char *arrivee)
 {
 
     Liste<Trajet> *listeTrajetParcourus = new Liste<Trajet>;
-    rechercheDepuisDepart(depart,listeTrajetParcourus);
+    rechercheDepuisDepart(depart, listeTrajetParcourus);
     Liste<Trajet> *listeARemplir = new Liste<Trajet>;
 
     // TODO : Split trajet compose en trajet simple || ! || STILL UP TO DATE 06/12
 
     this->trajetArrivantADestination(listeTrajetParcourus, arrivee, listeARemplir);
-    //On récupère grâce a cette méthode les trajets qui nous emmèneront jusqu'à l'arrivée
-
+    // On récupère grâce a cette méthode les trajets qui nous emmèneront jusqu'à l'arrivée
 
     // Reverse listeARemplir :
     Liste<Trajet> *listeARemplirReverse = new Liste<Trajet>;
@@ -168,7 +168,7 @@ bool Catalogue::trajetArrivantADestination(Liste<Trajet> *listeTrajetParcourus, 
         else
         {
             Liste<Trajet> *listeTrajetParcourus2 = new Liste<Trajet>;
-            rechercheDepuisDepart(listeTrajetParcourus->GetValeur(i)->GetArrivee(),listeTrajetParcourus2);
+            rechercheDepuisDepart(listeTrajetParcourus->GetValeur(i)->GetArrivee(), listeTrajetParcourus2);
             if (trajetArrivantADestination(listeTrajetParcourus2, arrivee, listeARemplir))
             {
                 listeARemplir->Ajouter(listeTrajetParcourus->GetValeur(i));
@@ -181,7 +181,7 @@ bool Catalogue::trajetArrivantADestination(Liste<Trajet> *listeTrajetParcourus, 
 }
 Liste<Trajet> *Catalogue::rechercheDepuisDepart(const char *depart, Liste<Trajet> *listeARemplir)
 {
-    //Liste<Trajet> *listeARemplir = new Liste<Trajet>;
+    // Liste<Trajet> *listeARemplir = new Liste<Trajet>;
     unsigned int taille = listeTrajet->GetTaille();
     for (unsigned int i = 0; i < taille; i++)
     {
