@@ -38,12 +38,7 @@ void Trajet::Afficher() const
     cout << "Depart | " << depart << " | \n Arrivee | " << arrivee << " |";
 }
 
-//------------------------------------------------- Surcharge d'opérateurs
-/*Trajet & Trajet::operator = ( const Trajet & unTrajet )
-// Algorithme :
-//
-{
-} //----- Fin de operator =*/
+
 
 //-------------------------------------------- Constructeurs - destructeur
 Trajet::Trajet(const char *DepartVille, const char *ArriveeVille)
@@ -58,14 +53,7 @@ Trajet::Trajet(const char *DepartVille, const char *ArriveeVille)
     strcpy(arrivee, ArriveeVille);
 } //----- Fin de Trajet
 
-/*Trajet::Trajet ( )
-// Algorithme :
-//
-{
-#ifdef MAP
-    cout << "Appel au constructeur de <Trajet>" << endl;
-#endif
-} //----- Fin de Trajet*/
+
 Trajet::Trajet(const Trajet &ref)
 {
 #ifdef MAP

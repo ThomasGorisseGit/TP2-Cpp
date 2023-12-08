@@ -79,22 +79,32 @@ void Catalogue::Afficher()
     }
 }// Fin de la méthode afficher
 
-void Catalogue::Rechercher(const char *depart, const char *arrivee, Liste<Trajet> &listeARemplir) const
+void Catalogue::Rechercher(const char *depart, const char *arrivee) const
 // Méthode de recherche simple qui trouvent des trajets ayant un départ et une arrivée égale aux constante données en paramètres.
 // Le retour de la méthode se fait dans la listeARemplir.
 // Algorithme : 
 //      Parcours de la liste des trajets et comparaison des chaînes de caractère pour déterminer lesquels sont égales.
 //      On ajoute a la liste à remplir les trajets qui coincides avec les paramètres.
 {
+    
+    unsigned int cptTrajet = 0;
+    //cout << "1 : " << listeTrajet->GetValeur(0)->GetDepart()  <<" Taille "<<  listeTrajet->GetTaille() <<endl;
     unsigned int taille = listeTrajet->GetTaille();
-    for (unsigned int i = 0; i < taille - 1; i++)
+    for (unsigned int i = 0; i < taille ; i++)
     {
-        // TODO : Tester et voir si le egal marche comparé aux strcmp
-        if (strcmp(listeTrajet->GetValeur(i)->GetDepart(), depart) == 0 && strcmp(listeTrajet->GetValeur(i)->GetArrivee(), arrivee) == 0)
+        
+        if (strcmp(listeTrajet->GetValeur(i)->GetDepart(),depart) == 0 && strcmp(listeTrajet->GetValeur(i)->GetArrivee(), arrivee) == 0)
         {
-            listeARemplir.Ajouter(listeTrajet->GetValeur(i));
+            listeTrajet->GetValeur(i)->Afficher();
+            cptTrajet++;
         }
     }
+    if (!cptTrajet)
+    {
+        cout << "Pas de trajet correspondant trouvé" << endl;
+    }
+
+    
 }// Fin de la méthode de recherche de trajets
 
 

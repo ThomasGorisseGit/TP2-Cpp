@@ -7,6 +7,11 @@ using namespace std;
 
 // TrajetSimple::Afficher
 
+char *TrajetSimple::GetTransport() const
+{
+    return transport;
+}
+
 void TrajetSimple::Afficher() const
 {
     cout << "Trajet partant de " << depart << " allant à " << arrivee << " en " << transport << endl;
@@ -17,7 +22,7 @@ void TrajetSimple::AfficherPetit() const
     cout << depart << " -> " << arrivee << " en " << transport << endl;
 }
 
-TrajetSimple::TrajetSimple(const char *Depart, const char *Arrivee, const char *M_transport) : Trajet(Depart, Arrivee)
+TrajetSimple::TrajetSimple(const char *Depart, const char *Arrivee, char *M_transport) : Trajet(Depart, Arrivee)
 {
 #ifdef MAP
     cout << "Appel au constructeur de <TrajetSimple>" << endl;

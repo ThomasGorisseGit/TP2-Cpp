@@ -19,6 +19,7 @@ public:
     
     Maillon<T>* getSuivant() const;
     inline void setSuivant(Maillon<T> *suivant) { this->suivant = suivant; }
+    void Afficher() const;
 
     /**
      * @brief Destructeur de la classe Maillon
@@ -64,5 +65,11 @@ template <typename T>
 Maillon<T>* Maillon<T>::getSuivant() const
 {
     return suivant;
+}
+
+template <typename T>
+void Maillon<T>::Afficher() const
+{
+    this->valeur->Afficher(); //on suppose que l'élement dans le maillon possède une méthode afficher
 }
 #endif // MAILLON_H

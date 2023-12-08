@@ -16,7 +16,7 @@ using namespace std;
 
 int main()
 {
-    /*
+    
     // Création d'un catalogue de trajets
     Catalogue catalogueTrajet;
 
@@ -25,8 +25,9 @@ int main()
         cout << "Que voulez-vous faire ?" << endl;
         cout << "1. Afficher le catalogue" << endl;
         cout << "2. Ajouter un trajet au catalogue" << endl;
-        cout << "3. Rechercher un trajet" << endl;
-        cout << "4. Quitter" << endl;
+        cout << "3. Rechercher simple d'un trajet" << endl;
+        cout << "4. Recherche avancée d'un trajet"<<endl;
+        cout << "5. Quitter" << endl;
 
         int choix;
         cin >> choix; // Choix de l'utilisateur
@@ -64,7 +65,7 @@ int main()
                 TrajetSimple *trajetSimple = new TrajetSimple(depart, arrivee, moyenTransport); // Création du trajet simple
 
                 catalogueTrajet.Ajouter(trajetSimple); // Ajout du trajet simple au catalogue
-                catalogueTrajet.AjouterMulti(trajetSimple); //Ajoute à la liste multi du catalogue le trajet simple (Gabin)
+                //catalogueTrajet.AjouterMulti(trajetSimple); //Ajoute à la liste multi du catalogue le trajet simple (Gabin)
                 delete[] depart;
                 delete[] arrivee;
                 delete[] moyenTransport;
@@ -111,7 +112,7 @@ int main()
                     TrajetSimple *trajetSimple = new TrajetSimple(departTrajetSimple, arriveTrajetSimple, moyenTransportTrajetSimple);
                     listeTrajetSimple.Ajouter(trajetSimple);
 
-                    catalogueTrajet.AjouterMulti(trajetSimple); //ajoute dans la liste multi du catalogue (Gabin)
+                    //catalogueTrajet.AjouterMulti(trajetSimple); //ajoute dans la liste multi du catalogue (Gabin)
                     delete[] moyenTransportTrajetSimple;
                     delete[] departTrajetSimple;
                     Etape++; // Incrémentation du numéro de l'étape
@@ -134,7 +135,6 @@ int main()
             }
             break;
         }
-
         case 3:
         {
             // Recherche d'un trajet
@@ -145,12 +145,32 @@ int main()
             char *arrivee = new char[MAX];
             cin >> arrivee;
 
-            catalogueTrajet.RechercheAvancee(depart, arrivee); // Recherche du trajet
+            catalogueTrajet.Rechercher(depart, arrivee); // Recherche du trajet simple
+        
+            
+            
             delete[] depart;
             delete[] arrivee;
             break;
         }
         case 4:
+        {
+            // Recherche d'un trajet
+            cout << "Veuillez rentrer le départ du trajet souhaité : " << endl;
+            char *depart = new char[MAX];
+            cin >> depart;
+            cout << "Veuillez rentrer l'arrivée du trajet souhaité : " << endl;
+            char *arrivee = new char[MAX];
+            cin >> arrivee;
+
+            
+            catalogueTrajet.RechercheAvancee(depart, arrivee); // Recherche du trajet
+            delete[] depart;
+            delete[] arrivee;
+            break;
+        }
+        
+        case 5:
             // Quitter le programme
             cout << "Fin du programme" << endl;
             return 0;
@@ -160,16 +180,21 @@ int main()
             cout << "Erreur, veuillez rentrer un choix valide" << endl;
             break;
         }
-    }*/
+    }
 
-    Catalogue catalogueTrajet;
-    catalogueTrajet.Ajouter(new TrajetSimple("Paris", "Lyon", "Train"));
-    catalogueTrajet.Ajouter(new TrajetSimple("Lyon", "Marseille", "Train"));
-    catalogueTrajet.Ajouter(new TrajetSimple("Lyon", "Cannes", "Train"));
+    // Catalogue catalogueTrajet;
+    // catalogueTrajet.Ajouter(new TrajetSimple("Paris", "Lyon", "Train"));
+    // Liste<Trajet> * liste= new Liste<Trajet>;
+    // catalogueTrajet.Rechercher("Paris", "Lyon", *liste);
+    // liste->Afficher();
+
+    //catalogueTrajet.Ajouter(new TrajetSimple("Lyon", "Marseille", "Train"));
+    //catalogueTrajet.Ajouter(new TrajetSimple("Lyon", "Cannes", "Train"));
     // catalogueTrajet.Ajouter(new TrajetSimple("Troucoin", "Marseille", "Train"));
     // catalogueTrajet.Ajouter(new TrajetSimple("Troucoin", "Cannes", "Train"));
     // catalogueTrajet.Ajouter(new TrajetSimple("Marseille", "Nice", "Train"));
     // catalogueTrajet.Ajouter(new TrajetSimple("Nice", "Lyon", "Train"));
-    catalogueTrajet.RechercheAvancee("Paris", "Cannes");
+    //catalogueTrajet.RechercheAvancee("Paris", "Cannes");
+    cout << "      "<<endl;
     return 0;
 }

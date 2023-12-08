@@ -48,8 +48,9 @@ public:
     //      Ajouter une liste de trajets au catalogue et entrez : catalogue.RechercheAvancee("depart","arrivee");
 
 
-    void Rechercher(const char *depart, const char *arrivee, Liste<Trajet> &ListeARemplir) const;
+    void Rechercher(const char *depart, const char *arrivee) const;
     // Permet au programme de rechercher un trajet qui part d'un départ et arrive à une arrivée. 
+    //renvoi true si un trajet a été trouvé
     // Le catalogue renverra la liste des trajets qui font exactement cet itinéraire.
     // Il ne permettera pas de changer de Trajet pour combiner des possibilitées.
 
