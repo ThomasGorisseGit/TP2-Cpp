@@ -10,54 +10,47 @@ template <typename T>
 class Liste
 {
 public:
-    /**
-     * @brief Constructeur par défaut de la classe Liste
-     *
-     */
     Liste();
+    // Constructeur par défaut de la classe Liste
+    // Mode d'emploi :
+    //       Appel du constructeur par défaut de la classe Liste avec Liste<T> liste;
 
-    /**
-     * @brief Destructeur de la classe Liste
-     *
-     */
     virtual ~Liste();
+    // Destructeur de la classe Liste
 
-    /**
-     * @brief Retourne la valeur du maillon à l'index passé en paramètre
-     *
-     * @param index L'index du maillon dont on veut la valeur
-     */
-    T* GetValeur(unsigned int index) const;
+    T *GetValeur(unsigned int index) const;
+    // Méthode permettant de retourner la valeur du maillon à l'index passé en paramètre
+    // Il prend en paramètre l'index du maillon dont on veut la valeur
+    // Mode d'emploi :
+    //       Appel de la méthode avec liste.GetValeur(index);
 
-    /**
-     * @brief Retourne la taille de la liste
-     *
-     * @return La taille de la liste
-     */
     unsigned int GetTaille() const;
+    // Méthode permettant de retourner la taille de la liste
+    // Mode d'emploi :
+    //       Appel de la méthode avec int taille=liste.GetTaille();
 
-    /**
-     * @brief Ajoute un élément à la fin de la liste chaînée
-     *
-     * @param valeur Le Trajet à ajouter à la liste
-     */
-    void Ajouter(T* valeur);
+    void Ajouter(T *valeur);
+    // Méthode permettant d'ajouter un élément à la fin de la liste chaînée
+    // Il prend en paramètre le trajet à ajouter à la liste
+    // Mode d'emploi :
+    //       Appel de la méthode avec liste.Ajouter(trajet);
 
-    void Ajouter(Liste<T> * liste);
+    void Ajouter(Liste<T> *liste);
+    // Méthode permettant d'ajouter une liste à la fin de la liste chaînée
+    // Il prend en paramètre la liste à ajouter à la liste
+    // Mode d'emploi :
+    //       Appel de la méthode avec liste.Ajouter(liste);
 
-    /**
-     * @brief Permet de rechercher un Trajet dans la liste
-     *
-     * @param valeur Le Trajet à rechercher dans la liste
-     * @return true Si le Trajet est présent dans la liste, false sinon
-     */
     bool Rechercher(const T *valeur) const;
+    // Méthode permettant de rechercher un trajet dans la liste
+    // Il prend en paramètre le trajet à rechercher dans la liste
+    // Il retourne true si le trajet est présent dans la liste, false sinon
+    // Mode d'emploi :
+    //       Appel de la méthode avec liste.Rechercher(trajet);
 
-    /**
-     * @brief Permet d'afficher la liste
-     *
-     */
     void Afficher() const;
+    // Méthode permettant d'afficher la liste
+    // Mode d'emploi :
 
 protected:
     unsigned int taille;
@@ -82,7 +75,6 @@ Liste<T>::~Liste()
     cout << "Appel au destructeur de <Liste>" << endl;
 #endif
     // On parcourt la liste et on supprime chaque maillon
-    // TODO : vérifier que ça marche
     Maillon<T> *courrent = tete;
     while (courrent != nullptr)
     {
@@ -93,7 +85,7 @@ Liste<T>::~Liste()
 }
 
 template <typename T>
-T* Liste<T>::GetValeur(unsigned int index) const
+T *Liste<T>::GetValeur(unsigned int index) const
 {
     Maillon<T> *courrent = tete;
     unsigned int i = 0;
@@ -116,7 +108,7 @@ unsigned int Liste<T>::GetTaille() const
 }
 
 template <typename T>
-void Liste<T>::Ajouter(T* valeur)
+void Liste<T>::Ajouter(T *valeur)
 {
     // On crée un nouveau maillon avec la valeur passée en paramètre (il sera placé à la fin de la liste)
     Maillon<T> *nouveauMaillon = new Maillon<T>(valeur, nullptr);
@@ -139,7 +131,8 @@ void Liste<T>::Ajouter(T* valeur)
 }
 
 template <typename T>
-void Liste<T>::Ajouter(Liste<T> * liste){
+void Liste<T>::Ajouter(Liste<T> *liste)
+{
     for (unsigned int i = 0; i < liste->GetTaille(); i++)
     {
         this->Ajouter(liste->GetValeur(i));
@@ -167,7 +160,7 @@ void Liste<T>::Afficher() const
     Maillon<T> *courrent = tete;
     while (courrent != nullptr)
     {
-        courrent->Afficher(); // Ici, on suppose que la classe T possède une méthode Afficher()
+        // FIXME courrent->afficher(); // Ici, on suppose que la classe T possède une méthode afficher()
         courrent = courrent->getSuivant();
     }
 }

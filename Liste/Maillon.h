@@ -7,31 +7,36 @@ template <typename T>
 class Maillon
 {
 public:
-    /**
-     * @brief Constructeur de la classe Maillon
-     *
-     * @param valeur Le Trajet lié au maillon
-     * @param suivant Le maillon suivant
-     */
     Maillon(T *valeur = nullptr, Maillon *suivant = nullptr);
-    
-    T* getValeur() const;
-    
-    Maillon<T>* getSuivant() const;
-    inline void setSuivant(Maillon<T> *suivant) { this->suivant = suivant; }
-    void Afficher() const;
+    // Constructeur de la classe Maillon
+    // Il prend en paramètre le trajet lié au maillon et le maillon suivant
+    // Les valeurs par défaut sont nullptr pour le trajet et le maillon suivant
+    // Mode d'emploi :
+    //       Appel du constructeur avec Maillon<T> maillon;
 
-    /**
-     * @brief Destructeur de la classe Maillon
-     *
-     */
+    T *getValeur() const;
+    // Méthode permettant de retourner la valeur du maillon
+    // Mode d'emploi :
+    //       Appel de la méthode avec Mailon<T> maillon = maillon.getValeur();
+
+    Maillon<T> *getSuivant() const;
+    // Méthode permettant de retourner le maillon suivant
+    // Mode d'emploi :
+    //       Appel de la méthode avec Mailon<T> maillon = maillon.getSuivant();
+
+    inline void setSuivant(Maillon<T> *suivant) { this->suivant = suivant; }
+    // Méthode permettant de modifier le maillon suivant
+    // Methode définie avec inline pour optimiser le code
+    // Mode d'emploi :
+    //       Appel de la méthode avec maillon.setSuivant(suivant);
+
     virtual ~Maillon();
+    // Destructeur de la classe Maillon
 
 private:
     T *valeur;
     Maillon *suivant;
 };
-
 
 template <typename T>
 Maillon<T>::Maillon(T *valeur, Maillon *suivant)
@@ -55,21 +60,14 @@ Maillon<T>::~Maillon()
 }
 
 template <typename T>
-T* Maillon<T>::getValeur() const
+T *Maillon<T>::getValeur() const
 {
     return valeur;
 }
 
-
 template <typename T>
-Maillon<T>* Maillon<T>::getSuivant() const
+Maillon<T> *Maillon<T>::getSuivant() const
 {
     return suivant;
-}
-
-template <typename T>
-void Maillon<T>::Afficher() const
-{
-    this->valeur->Afficher(); //on suppose que l'élement dans le maillon possède une méthode afficher
 }
 #endif // MAILLON_H
