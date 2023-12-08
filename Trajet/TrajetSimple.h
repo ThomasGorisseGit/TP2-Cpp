@@ -11,6 +11,11 @@ public:
     char *GetTransport() const;
     void Afficher() const;
     void AfficherPetit() const;
+
+    virtual unsigned int GetTailleTrajet() const;
+    virtual int GetType() const;
+    
+
     virtual ~TrajetSimple();
 
 protected:

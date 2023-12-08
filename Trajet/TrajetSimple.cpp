@@ -19,7 +19,7 @@ void TrajetSimple::Afficher() const
 
 void TrajetSimple::AfficherPetit() const
 {
-    cout << depart << " -> " << arrivee << " en " << transport << endl;
+    cout << depart << " à " << arrivee << " en " << transport;
 }
 
 TrajetSimple::TrajetSimple(const char *Depart, const char *Arrivee, char *M_transport) : Trajet(Depart, Arrivee)
@@ -38,6 +38,19 @@ TrajetSimple::TrajetSimple(const TrajetSimple &ref) : Trajet(ref)
     this->transport = new char[strlen(ref.transport) + 1];
     strcpy(this->transport, ref.transport);
 }
+
+int TrajetSimple::GetType() const 
+{
+    return Simple; //enum = 0 
+}
+
+unsigned int TrajetSimple::GetTailleTrajet() const
+{
+    return 1; //taille d'un trajet simple par défaut
+}
+
+
+
 
 TrajetSimple::~TrajetSimple()
 // Algorithme :

@@ -10,11 +10,18 @@ class TrajetCompose : public Trajet
 {
 
 public:
-    TrajetCompose(Liste<TrajetSimple>  listeTrajetSimple);
+    TrajetCompose(Liste<TrajetSimple>  & listeTrajetSimple);
 
     //void Ajouter(const TrajetSimple & trajet);
 
+    void Decompose(Liste<TrajetSimple> & listeTrajetSimple);
+
     void Afficher() const;
+
+
+    virtual int GetType() const;
+    virtual unsigned int GetTailleTrajet() const;
+    Trajet * GetTrajetSimple(unsigned int indice) const;
 
     virtual ~TrajetCompose();
 

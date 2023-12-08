@@ -8,15 +8,17 @@ using namespace std;
 
 void TrajetCompose::Afficher() const
 {
-    cout << "Affiche du compose" << endl;
+    //*taille = listeTrajetCompose->GetTaille();
     for (unsigned int i = 0; i < *taille; i++)
     {
         listeTrajetCompose->GetValeur(i)->AfficherPetit();
-        cout << "Affichage composé" << endl;
+        if (i < *taille -1) cout << " puis ";
+        else cout << endl;
+        
     }
 }
 
-TrajetCompose::TrajetCompose(Liste<TrajetSimple> listeTrajetSimple) : Trajet(listeTrajetSimple.GetValeur(0)->GetDepart(), listeTrajetSimple.GetValeur(listeTrajetSimple.GetTaille() - 1)->GetArrivee())
+TrajetCompose::TrajetCompose(Liste<TrajetSimple> & listeTrajetSimple) : Trajet(listeTrajetSimple.GetValeur(0)->GetDepart(), listeTrajetSimple.GetValeur(listeTrajetSimple.GetTaille() - 1)->GetArrivee())
 {
 #ifdef MAP
     cout << "Appel au constructeur de <TrajetCompose>" << endl;
@@ -28,9 +30,37 @@ TrajetCompose::TrajetCompose(Liste<TrajetSimple> listeTrajetSimple) : Trajet(lis
 
     for (unsigned int i = 0; i < *taille; i++)
     {
-        listeTrajetCompose->Ajouter(listeTrajetSimple.GetValeur(i));
+        TrajetSimple * trajetSimpleTMP = new TrajetSimple(*listeTrajetSimple.GetValeur(i));
+        listeTrajetCompose->Ajouter(trajetSimpleTMP);
     }
 }
+
+void TrajetCompose::Decompose(Liste<TrajetSimple> & listeTrajetSimple)
+{
+
+    for (unsigned int i = 0; i < *taille; i++)
+    {
+        listeTrajetSimple.Ajouter(listeTrajetCompose->GetValeur(i)); //Ajoute tt les trajets simples à la liste donnée
+    }
+
+}
+
+unsigned int TrajetCompose::GetTailleTrajet() const
+{
+    return *taille;
+}
+
+Trajet* TrajetCompose::GetTrajetSimple(unsigned int indice) const
+{
+    return listeTrajetCompose->GetValeur(indice);
+}
+
+int TrajetCompose::GetType() const 
+{
+    return Compose; //enum = 1 
+}
+
+
 
 TrajetCompose::~TrajetCompose()
 {

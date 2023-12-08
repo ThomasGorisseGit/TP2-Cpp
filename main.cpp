@@ -88,10 +88,11 @@ int main()
                 cin >> arriveeTrajetCompose;
 
                 char *arriveTrajetSimple = new char[MAX];
+                char *departTrajetSimple = new char[MAX];
+                char *moyenTransportTrajetSimple = new char[MAX];
                 do
                 {
-                    char *departTrajetSimple = new char[MAX];
-                    char *moyenTransportTrajetSimple = new char[MAX];
+                    
 
                     // Si on ajoute le premier trajet simple, on récupère le départ du trajet global
                     if (isFirstEtape)
@@ -115,18 +116,19 @@ int main()
                     listeTrajetSimple.Ajouter(trajetSimple);
 
                     // catalogueTrajet.AjouterMulti(trajetSimple); //ajoute dans la liste multi du catalogue (Gabin)
-                    delete[] moyenTransportTrajetSimple;
-                    delete[] departTrajetSimple;
+                    
                     Etape++;
 
                 } while (strcmp(arriveTrajetSimple, arriveeTrajetCompose) != 0); // Tant que l'arrivée du trajet simple est différente de l'arrivée du trajet global
-
+                delete[] moyenTransportTrajetSimple;
+                delete[] departTrajetSimple;
                 delete[] arriveTrajetSimple;
+                delete[] departTrajetCompose;
+                delete[] arriveeTrajetCompose;
 
                 // Ajout du trajet composé au catalogue
                 TrajetCompose *trajetCompose = new TrajetCompose(listeTrajetSimple);
                 catalogueTrajet.Ajouter(trajetCompose);
-                delete trajetCompose;
 
                 cout << "Fin de la création du trajet composé" << endl
                      << endl;

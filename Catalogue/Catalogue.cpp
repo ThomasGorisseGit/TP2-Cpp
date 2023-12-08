@@ -182,12 +182,28 @@ bool Catalogue::trajetArrivantADestination(Liste<Trajet> *listeTrajetParcourus, 
 Liste<Trajet> *Catalogue::rechercheDepuisDepart(const char *depart, Liste<Trajet> *listeARemplir)
 {
     // Liste<Trajet> *listeARemplir = new Liste<Trajet>;
+    //Liste<TrajetSimple> *listeMultiSimple
     unsigned int taille = listeTrajet->GetTaille();
     for (unsigned int i = 0; i < taille; i++)
     {
         if (strcmp(listeTrajet->GetValeur(i)->GetDepart(), depart) == 0)
         {
+            if (listeTrajet->GetValeur(i)->GetType() == 0) //est un trajet simple
             listeARemplir->Ajouter(listeTrajet->GetValeur(i));
+
+            else
+            {
+                //Si on tombe sur un trajet compose, on ajoute tous les trajets simples 
+                //compris dans ce trajet composé
+
+                unsigned int tailleTrajetCompose = listeTrajet->GetValeur(i)->GetTailleTrajet();
+                for (unsigned int j = 0; j < tailleTrajetCompose; j++)
+                {
+                    listeARemplir->Ajouter(listeTrajet->GetValeur(i)->GetTrajetSimple(j));
+                }
+            }
+
+
         }
     }
     return listeARemplir;

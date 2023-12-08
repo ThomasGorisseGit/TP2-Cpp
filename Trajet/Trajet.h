@@ -28,7 +28,7 @@ class Trajet
 
 public:
     //----------------------------------------------------- Méthodes publiques
-
+    
     // Méthode de type Get
     // Elle permet d'accéder au départ d'un trajet.
     char *GetDepart() const;
@@ -67,6 +67,15 @@ public:
 
     Trajet( const Trajet& ref);
 
+    virtual unsigned int GetTailleTrajet() const; //renvoi 0 si appelé sur un Trajet (ni simple ni compose)
+
+    virtual Trajet * GetTrajetSimple(unsigned int indice) const; //renvoi nullptr si appellé sur un Trajet (ni simple ni compose)
+
+
+    virtual int GetType() const;
+   
+
+
     virtual ~Trajet();
     // Mode d'emploi :
     //
@@ -81,6 +90,8 @@ protected:
     //----------------------------------------------------- Attributs protégés
     char *depart;
     char *arrivee;
+    enum typeTrajet  {SansType = 0, Simple = 1, Compose = 2}; //SansType = Appel de GetType sur un Trajet (ni simple ni compose)
+    
 };
 
 //-------------------------------- Autres définitions dépendantes de <Trajet>
