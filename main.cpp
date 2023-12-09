@@ -4,6 +4,8 @@
 #include "Trajet/Trajet.h"
 #include "Trajet/TrajetSimple.h"
 #include "Trajet/TrajetCompose.h"
+
+
 #define MAX 50
 
 // Couleurs pour l'affichage
@@ -42,7 +44,7 @@ int main()
 
             // Effacer le tampon d'entrée jusqu'à la nouvelle ligne
             cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cin.ignore(2147483647, '\n');
 
             // Ignorer la suite du code et demander à nouveau la saisie
             continue;
