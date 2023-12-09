@@ -119,15 +119,34 @@ void Catalogue::Rechercher(const char *depart, const char *arrivee) const
     for (unsigned int i = 0; i < taille; i++)
     {
 
-        if (strcmp(listeTrajet->GetValeur(i)->GetDepart(), depart) == 0 && strcmp(listeTrajet->GetValeur(i)->GetArrivee(), arrivee) == 0)
+        if (listeTrajet->GetValeur(i)->GetType() == 1) // est un trajet simple
+            {
+                if (strcmp(listeTrajet->GetValeur(i)->GetDepart(), depart) == 0 && strcmp(listeTrajet->GetValeur(i)->GetArrivee(), arrivee) == 0)
+                {
+                    listeTrajet->GetValeur(i)->Afficher();
+                    cptTrajet++;
+                }
+            }
+
+        else
         {
-            listeTrajet->GetValeur(i)->Afficher();
-            cptTrajet++;
+            // Si on tombe sur un trajet compose, on ajoute tous les trajets simples
+            // compris dans ce trajet composé
+            unsigned int tailleTrajetCompose = listeTrajet->GetValeur(i)->GetTailleTrajet();
+            for (unsigned int j = 0; j < tailleTrajetCompose; j++)
+            {
+                if (strcmp(listeTrajet->GetValeur(i)->GetTrajetSimple(j)->GetDepart(), depart) == 0 && strcmp(listeTrajet->GetValeur(i)->GetTrajetSimple(j)->GetArrivee(), arrivee) == 0)
+            {
+                listeTrajet->GetValeur(i)->GetTrajetSimple(j)->Afficher();
+                cptTrajet++;
+            }
+            }
+            
         }
     }
     if (!cptTrajet)
     {
-        cout << "Pas de trajet correspondant trouvé" << endl;
+        cout << "Pas de trajet correspondant trouvé parmis les "<< taille << " trajets." << endl;
     }
 
 } // Fin de la méthode de recherche de trajets
@@ -143,15 +162,20 @@ void Catalogue::RechercheAvancee(const char *depart, const char *arrivee)
 
     Liste<TrajetSimple> *listeTrajetParcourus = new Liste<TrajetSimple>;
     rechercheDepuisDepart(depart, listeTrajetParcourus);
+    unsigned tailledebug = listeTrajetParcourus->GetTaille();
+    cout << "Taille finale : " << tailledebug << endl;
+    listeTrajetParcourus->Afficher();
     Liste<TrajetSimple> *listeARemplir = new Liste<TrajetSimple>;
 
     // TODO : Split trajet compose en trajet simple || ! || STILL UP TO DATE 06/12
 
     this->trajetArrivantADestination(listeTrajetParcourus, arrivee, listeARemplir);
     // On récupère grâce a cette méthode les trajets qui nous emmèneront jusqu'à l'arrivée
-
+    
     // Reverse listeARemplir :
     Liste<TrajetSimple> *listeARemplirReverse = new Liste<TrajetSimple>;
+    
+
     unsigned int taille = listeARemplir->GetTaille();
     for (unsigned int i = 0; i < taille; i++)
     {
@@ -159,6 +183,7 @@ void Catalogue::RechercheAvancee(const char *depart, const char *arrivee)
         listeARemplirReverse->Ajouter(TrajetSimpleRemplissage);
         // listeARemplirReverse->Ajouter(listeARemplir->GetValeur(taille - i - 1));
     }
+    
     unsigned int i = 0;
     while (i < listeARemplirReverse->GetTaille())
     {
@@ -233,12 +258,15 @@ Liste<TrajetSimple> *Catalogue::rechercheDepuisDepart(const char *depart, Liste<
             {
                 // Si on tombe sur un trajet compose, on ajoute tous les trajets simples
                 // compris dans ce trajet composé
-                cout << "Utilise un trajet Composes" << endl;
+                
+                
                 unsigned int tailleTrajetCompose = listeTrajet->GetValeur(i)->GetTailleTrajet();
+                cout << "Utilise un trajet Composes de taille " << tailleTrajetCompose << endl;
                 for (unsigned int j = 0; j < tailleTrajetCompose; j++)
                 {
                     TrajetSimple *TrajetSimpleRemplissage = new TrajetSimple(*listeTrajet->GetValeur(i)->GetTrajetSimple(j), listeTrajet->GetValeur(i)->GetTrajetSimple(j)->GetTransport());
                     listeARemplir->Ajouter(TrajetSimpleRemplissage);
+                    cout << "Ajoute i : " << i << " j : " << j << endl;
                 }
                 cout << "Fin du remplissage multiple" << endl;
             }
@@ -262,3 +290,41 @@ void Catalogue::GetTrajetSimpleEtCompose(Liste<Trajet> *listeTrajetSimple, Liste
         }
     }
 }
+
+
+// Fonction récursive de recherche d'itinéraires entre deux points
+void Catalogue::RechercheAvanceeGabin(const char *depart, const char *arrivee, Liste<TrajetSimple> & itineraires, Liste<TrajetSimple> & itineraireActuel)
+{
+    // Si la liste d'itinéraires actuelle atteint la destination, l'ajouter à la liste complète d'itinéraires
+    if (itineraireActuel.GetTaille() > 0 && itineraireActuel.GetValeur(itineraireActuel.GetTaille() - 1)->GetArrivee() == arrivee)
+    {
+        itineraires.Ajouter(&itineraireActuel);
+        return;
+    }
+
+    // Recherche récursive des itinéraires possibles à partir du dernier point de l'itinéraire actuel
+    Trajet* dernierTrajet = itineraireActuel.GetTaille() > 0 ? itineraireActuel.GetValeur(itineraireActuel.GetTaille() - 1) : nullptr;
+
+    for (unsigned int i = 0; i < listeTrajet->GetTaille(); ++i)
+    {
+        TrajetSimple* trajet = new TrajetSimple(*listeTrajet->GetValeur(i),listeTrajet->GetValeur(i)->GetTransport());
+
+        // Vérifier si le départ du trajet correspond au dernier point de l'itinéraire actuel
+        if (trajet->GetDepart() == (dernierTrajet ? dernierTrajet->GetArrivee() : depart))
+        {
+            // Éviter les boucles infinies en vérifiant si le trajet n'a pas déjà été inclus dans l'itinéraire actuel
+            if (!itineraireActuel.Rechercher(trajet))
+            {
+                // Ajouter le trajet à l'itinéraire actuel
+                itineraireActuel.Ajouter(trajet);
+
+                // Recherche récursive pour l'itinéraire suivant
+                RechercheAvanceeGabin(depart, arrivee, itineraires, itineraireActuel);
+
+                // Retirer le trajet de l'itinéraire actuel pour explorer d'autres possibilités
+                itineraireActuel.Erase(itineraireActuel.GetTaille() - 1);
+            }
+        }
+    }
+}
+
