@@ -69,6 +69,10 @@ public:
     // Mode d'emploi :
     //      Appel de la méthode catalogue.getTrajetSimpleEtCompose(listeTrajetSimple,listeTrajetCompose)
 
+    void Simplification();
+    //Fonction qui prend tous les trajets compose dans la liste et les transforme en trajet simple
+    //dans listeTrajetEnSimple
+
 protected:
     Liste<TrajetSimple> *rechercheDepuisDepart(const char *depart, Liste<TrajetSimple> *listeARemplir);
     // Renvoie une liste de trajets qui partent du départ passé en paramètre.
@@ -82,7 +86,10 @@ protected:
     // Cette méthode est utilisée dans les méthodes de recherche avancee
     // Méthode privée.
 
+   
+
     Liste<Trajet> *listeTrajet;
+    Liste<TrajetSimple> *listeTrajetEnSimple;
     // Attribut représentant la liste des trajets contenus dans un catalogue.
 };
 

@@ -39,6 +39,7 @@ Catalogue::Catalogue()
     cout << "Appel au constructeur de <Catalogue>" << endl;
 #endif
     this->listeTrajet = new Liste<Trajet>;
+    this->listeTrajetEnSimple = new Liste<TrajetSimple>;
 } //----- Fin de Catalogue (Constructeur par défaut)
 
 Catalogue::~Catalogue()
@@ -49,6 +50,7 @@ Catalogue::~Catalogue()
     cout << "Appel au destructeur de <Catalogue>" << endl;
 #endif
     delete listeTrajet;
+    delete listeTrajetEnSimple;
 } //----- Fin de ~Catalogue (Destructeur de catalogue)
 
 void Catalogue::Ajouter(Trajet *trajet)
@@ -298,39 +300,95 @@ void Catalogue::GetTrajetSimpleEtCompose(Liste<Trajet> *listeTrajetSimple, Liste
 }
 
 
+void Catalogue::Simplification()
+{
+    delete listeTrajetEnSimple;
+    listeTrajetEnSimple = new Liste<TrajetSimple>;
+    unsigned int taille = listeTrajet->GetTaille();
+    for (unsigned int i = 0; i < taille; i++)
+    {
+            
+            if (listeTrajet->GetValeur(i)->GetType() == 1) // est un trajet simple
+            {
+                TrajetSimple *TrajetSimpleRemplissage = new TrajetSimple(*listeTrajet->GetValeur(i), listeTrajet->GetValeur(i)->GetTransport());
+                listeTrajetEnSimple->Ajouter(TrajetSimpleRemplissage);
+                
+            }
+
+            else
+            {
+                // Si on tombe sur un trajet compose, on ajoute tous les trajets simples
+                // compris dans ce trajet composé
+                
+                unsigned int tailleTrajetCompose = listeTrajet->GetValeur(i)->GetTailleTrajet();
+                for (unsigned int j = 0; j < tailleTrajetCompose; j++)
+                {
+                    TrajetSimple *TrajetSimpleRemplissage = new TrajetSimple(*listeTrajet->GetValeur(i)->GetTrajetSimple(j), listeTrajet->GetValeur(i)->GetTrajetSimple(j)->GetTransport());
+                    listeTrajetEnSimple->Ajouter(TrajetSimpleRemplissage);
+                   
+                }
+                
+            }
+        
+    }
+}
+
 // Fonction récursive de recherche d'itinéraires entre deux points
 void Catalogue::RechercheAvanceeGabin(const char *depart, const char *arrivee, Liste<TrajetSimple> & itineraires, Liste<TrajetSimple> & itineraireActuel)
 {
+    
+    //listeTrajetEnSimple->Afficher();
+    cout << "Recherche d'un trajet partant de : " << depart << " à " << arrivee << endl;
+    
     // Si la liste d'itinéraires actuelle atteint la destination, l'ajouter à la liste complète d'itinéraires
-    if (itineraireActuel.GetTaille() > 0 && itineraireActuel.GetValeur(itineraireActuel.GetTaille() - 1)->GetArrivee() == arrivee)
+    if (itineraireActuel.GetTaille() > 0 && strcmp(itineraireActuel.GetValeur(itineraireActuel.GetTaille() - 1)->GetArrivee(),arrivee) == 0)
     {
         itineraires.Ajouter(&itineraireActuel);
+        cout << "FIN";
         return;
     }
 
     // Recherche récursive des itinéraires possibles à partir du dernier point de l'itinéraire actuel
     Trajet* dernierTrajet = itineraireActuel.GetTaille() > 0 ? itineraireActuel.GetValeur(itineraireActuel.GetTaille() - 1) : nullptr;
 
-    for (unsigned int i = 0; i < listeTrajet->GetTaille(); ++i)
+    for (unsigned int i = 0; i < listeTrajetEnSimple->GetTaille(); ++i)
     {
-        TrajetSimple* trajet = new TrajetSimple(*listeTrajet->GetValeur(i),listeTrajet->GetValeur(i)->GetTransport());
-
+        
+        TrajetSimple * trajet = listeTrajetEnSimple->GetValeur(i);
+        
         // Vérifier si le départ du trajet correspond au dernier point de l'itinéraire actuel
-        if (trajet->GetDepart() == (dernierTrajet ? dernierTrajet->GetArrivee() : depart))
+        cout << "Test boucle"  << endl;
+        cout << trajet->GetDepart() << endl;
+        if (strcmp(trajet->GetDepart(),(dernierTrajet ? dernierTrajet->GetArrivee() : depart)) == 0) //compare à l'arrivée du dernier trajet, si il existe, sinon au depart de la recherche
         {
+            if (!dernierTrajet) cout << "Premier" <<endl;
             // Éviter les boucles infinies en vérifiant si le trajet n'a pas déjà été inclus dans l'itinéraire actuel
-            if (!itineraireActuel.Rechercher(trajet))
+            if (itineraireActuel.Rechercher(trajet) == 0)
             {
                 // Ajouter le trajet à l'itinéraire actuel
+                //TrajetSimple * TrajetAjout = new TrajetSimple(trajet);
+                cout << "Ajout " << endl;
                 itineraireActuel.Ajouter(trajet);
 
                 // Recherche récursive pour l'itinéraire suivant
+                
                 RechercheAvanceeGabin(depart, arrivee, itineraires, itineraireActuel);
 
                 // Retirer le trajet de l'itinéraire actuel pour explorer d'autres possibilités
-                itineraireActuel.Erase(itineraireActuel.GetTaille() - 1);
+                //itineraireActuel.Erase(itineraireActuel.GetTaille() - 1);
             }
+            else cout << "Boucle de Trajet" << endl;
+            //delete trajet;
         }
+        else 
+        {
+            cout << "Pas le bon" << endl;
+            trajet->Afficher();
+            //delete trajet;
+        }
+        
+        
     }
+    cout << "Fin non conventionnelle" << endl;
 }
 

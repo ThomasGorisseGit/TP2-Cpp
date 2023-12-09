@@ -6,6 +6,7 @@
 #include "Trajet/TrajetCompose.h"
 
 
+
 #define MAX 50
 
 // Couleurs pour l'affichage
@@ -189,10 +190,11 @@ int main()
             char *arrivee = new char[MAX];
             cin >> arrivee;
 
-            catalogueTrajet.Rechercher(depart, arrivee,1); // Recherche du trajet simple
-
+            Liste<TrajetSimple> * ListeRecherche = catalogueTrajet.Rechercher(depart,arrivee,1);
+ 
             delete[] depart;
             delete[] arrivee;
+            delete ListeRecherche;
             break;
         }
 
@@ -223,9 +225,12 @@ int main()
             char *arrivee = new char[MAX];
             cin >> arrivee;
 
+            catalogueTrajet.Simplification();
+
             Liste<TrajetSimple> *itineraires = new Liste<TrajetSimple>;  // Liste pour stocker les itinéraires trouvés
             Liste<TrajetSimple> *itineraireActuel = new Liste<TrajetSimple>;  // Liste pour stocker l'itinéraire actuel pendant la recherche
             catalogueTrajet.RechercheAvanceeGabin(depart, arrivee, *itineraires, *itineraireActuel); // Recherche du trajet
+            cout << "Affichage de l'itinéraire : " << endl;
             itineraires->Afficher();
             delete[] depart;
             delete[] arrivee;

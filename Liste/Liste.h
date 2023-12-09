@@ -60,13 +60,26 @@ public:
 protected:
     unsigned int taille;
     Maillon<T> *tete;
+    
+
+private:
+    static unsigned int numero;
+    unsigned int * numPerso;
+   
+
 };
+
+template <typename T>
+unsigned int Liste<T>::numero = 0;
 
 template <typename T>
 Liste<T>::Liste()
 {
+numero++;
+numPerso = new unsigned int;
+*numPerso = numero;
 #ifdef MAP
-    cout << "Appel au constructeur par défaut de <Liste>" << endl;
+    cout << "Appel au constructeur par défaut de <Liste>" << *numPerso << endl;
 #endif
 
     this->tete = nullptr;
@@ -77,7 +90,7 @@ template <typename T>
 Liste<T>::~Liste()
 {
 #ifdef MAP
-    cout << "Appel au destructeur de <Liste>" << endl;
+    cout << "Appel au destructeur de <Liste>" << *numPerso << endl;
 #endif
     // On parcourt la liste et on supprime chaque maillon
     Maillon<T> *courrent = tete;
@@ -87,6 +100,7 @@ Liste<T>::~Liste()
         delete courrent;
         courrent = suivant;
     }
+    delete numPerso;
 }
 
 template <typename T>
@@ -117,7 +131,7 @@ void Liste<T>::Ajouter(T *valeur)
 {
     // On crée un nouveau maillon avec la valeur passée en paramètre (il sera placé à la fin de la liste)
     Maillon<T> *nouveauMaillon = new Maillon<T>(valeur, nullptr);
-
+    
     // Si la liste est vide, on ajoute le nouveau maillon en tête
     if (tete == nullptr)
     {
