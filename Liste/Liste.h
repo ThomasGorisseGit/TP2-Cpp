@@ -54,11 +54,14 @@ public:
 
 protected:
     unsigned int taille;
+    // Taille de la liste
     Maillon<T> *tete;
+    // Pointeur vers le premier maillon de la liste
 };
 
 template <typename T>
 Liste<T>::Liste()
+// Constructeur par défaut de la classe Liste
 {
 #ifdef MAP
     cout << "Appel au constructeur par défaut de <Liste>" << endl;
@@ -66,10 +69,11 @@ Liste<T>::Liste()
 
     this->tete = nullptr;
     this->taille = 0;
-}
+} //----- Fin de Liste
 
 template <typename T>
 Liste<T>::~Liste()
+// Destructeur de la classe Liste
 {
 #ifdef MAP
     cout << "Appel au destructeur de <Liste>" << endl;
@@ -82,10 +86,11 @@ Liste<T>::~Liste()
         delete courrent;
         courrent = suivant;
     }
-}
+} //----- Fin de ~Liste
 
 template <typename T>
 T *Liste<T>::GetValeur(unsigned int index) const
+// Méthode permettant de retourner la valeur du maillon à l'index passé en paramètre
 {
     Maillon<T> *courrent = tete;
     unsigned int i = 0;
@@ -99,16 +104,18 @@ T *Liste<T>::GetValeur(unsigned int index) const
         i++;
     }
     return nullptr;
-}
+} // Fin de la méthode GetValeur
 
 template <typename T>
 unsigned int Liste<T>::GetTaille() const
+// Méthode permettant de retourner la taille de la liste
 {
     return taille;
-}
+} // Fin de la méthode GetTaille
 
 template <typename T>
 void Liste<T>::Ajouter(T *valeur)
+// Méthode permettant d'ajouter un élément à la fin de la liste chaînée
 {
     // On crée un nouveau maillon avec la valeur passée en paramètre (il sera placé à la fin de la liste)
     Maillon<T> *nouveauMaillon = new Maillon<T>(valeur, nullptr);
@@ -128,19 +135,21 @@ void Liste<T>::Ajouter(T *valeur)
         courrent->setSuivant(nouveauMaillon);
     }
     taille++;
-}
+} // Fin de la méthode Ajouter
 
 template <typename T>
 void Liste<T>::Ajouter(Liste<T> *liste)
+// Méthode permettant d'ajouter une liste à la fin de la liste chaînée
 {
     for (unsigned int i = 0; i < liste->GetTaille(); i++)
     {
         this->Ajouter(liste->GetValeur(i));
     }
-}
+} // Fin de la méthode Ajouter
 
 template <typename T>
 bool Liste<T>::Rechercher(const T *valeur) const
+// Méthode permettant de rechercher un trajet dans la liste
 {
     Maillon<T> *courrent = tete;
     while (courrent != nullptr)
@@ -152,10 +161,11 @@ bool Liste<T>::Rechercher(const T *valeur) const
         courrent = courrent->getSuivant();
     }
     return false;
-}
+} // Fin de la méthode Rechercher
 
 template <typename T>
 void Liste<T>::Afficher() const
+// Méthode permettant d'afficher la liste
 {
     Maillon<T> *courrent = tete;
     while (courrent != nullptr)
@@ -163,6 +173,6 @@ void Liste<T>::Afficher() const
         // FIXME courrent->afficher(); // Ici, on suppose que la classe T possède une méthode afficher()
         courrent = courrent->getSuivant();
     }
-}
+} // Fin de la méthode Afficher
 
 #endif // LISTE_H
