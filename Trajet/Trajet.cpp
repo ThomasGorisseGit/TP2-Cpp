@@ -80,6 +80,11 @@ Trajet * Trajet::GetTrajetSimple(unsigned int indice) const
     return nullptr; //renvoi nullptr si appellé sur un Trajet (ni simple ni compose)
 }
 
+char * Trajet::GetTransport() const
+{
+    return nullptr; //car pas de transport pour un trajet
+}
+
 
 //int Trajet::GetType() const;
 
