@@ -6,6 +6,10 @@
 #include "../Liste/Liste.h"
 using namespace std;
 
+// Couleur pour l'affichage
+#define BOLD_WHITE "\033[1m"
+#define FIN_BOLD_WHITE "\033[0m"
+
 Catalogue::Catalogue(const Catalogue &unCatalogue)
 // Constructeur de copie d'un catalogue
 // Réalise une copie en profondeur
@@ -55,11 +59,11 @@ void Catalogue::Ajouter(Trajet *trajet)
     this->listeTrajet->Ajouter(trajet);
 } // Fin de la méthode ajouter
 
-void Catalogue::Afficher()
-// Méthode permettant d'afficher de manière sophistiquée (!= de brute) le contenu du catalogue.
+void Catalogue::Afficher(Liste<Trajet> *listeTrajetSimple, Liste<Trajet> *listeTrajetCompose) const
+// Méthode permettant d'afficher de manière sophistiquée le contenu du catalogue.
 // Algorithme :
-//      Parcours la liste des trajets courants et appel de la méthode afficher de trajet.
-//      <!> Interdiction de surcharger l'opérateur '<<' <!>
+//      Affiche le catalogue de trajets simples
+//      Affiche le catalogue de trajets composés
 
 {
 
@@ -67,19 +71,37 @@ void Catalogue::Afficher()
     cout << "---------------------------BIENVENUE-----------------------------" << endl;
     cout << "---------------------------SUR    LE-----------------------------" << endl;
     cout << "---------------------------CATALOGUE-----------------------------" << endl;
-    cout << "-----------------------------------------------------------------" << endl;
+    cout << "-----------------------------------------------------------------" << endl
+         << endl;
 
-    unsigned int i = 0;
     if (this->listeTrajet->GetTaille() == 0)
     {
-        cout << "Le catalogue est vide" << endl;
+        cout << BOLD_WHITE << "Le catalogue est vide" << FIN_BOLD_WHITE << endl;
+        return;
     }
 
-    while (i < this->listeTrajet->GetTaille())
+    if (listeTrajetSimple->GetTaille() != 0)
     {
-        this->listeTrajet->GetValeur(i)->Afficher();
-        i++;
+        cout << BOLD_WHITE << "Voici la liste des trajets simples :" << FIN_BOLD_WHITE << endl;
+        listeTrajetSimple->Afficher();
+        cout << endl;
     }
+    else
+    {
+        cout << BOLD_WHITE << "Il n'y a pas de trajets simples dans le catalogue" << FIN_BOLD_WHITE << endl;
+    }
+
+    if (listeTrajetCompose->GetTaille() != 0)
+    {
+        cout << BOLD_WHITE << "Voici la liste des trajets composés :" << FIN_BOLD_WHITE << endl;
+        listeTrajetCompose->Afficher();
+        cout << endl;
+    }
+    else
+    {
+        cout << BOLD_WHITE << "Il n'y a pas de trajets composés dans le catalogue" << FIN_BOLD_WHITE << endl;
+    }
+
 } // Fin de la méthode afficher
 
 void Catalogue::Rechercher(const char *depart, const char *arrivee) const
@@ -132,9 +154,9 @@ void Catalogue::RechercheAvancee(const char *depart, const char *arrivee)
     unsigned int taille = listeARemplir->GetTaille();
     for (unsigned int i = 0; i < taille; i++)
     {
-        TrajetSimple * TrajetSimpleRemplissage = new TrajetSimple(*listeARemplir->GetValeur(taille - i -1),listeARemplir->GetValeur(taille - i -1)->GetTransport());
+        TrajetSimple *TrajetSimpleRemplissage = new TrajetSimple(*listeARemplir->GetValeur(taille - i - 1), listeARemplir->GetValeur(taille - i - 1)->GetTransport());
         listeARemplirReverse->Ajouter(TrajetSimpleRemplissage);
-        //listeARemplirReverse->Ajouter(listeARemplir->GetValeur(taille - i - 1));
+        // listeARemplirReverse->Ajouter(listeARemplir->GetValeur(taille - i - 1));
     }
     unsigned int i = 0;
     while (i < listeARemplirReverse->GetTaille())
@@ -142,13 +164,12 @@ void Catalogue::RechercheAvancee(const char *depart, const char *arrivee)
         listeARemplirReverse->GetValeur(i)->Afficher();
         i++;
     }
-   
+
     delete listeARemplirReverse;
-   
+
     delete listeARemplir;
-    
+
     delete listeTrajetParcourus;
-  
 }
 
 bool Catalogue::trajetArrivantADestination(Liste<TrajetSimple> *listeTrajetParcourus, const char *arrivee, Liste<TrajetSimple> *listeARemplir)
@@ -166,11 +187,11 @@ bool Catalogue::trajetArrivantADestination(Liste<TrajetSimple> *listeTrajetParco
         // Si c'est l'arrivée, alors on a trouvé une solution et on l'ajoute dans la liste.
         if (strcmp(listeTrajetParcourus->GetValeur(i)->GetArrivee(), arrivee) == 0)
         {
-            TrajetSimple * TrajetSimpleRemplissage = new TrajetSimple(*listeTrajetParcourus->GetValeur(i),listeTrajetParcourus->GetValeur(i)->GetTransport());
+            TrajetSimple *TrajetSimpleRemplissage = new TrajetSimple(*listeTrajetParcourus->GetValeur(i), listeTrajetParcourus->GetValeur(i)->GetTransport());
             listeARemplir->Ajouter(TrajetSimpleRemplissage);
-            //listeARemplir->Ajouter(listeTrajetParcourus->GetValeur(i));
-            // Puisqu'on l'a trouvée, on renvoie true pour permettre aux if en dessous de propager le résultat et donc d'ajouter les trajets
-            // Qui nous ont permis d'arriver jusqu'au résultat.
+            // listeARemplir->Ajouter(listeTrajetParcourus->GetValeur(i));
+            //  Puisqu'on l'a trouvée, on renvoie true pour permettre aux if en dessous de propager le résultat et donc d'ajouter les trajets
+            //  Qui nous ont permis d'arriver jusqu'au résultat.
             return true;
         }
         else
@@ -179,12 +200,11 @@ bool Catalogue::trajetArrivantADestination(Liste<TrajetSimple> *listeTrajetParco
             rechercheDepuisDepart(listeTrajetParcourus->GetValeur(i)->GetArrivee(), listeTrajetParcourus2);
             if (trajetArrivantADestination(listeTrajetParcourus2, arrivee, listeARemplir))
             {
-                //listeARemplir->Ajouter(listeTrajetParcourus->GetValeur(i));
-                // cout << listeTrajetParcourus->GetValeur(i)->GetDepart() << " -> " << listeTrajetParcourus->GetValeur(i)->GetArrivee() << endl;
-                
-                TrajetSimple * TrajetSimpleRemplissage = new TrajetSimple(*listeTrajetParcourus->GetValeur(i),listeTrajetParcourus->GetValeur(i)->GetTransport());
+                // listeARemplir->Ajouter(listeTrajetParcourus->GetValeur(i));
+                //  cout << listeTrajetParcourus->GetValeur(i)->GetDepart() << " -> " << listeTrajetParcourus->GetValeur(i)->GetArrivee() << endl;
+
+                TrajetSimple *TrajetSimpleRemplissage = new TrajetSimple(*listeTrajetParcourus->GetValeur(i), listeTrajetParcourus->GetValeur(i)->GetTransport());
                 listeARemplir->Ajouter(TrajetSimpleRemplissage);
-                
             }
             delete listeTrajetParcourus2;
         }
@@ -194,36 +214,50 @@ bool Catalogue::trajetArrivantADestination(Liste<TrajetSimple> *listeTrajetParco
 Liste<TrajetSimple> *Catalogue::rechercheDepuisDepart(const char *depart, Liste<TrajetSimple> *listeARemplir)
 {
     // Liste<Trajet> *listeARemplir = new Liste<Trajet>;
-    //Liste<TrajetSimple> *listeMultiSimple
+    // Liste<TrajetSimple> *listeMultiSimple
     unsigned int taille = listeTrajet->GetTaille();
     for (unsigned int i = 0; i < taille; i++)
     {
         if (strcmp(listeTrajet->GetValeur(i)->GetDepart(), depart) == 0)
         {
-            
-            if (listeTrajet->GetValeur(i)->GetType() == 1)  //est un trajet simple
+
+            if (listeTrajet->GetValeur(i)->GetType() == 1) // est un trajet simple
             {
                 cout << "Utilise un trajet simple" << endl;
-                TrajetSimple * TrajetSimpleRemplissage = new TrajetSimple(*listeTrajet->GetValeur(i),listeTrajet->GetValeur(i)->GetTransport());
+                TrajetSimple *TrajetSimpleRemplissage = new TrajetSimple(*listeTrajet->GetValeur(i), listeTrajet->GetValeur(i)->GetTransport());
                 listeARemplir->Ajouter(TrajetSimpleRemplissage);
-            } 
+            }
 
             else
             {
-                //Si on tombe sur un trajet compose, on ajoute tous les trajets simples 
-                //compris dans ce trajet composé
+                // Si on tombe sur un trajet compose, on ajoute tous les trajets simples
+                // compris dans ce trajet composé
                 cout << "Utilise un trajet Composes" << endl;
                 unsigned int tailleTrajetCompose = listeTrajet->GetValeur(i)->GetTailleTrajet();
                 for (unsigned int j = 0; j < tailleTrajetCompose; j++)
                 {
-                    TrajetSimple * TrajetSimpleRemplissage = new TrajetSimple(*listeTrajet->GetValeur(i)->GetTrajetSimple(j),listeTrajet->GetValeur(i)->GetTrajetSimple(j)->GetTransport());
+                    TrajetSimple *TrajetSimpleRemplissage = new TrajetSimple(*listeTrajet->GetValeur(i)->GetTrajetSimple(j), listeTrajet->GetValeur(i)->GetTrajetSimple(j)->GetTransport());
                     listeARemplir->Ajouter(TrajetSimpleRemplissage);
                 }
                 cout << "Fin du remplissage multiple" << endl;
             }
-
-
         }
     }
     return listeARemplir;
+}
+
+void Catalogue::GetTrajetSimpleEtCompose(Liste<Trajet> *listeTrajetSimple, Liste<Trajet> *listeTrajetCompose)
+{
+    unsigned int taille = listeTrajet->GetTaille();
+    for (unsigned int i = 0; i < taille; i++)
+    {
+        if (listeTrajet->GetValeur(i)->GetType() == 1) // est un trajet simple
+        {
+            listeTrajetSimple->Ajouter(listeTrajet->GetValeur(i));
+        }
+        else // est un trajet compose
+        {
+            listeTrajetCompose->Ajouter(listeTrajet->GetValeur(i));
+        }
+    }
 }
