@@ -35,11 +35,14 @@ public:
 
 private:
     T *valeur;
+    // Valeur du maillon
     Maillon *suivant;
+    // Pointeur vers le maillon suivant
 };
 
 template <typename T>
 Maillon<T>::Maillon(T *valeur, Maillon *suivant)
+// Constructeur de la classe Maillon
 {
 #ifdef MAP
     cout << "Appel au constructeur par défaut de <Maillon>" << endl;
@@ -47,27 +50,30 @@ Maillon<T>::Maillon(T *valeur, Maillon *suivant)
 
     this->valeur = valeur;
     this->suivant = suivant;
-}
+} //----- Fin de Maillon
 
 template <typename T>
 Maillon<T>::~Maillon()
+// Destructeur de la classe Maillon
 {
 #ifdef MAP
     cout << "Appel au destructeur de <Maillon>" << endl;
 #endif
 
     delete valeur;
-}
+} //----- Fin de ~Maillon
 
 template <typename T>
 T *Maillon<T>::getValeur() const
+// Méthode permettant de retourner la valeur du maillon
 {
     return valeur;
-}
+} // Fin de la méthode GetValeur
 
 template <typename T>
 Maillon<T> *Maillon<T>::getSuivant() const
+// Méthode permettant de retourner le maillon suivant
 {
     return suivant;
-}
+} // Fin de la méthode GetSuivant
 #endif // MAILLON_H
