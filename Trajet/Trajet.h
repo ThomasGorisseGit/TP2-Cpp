@@ -73,6 +73,7 @@ public:
 
 
     virtual int GetType() const;
+    virtual char *GetTransport() const;
    
 
 

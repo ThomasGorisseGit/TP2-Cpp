@@ -8,6 +8,7 @@ class TrajetSimple : public Trajet
 public:
     TrajetSimple(const char *Depart, const char *Arrivee, char *M_transport);
     TrajetSimple(const TrajetSimple &ref);
+    TrajetSimple(const Trajet &ref, char * trans);
     char *GetTransport() const;
     void Afficher() const;
     void AfficherPetit() const;

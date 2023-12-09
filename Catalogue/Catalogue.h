@@ -75,14 +75,14 @@ public:
 
 protected:
 
-    Liste<Trajet> *rechercheDepuisDepart(const char *depart,Liste<Trajet> *listeARemplir);
+    Liste<TrajetSimple> *rechercheDepuisDepart(const char *depart,Liste<TrajetSimple> *listeARemplir);
     // Renvoie une liste de trajets qui partent du départ passé en paramètre.
     // Mode d'emploi : 
     // Utilisé dans les méthodes permettant une recherche avancee
     // Méthode privée.
 
 
-    bool trajetArrivantADestination(Liste<Trajet> *listeTrajetParcourus, const char *arrivee, Liste<Trajet> *listeARemplir);
+    bool trajetArrivantADestination(Liste<TrajetSimple> *listeTrajetParcourus, const char *arrivee, Liste<TrajetSimple> *listeARemplir);
     // Permet de parcourir récursivement la liste des trajets et de stocker le chemin nécéssaire pour arriver à destination.
     // La liste des trajets nécéssaires est stockée dans listeARemplir.
     // Cette méthode est utilisée dans les méthodes de recherche avancee

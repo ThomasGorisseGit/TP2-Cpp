@@ -39,6 +39,15 @@ TrajetSimple::TrajetSimple(const TrajetSimple &ref) : Trajet(ref)
     strcpy(this->transport, ref.transport);
 }
 
+TrajetSimple::TrajetSimple(const Trajet &ref, char * trans) : Trajet(ref)
+{
+#ifdef MAP
+    cout << "Appel au constructeur de copie2 de <TrajetSimple>" << endl;
+#endif
+    this->transport = new char[strlen(trans) + 1];
+    strcpy(this->transport, trans);
+}
+
 int TrajetSimple::GetType() const 
 {
     return Simple; //enum = 0 

@@ -11,6 +11,7 @@ class TrajetCompose : public Trajet
 
 public:
     TrajetCompose(Liste<TrajetSimple>  & listeTrajetSimple);
+    
 
     //void Ajouter(const TrajetSimple & trajet);
 
