@@ -8,7 +8,8 @@ using namespace std;
 
 // Couleur pour l'affichage
 #define BOLD_WHITE "\033[1m"
-#define FIN_BOLD_WHITE "\033[0m"
+#define FIN "\033[0m"
+#define DEBUT_BACKGROUND_GREEN "\033[42m"
 
 Catalogue::Catalogue(const Catalogue &unCatalogue)
 // Constructeur de copie d'un catalogue
@@ -67,39 +68,39 @@ void Catalogue::Afficher(Liste<Trajet> *listeTrajetSimple, Liste<Trajet> *listeT
 
 {
 
-    cout << "-----------------------------------------------------------------" << endl;
-    cout << "---------------------------BIENVENUE-----------------------------" << endl;
-    cout << "---------------------------SUR    LE-----------------------------" << endl;
-    cout << "---------------------------CATALOGUE-----------------------------" << endl;
-    cout << "-----------------------------------------------------------------" << endl
+    cout << BOLD_WHITE << "-----------------------------------------------------------------" << FIN << endl;
+    cout << BOLD_WHITE << "---------------------------" << DEBUT_BACKGROUND_GREEN << "BIENVENUE" << FIN << BOLD_WHITE << "-----------------------------" << FIN << endl;
+    cout << BOLD_WHITE << "---------------------------" << DEBUT_BACKGROUND_GREEN << "SUR" << FIN << "    " << DEBUT_BACKGROUND_GREEN << BOLD_WHITE << "LE" << FIN << BOLD_WHITE << "-----------------------------" << FIN << endl;
+    cout << BOLD_WHITE << "---------------------------" << DEBUT_BACKGROUND_GREEN << "CATALOGUE" << FIN << BOLD_WHITE << "-----------------------------" << FIN << endl;
+    cout << BOLD_WHITE << "-----------------------------------------------------------------" << FIN << endl
          << endl;
 
     if (this->listeTrajet->GetTaille() == 0)
     {
-        cout << BOLD_WHITE << "Le catalogue est vide" << FIN_BOLD_WHITE << endl;
+        cout << BOLD_WHITE << "Le catalogue est vide" << FIN << endl;
         return;
     }
 
     if (listeTrajetSimple->GetTaille() != 0)
     {
-        cout << BOLD_WHITE << "Voici la liste des trajets simples :" << FIN_BOLD_WHITE << endl;
+        cout << BOLD_WHITE << "Voici la liste des trajets simples :" << FIN << endl;
         listeTrajetSimple->Afficher();
         cout << endl;
     }
     else
     {
-        cout << BOLD_WHITE << "Il n'y a pas de trajets simples dans le catalogue" << FIN_BOLD_WHITE << endl;
+        cout << BOLD_WHITE << "Il n'y a pas de trajets simples dans le catalogue" << FIN << endl;
     }
 
     if (listeTrajetCompose->GetTaille() != 0)
     {
-        cout << BOLD_WHITE << "Voici la liste des trajets composés :" << FIN_BOLD_WHITE << endl;
+        cout << BOLD_WHITE << "Voici la liste des trajets composés :" << FIN << endl;
         listeTrajetCompose->Afficher();
         cout << endl;
     }
     else
     {
-        cout << BOLD_WHITE << "Il n'y a pas de trajets composés dans le catalogue" << FIN_BOLD_WHITE << endl;
+        cout << BOLD_WHITE << "Il n'y a pas de trajets composés dans le catalogue" << FIN << endl;
     }
 
 } // Fin de la méthode afficher
