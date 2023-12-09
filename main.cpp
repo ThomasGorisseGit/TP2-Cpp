@@ -30,7 +30,8 @@ int main()
         cout << BOLD_WHITE << "2. " << FIN << "Ajouter un trajet" << endl;
         cout << BOLD_WHITE << "3. " << FIN << "Recherche d'un trajet" << endl;
         cout << BOLD_WHITE << "4. " << FIN << "Recherche avancée" << endl;
-        cout << BOLD_WHITE << "5. " << FIN << DEBUT_BOLD_RED << "Quitter le programme" << FIN << endl
+        cout << BOLD_WHITE << "5. " << FIN << DEBUT_BOLD_RED << "Quitter le programme" << FIN << endl;
+        cout << BOLD_WHITE << "6. " << FIN << DEBUT_BOLD_RED << "Recherche avancée Gabin" << FIN << endl
              << endl;
 
         int choix;
@@ -188,7 +189,7 @@ int main()
             char *arrivee = new char[MAX];
             cin >> arrivee;
 
-            catalogueTrajet.Rechercher(depart, arrivee); // Recherche du trajet simple
+            catalogueTrajet.Rechercher(depart, arrivee,1); // Recherche du trajet simple
 
             delete[] depart;
             delete[] arrivee;
@@ -209,6 +210,27 @@ int main()
             catalogueTrajet.RechercheAvancee(depart, arrivee); // Recherche du trajet
             delete[] depart;
             delete[] arrivee;
+            break;
+        }
+
+        case 6:
+        {
+
+            cout << BOLD_WHITE << "Veuillez rentrer le départ du trajet souhaité : " << FIN << endl;
+            char *depart = new char[MAX];
+            cin >> depart;
+            cout << BOLD_WHITE << "Veuillez rentrer l'arrivée du trajet souhaité : " << FIN << endl;
+            char *arrivee = new char[MAX];
+            cin >> arrivee;
+
+            Liste<TrajetSimple> *itineraires = new Liste<TrajetSimple>;  // Liste pour stocker les itinéraires trouvés
+            Liste<TrajetSimple> *itineraireActuel = new Liste<TrajetSimple>;  // Liste pour stocker l'itinéraire actuel pendant la recherche
+            catalogueTrajet.RechercheAvanceeGabin(depart, arrivee, *itineraires, *itineraireActuel); // Recherche du trajet
+            itineraires->Afficher();
+            delete[] depart;
+            delete[] arrivee;
+            delete itineraires;
+            delete itineraireActuel;
             break;
         }
 

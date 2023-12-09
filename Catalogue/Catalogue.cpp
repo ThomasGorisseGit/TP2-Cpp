@@ -105,14 +105,14 @@ void Catalogue::Afficher(Liste<Trajet> *listeTrajetSimple, Liste<Trajet> *listeT
 
 } // Fin de la méthode afficher
 
-void Catalogue::Rechercher(const char *depart, const char *arrivee) const
+Liste<TrajetSimple> * Catalogue::Rechercher(const char *depart, const char *arrivee, bool verbose) const
 // Méthode de recherche simple qui trouvent des trajets ayant un départ et une arrivée égale aux constante données en paramètres.
 // Le retour de la méthode se fait dans la listeARemplir.
 // Algorithme :
 //      Parcours de la liste des trajets et comparaison des chaînes de caractère pour déterminer lesquels sont égales.
 //      On ajoute a la liste à remplir les trajets qui coincides avec les paramètres.
-{
-
+{   
+    Liste<TrajetSimple> * listeChemins = new Liste<TrajetSimple>;
     unsigned int cptTrajet = 0;
     // cout << "1 : " << listeTrajet->GetValeur(0)->GetDepart()  <<" Taille "<<  listeTrajet->GetTaille() <<endl;
     unsigned int taille = listeTrajet->GetTaille();
@@ -123,8 +123,10 @@ void Catalogue::Rechercher(const char *depart, const char *arrivee) const
             {
                 if (strcmp(listeTrajet->GetValeur(i)->GetDepart(), depart) == 0 && strcmp(listeTrajet->GetValeur(i)->GetArrivee(), arrivee) == 0)
                 {
-                    listeTrajet->GetValeur(i)->Afficher();
+                    if (verbose) listeTrajet->GetValeur(i)->Afficher();
                     cptTrajet++;
+                    TrajetSimple *TrajetSimpleRemplissage = new TrajetSimple(*listeTrajet->GetValeur(i), listeTrajet->GetValeur(i)->GetTransport());
+                    listeChemins->Ajouter(TrajetSimpleRemplissage);
                 }
             }
 
@@ -137,17 +139,21 @@ void Catalogue::Rechercher(const char *depart, const char *arrivee) const
             {
                 if (strcmp(listeTrajet->GetValeur(i)->GetTrajetSimple(j)->GetDepart(), depart) == 0 && strcmp(listeTrajet->GetValeur(i)->GetTrajetSimple(j)->GetArrivee(), arrivee) == 0)
             {
-                listeTrajet->GetValeur(i)->GetTrajetSimple(j)->Afficher();
+                if (verbose) listeTrajet->GetValeur(i)->GetTrajetSimple(j)->Afficher();
+                TrajetSimple *TrajetSimpleRemplissage = new TrajetSimple(*listeTrajet->GetValeur(i)->GetTrajetSimple(j), listeTrajet->GetValeur(i)->GetTrajetSimple(j)->GetTransport());
+                listeChemins->Ajouter(TrajetSimpleRemplissage);
                 cptTrajet++;
+
             }
             }
             
         }
     }
-    if (!cptTrajet)
+    if (!cptTrajet && verbose)
     {
         cout << "Pas de trajet correspondant trouvé parmis les "<< taille << " trajets." << endl;
     }
+    return listeChemins;
 
 } // Fin de la méthode de recherche de trajets
 

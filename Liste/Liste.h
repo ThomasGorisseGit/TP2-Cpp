@@ -52,6 +52,11 @@ public:
     // Méthode permettant d'afficher la liste
     // Mode d'emploi :
 
+    void Erase(unsigned int index);
+    // Méthode permettant de supprimer l'élément à l'index spécifié de la liste
+    // Mode d'emploi :
+    //       Appel de la méthode avec liste.Erase(index);
+
 protected:
     unsigned int taille;
     Maillon<T> *tete;
@@ -164,5 +169,44 @@ void Liste<T>::Afficher() const
         courrent = courrent->getSuivant();
     }
 }
+
+template <typename T>
+void Liste<T>::Erase(unsigned int index)
+{
+    // Vérifiez si l'index est valide
+    if (index >= taille)
+    {
+        cout << "Index hors de la plage de la liste." << endl;
+        return;
+    }
+
+    // Cas particulier : suppression de la tête de liste
+    if (index == 0)
+    {
+        Maillon<T> *temp = tete;
+        tete = tete->getSuivant();
+        delete temp;
+        taille--;
+        return;
+    }
+
+    // Parcours de la liste pour trouver le maillon précédant celui à supprimer
+    Maillon<T> *precedent = nullptr;
+    Maillon<T> *courrent = tete;
+    unsigned int i = 0;
+
+    while (i < index)
+    {
+        precedent = courrent;
+        courrent = courrent->getSuivant();
+        i++;
+    }
+
+    // Suppression du maillon à l'index spécifié
+    precedent->setSuivant(courrent->getSuivant());
+    delete courrent;
+    taille--;
+}
+
 
 #endif // LISTE_H
