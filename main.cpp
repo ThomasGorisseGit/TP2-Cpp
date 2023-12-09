@@ -5,6 +5,17 @@
 #include "Trajet/TrajetSimple.h"
 #include "Trajet/TrajetCompose.h"
 #define MAX 50
+
+// Couleurs pour l'affichage
+#define DEBUT_BOLD_RED "\033[1;31m"
+#define FIN_BOLD_RED "\033[0m"
+#define DEBUT_BOLD_GREEN "\033[1;32m"
+#define FIN_BOLD_GREEN "\033[0m"
+#define BOLD_WHITE "\033[1;37m"
+#define FIN_BOLD_WHITE "\033[0m"
+#define DEBUT_BACKGROUND_GREEN "\033[42m"
+#define FIN_BACKGROUND_GREEN "\033[0m"
+
 using namespace std;
 
 int main()
@@ -15,31 +26,56 @@ int main()
 
     while (true)
     {
-        cout << "Que voulez-vous faire ?" << endl;
-        cout << "1. Afficher le catalogue" << endl;
-        cout << "2. Ajouter un trajet au catalogue" << endl;
-        cout << "3. Rechercher simple d'un trajet" << endl;
-        cout << "4. Recherche avancée d'un trajet" << endl;
-        cout << "5. Quitter" << endl
+        cout << BOLD_WHITE << "Que voulez-vous faire ?" << FIN_BOLD_WHITE << endl;
+        cout << BOLD_WHITE << "1. " << FIN_BOLD_WHITE << "Afficher le catalogue " << endl;
+        cout << BOLD_WHITE << "2. " << FIN_BOLD_WHITE << "Ajouter un trajet" << endl;
+        cout << BOLD_WHITE << "3. " << FIN_BOLD_WHITE << "Recherche d'un trajet" << endl;
+        cout << BOLD_WHITE << "4. " << FIN_BOLD_WHITE << "Recherche avancée" << endl;
+        cout << BOLD_WHITE << "5. " << FIN_BOLD_WHITE << DEBUT_BOLD_RED << "Quitter le programme" << FIN_BOLD_RED << endl
              << endl;
 
         int choix;
-        cin >> choix; // Choix de l'utilisateur
+
+        // Erreur si l'utilisateur ne rentre pas un nombre
+        if (!(cin >> choix))
+        {
+            cout << DEBUT_BOLD_RED << "Erreur lors de la saisie, veuillez rentrer un nombre" << FIN_BOLD_RED
+                 << endl
+                 << endl;
+
+            // Effacer le tampon d'entrée jusqu'à la nouvelle ligne
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+            // Ignorer la suite du code et demander à nouveau la saisie
+            continue;
+        }
 
         switch (choix)
         {
         // Affichage du catalogue
         case 1:
-            catalogueTrajet.Afficher(); // Affichage du catalogue
+        {
+            // Création de deux listes de trajets simples et composés
+            Liste<Trajet> *listeTrajetSimple = new Liste<Trajet>;
+            Liste<Trajet> *listeTrajetCompose = new Liste<Trajet>;
+
+            // Remplissage des deux listes
+            catalogueTrajet.GetTrajetSimpleEtCompose(listeTrajetSimple, listeTrajetCompose);
+
+            // Affichage des trajets simples et composés
+            catalogueTrajet.Afficher(listeTrajetSimple, listeTrajetCompose);
+
             cout << endl;
             break;
+        }
 
         // Ajout d'un trajet
         case 2:
         {
-            cout << "Voulez vous rentrer un trajet simple ou un trajet composée ?" << endl;
-            cout << "1. Trajet simple" << endl;
-            cout << "2. Trajet composé" << endl;
+            cout << BOLD_WHITE << "Voulez vous rentrer un trajet simple ou un trajet composée ?" << FIN_BOLD_WHITE << endl;
+            cout << BOLD_WHITE << "1. " << FIN_BOLD_WHITE << " Trajet simple" << endl;
+            cout << BOLD_WHITE << "2. " << FIN_BOLD_WHITE << " Trajet composé" << endl;
 
             int choixTrajet;
             cin >> choixTrajet; // Choix de l'utilisateur
@@ -53,11 +89,11 @@ int main()
                 char *arrivee = new char[MAX];
                 char *moyenTransport = new char[MAX];
 
-                cout << "Veuillez rentrer le départ du trajet : " << endl;
+                cout << BOLD_WHITE << "Veuillez rentrer le départ du trajet : " << FIN_BOLD_WHITE << endl;
                 cin >> depart;
-                cout << "Veuillez rentrer l'arrivée du trajet : " << endl;
+                cout << BOLD_WHITE << "Veuillez rentrer l'arrivée du trajet : " << FIN_BOLD_WHITE << endl;
                 cin >> arrivee;
-                cout << "Veuillez rentrer le moyen de transport du trajet : " << endl;
+                cout << BOLD_WHITE << "Veuillez rentrer le moyen de transport du trajet : " << FIN_BOLD_WHITE << endl;
                 cin >> moyenTransport;
 
                 TrajetSimple *trajetSimple = new TrajetSimple(depart, arrivee, moyenTransport); // Création du trajet simple
@@ -67,7 +103,7 @@ int main()
                 delete[] depart;
                 delete[] arrivee;
                 delete[] moyenTransport;
-                cout << "Fin de la création du trajet simple" << endl
+                cout << DEBUT_BOLD_GREEN << "Fin de la création du trajet simple" << FIN_BOLD_GREEN << endl
                      << endl;
             }
             else if (choixTrajet == 2)
@@ -80,10 +116,10 @@ int main()
                 char *arriveeTrajetCompose = new char[MAX];
 
                 Liste<TrajetSimple> listeTrajetSimple;
-                cout << "Veuillez rentrer le départ du trajet global: " << endl
+                cout << BOLD_WHITE << "Veuillez rentrer le départ du trajet global : " << FIN_BOLD_WHITE << endl
                      << endl;
                 cin >> departTrajetCompose;
-                cout << "Veuillez rentrer l'arrivée du trajet global : " << endl
+                cout << BOLD_WHITE << "Veuillez rentrer l'arrivée du trajet global : " << FIN_BOLD_WHITE << endl
                      << endl;
                 cin >> arriveeTrajetCompose;
 
@@ -92,7 +128,6 @@ int main()
                 char *moyenTransportTrajetSimple = new char[MAX];
                 do
                 {
-                    
 
                     // Si on ajoute le premier trajet simple, on récupère le départ du trajet global
                     if (isFirstEtape)
@@ -105,18 +140,18 @@ int main()
                         strcpy(departTrajetSimple, arriveTrajetSimple);
                     }
 
-                    cout << "Départ du trajet simple n°" << Etape << " : " << departTrajetSimple << endl; // Affichage du départ du trajet simple "n°Etape
-                    cout << "Veuillez rentrer l'arrivée du trajet simple n°" << Etape << " :" << endl;
+                    cout << "Départ du trajet simple n°" << Etape << " : " DEBUT_BACKGROUND_GREEN << departTrajetSimple << FIN_BACKGROUND_GREEN << endl; // Affichage du départ du trajet simple "n°Etape
+                    cout << BOLD_WHITE << "Veuillez rentrer l'arrivée du trajet simple n°" << Etape << " :" << FIN_BOLD_WHITE << endl;
                     cin >> arriveTrajetSimple;
 
-                    cout << "Veuillez rentrer le moyen de transport du trajet simple n°" << Etape << " :" << endl;
+                    cout << BOLD_WHITE << "Veuillez rentrer le moyen de transport du trajet simple n°" << Etape << " :" << FIN_BOLD_WHITE << endl;
                     cin >> moyenTransportTrajetSimple;
 
                     TrajetSimple *trajetSimple = new TrajetSimple(departTrajetSimple, arriveTrajetSimple, moyenTransportTrajetSimple);
                     listeTrajetSimple.Ajouter(trajetSimple);
 
                     // catalogueTrajet.AjouterMulti(trajetSimple); //ajoute dans la liste multi du catalogue (Gabin)
-                    
+
                     Etape++;
 
                 } while (strcmp(arriveTrajetSimple, arriveeTrajetCompose) != 0); // Tant que l'arrivée du trajet simple est différente de l'arrivée du trajet global
@@ -130,13 +165,15 @@ int main()
                 TrajetCompose *trajetCompose = new TrajetCompose(listeTrajetSimple);
                 catalogueTrajet.Ajouter(trajetCompose);
 
-                cout << "Fin de la création du trajet composé" << endl
+                cout << DEBUT_BOLD_GREEN << "Fin de la création du trajet composé" << FIN_BOLD_GREEN << endl
                      << endl;
             }
             else
             {
                 // Choix de l'utilisateur invalide
-                cout << "Erreur, veuillez rentrer un choix valide" << endl;
+                cout << DEBUT_BOLD_RED << "Erreur lors de la saisie, veuillez rentrer un choix valide (1 ou 2)" << FIN_BOLD_RED
+                     << endl
+                     << endl;
             }
             break;
         }
@@ -145,10 +182,10 @@ int main()
         case 3:
         {
             // Recherche d'un trajet
-            cout << "Veuillez rentrer le départ du trajet simple souhaité : " << endl;
+            cout << BOLD_WHITE << "Veuillez rentrer le départ du trajet simple souhaité : " << FIN_BOLD_WHITE << endl;
             char *depart = new char[MAX];
             cin >> depart;
-            cout << "Veuillez rentrer l'arrivée du trajet simple souhaité : " << endl;
+            cout << BOLD_WHITE << "Veuillez rentrer l'arrivée du trajet simple souhaité : " << FIN_BOLD_WHITE << endl;
             char *arrivee = new char[MAX];
             cin >> arrivee;
 
@@ -163,10 +200,10 @@ int main()
         case 4:
         {
 
-            cout << "Veuillez rentrer le départ du trajet souhaité : " << endl;
+            cout << BOLD_WHITE << "Veuillez rentrer le départ du trajet souhaité : " << FIN_BOLD_WHITE << endl;
             char *depart = new char[MAX];
             cin >> depart;
-            cout << "Veuillez rentrer l'arrivée du trajet souhaité : " << endl;
+            cout << BOLD_WHITE << "Veuillez rentrer l'arrivée du trajet souhaité : " << FIN_BOLD_WHITE << endl;
             char *arrivee = new char[MAX];
             cin >> arrivee;
 
@@ -178,12 +215,14 @@ int main()
 
         // Quitter le programme
         case 5:
-            cout << "Fin du programme" << endl;
+            cout << DEBUT_BOLD_RED << "Fin du programme" << FIN_BOLD_RED << endl;
             return 0;
             break;
 
         default:
-            cout << "Erreur, veuillez rentrer un choix valide" << endl;
+            cout << DEBUT_BOLD_RED << "Erreur lors de la saisie, veuillez rentrer un choix valide (1, 2, 3, 4 ou 5)" << FIN_BOLD_RED
+                 << endl;
+
             break;
         }
     }
