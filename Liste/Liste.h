@@ -54,11 +54,14 @@ public:
 
 protected:
     unsigned int taille;
+    // Taille de la liste
     Maillon<T> *tete;
+    // Pointeur vers le premier maillon de la liste
 };
 
 template <typename T>
 Liste<T>::Liste()
+// Constructeur par défaut de la classe Liste
 {
 #ifdef MAP
     cout << "Appel au constructeur par défaut de <Liste>" << endl;
@@ -70,6 +73,7 @@ Liste<T>::Liste()
 
 template <typename T>
 Liste<T>::~Liste()
+// Destructeur de la classe Liste
 {
 #ifdef MAP
     cout << "Appel au destructeur de <Liste>" << endl;
