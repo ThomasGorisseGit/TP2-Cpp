@@ -98,10 +98,9 @@ Liste<TrajetSimple> *Catalogue::Rechercher(const char *depart, const char *arriv
     Liste<TrajetSimple> *listeChemins = new Liste<TrajetSimple>;
     unsigned int cptTrajet = 0;
     unsigned int taille = listeTrajet->GetTaille();
-
+    cout << endl;
     for (unsigned int i = 0; i < taille; i++)
     {
-
         if (listeTrajet->GetValeur(i)->GetType() == 1) // est un trajet simple
         {
             // Si le depart du trajet simple est la même que celui en parametre
@@ -109,21 +108,27 @@ Liste<TrajetSimple> *Catalogue::Rechercher(const char *depart, const char *arriv
             if (strcmp(listeTrajet->GetValeur(i)->GetDepart(), depart) == 0 && strcmp(listeTrajet->GetValeur(i)->GetArrivee(), arrivee) == 0)
             {
                 // On affiche le trajet simple
+                cout <<  BOLD_WHITE << "Trajet Simples : " << FIN;
                 listeTrajet->GetValeur(i)->Afficher();
-
+                cout << endl;
                 cptTrajet++;
                 TrajetSimple *TrajetSimpleRemplissage = new TrajetSimple(*listeTrajet->GetValeur(i), listeTrajet->GetValeur(i)->GetTransport());
                 listeChemins->Ajouter(TrajetSimpleRemplissage);
             }
+          
         }
         else // C'est un trajet composé
         {
+            
             // On recherche dans les trajets simples qui composent le trajet composé
             if (strcmp(listeTrajet->GetValeur(i)->GetDepart(), depart) == 0 && strcmp(listeTrajet->GetValeur(i)->GetArrivee(), arrivee) == 0)
             {
                 cptTrajet++;
+                cout << BOLD_WHITE << "Trajet Composé : " << FIN;
                 listeTrajet->GetValeur(i)->Afficher();
+                cout<< endl;
             }
+           
 
             unsigned int tailleTrajetCompose = listeTrajet->GetValeur(i)->GetTailleTrajet();
 
@@ -136,9 +141,12 @@ Liste<TrajetSimple> *Catalogue::Rechercher(const char *depart, const char *arriv
                 {
 
                     // On affiche le trajet simple
+                    cout << BOLD_WHITE <<  "Partie d'un trajet Composé : " << FIN;
                     listeTrajet->GetValeur(i)->GetTrajetSimple(j)->Afficher();
+                    cout<< endl;
 
-                    // On ajoute le trajet simple à la liste des trajets simples
+
+                    // On ajoute le trajet simple à la liste des trajets simples (pas utilisé)
                     TrajetSimple *TrajetSimpleRemplissage = new TrajetSimple(*listeTrajet->GetValeur(i)->GetTrajetSimple(j),
                                                                              listeTrajet->GetValeur(i)->GetTrajetSimple(j)->GetTransport());
                     listeChemins->Ajouter(TrajetSimpleRemplissage);
