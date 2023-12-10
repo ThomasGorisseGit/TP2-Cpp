@@ -10,6 +10,7 @@
 // Couleurs pour l'affichage
 #define DEBUT_BOLD_RED "\033[1;31m"
 #define DEBUT_RED "\033[31m"
+#define DEBUT_MAGENTA "\033[35m"
 #define FIN "\033[0m"
 #define DEBUT_BOLD_GREEN "\033[1;32m"
 #define BOLD_WHITE "\033[1;37m"
@@ -232,19 +233,21 @@ int main()
             Liste<TrajetSimple> *itineraireActuel = new Liste<TrajetSimple>;                    // Liste pour stocker l'itinéraire actuel pendant la recherche
             catalogueTrajet.RechercheAvancee(depart, arrivee, *itineraires, *itineraireActuel); // Recherche du trajet
             cout << endl << BOLD_WHITE << "Affichage de l'itinéraire : " << FIN << DOUBLE_ENDL;
-
+            
             unsigned int tailleIti = itineraires->GetTaille();
             for (unsigned int i= 0; i < tailleIti; i++)
             {
-
+                
+                itineraires->GetValeur(i)->AfficherPetit();
                 if(strcmp(itineraires->GetValeur(i)->GetArrivee(),arrivee) == 0)
                 {
+                   
                     cout << endl << " -------------------------------" << endl; //Séparation entre les différents itinéraires
                 }
-                else if (i>0) cout << " puis ";
-                itineraires->GetValeur(i)->AfficherPetit();
+                else if(i != tailleIti-1) cout << DEBUT_MAGENTA << " ➔ " << FIN;
+               
             }
-            cout << endl;
+            
 
             delete[] depart;
             delete[] arrivee;
