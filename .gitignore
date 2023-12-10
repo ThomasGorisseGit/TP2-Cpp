@@ -4,4 +4,4 @@
 exe
 *.o
 old.cpp
-.obj/*
+.obj/
