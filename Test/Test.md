@@ -119,3 +119,103 @@ B
 ```
 
 ==> 2 trajets trouvés (un simple et un composé (le global))
+
+# Test recherche avancée
+
+Recherche d'un trajet composé avec un seul composé
+
+```
+2
+2
+A
+C
+B
+Bus
+C
+Camion
+3
+A
+C
+```
+
+==> trajet trouvé A->C ( A->B en bus puis B->C en camion)
+
+Recherche d'un trajet composé avec un simple
+
+```
+2
+1
+A
+B
+Bus
+3
+A
+B
+```
+
+==> trajet trouvé A->B
+
+Recherche d'un trajet composé avec un trajet simple et un composé
+
+```
+
+2
+1
+A
+B
+Bus
+2
+2
+A
+C
+B
+Bus
+C
+Camion
+3
+A
+C
+
+```
+
+==> trajet trouvé A->C ( A->B en bus puis B->C en camion)
+Test du sujet de TP
+
+```
+2
+1
+A
+B
+MT1
+2
+2
+B
+C
+Y
+MT3
+C
+MT2
+2
+1
+B
+C
+MT1
+2
+2
+A
+C
+Z
+MT2
+C
+MT1
+3
+A
+C
+1
+4
+A
+C
+5
+```
+
+==> 3 trajets trouvés (A->B, B->Y, Y->C et A->B, B->C et A->Z, Z->C)
