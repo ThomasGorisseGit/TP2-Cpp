@@ -38,6 +38,9 @@ public:
     virtual ~Maillon();
     // Destructeur de la classe Maillon
 
+    void ModifierValeur(T *nouvelleValeur);
+    //Permet de modifier la valeur d'un maillon
+
 private:
     T *valeur;
     Maillon *suivant;
@@ -81,4 +84,11 @@ void Maillon<T>::Afficher() const
 {
     valeur->Afficher();
 }
+
+template <typename T>
+void Maillon<T>::ModifierValeur(T *nouvelleValeur)
+{
+    valeur = nouvelleValeur;
+}
+
 #endif // MAILLON_H

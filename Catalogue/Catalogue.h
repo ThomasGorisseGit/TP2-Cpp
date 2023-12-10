@@ -34,7 +34,7 @@ public:
     // Mode d'emploi :
     //      Appel de la méthode afficher catalogue.Afficher(listeTrajetSimple,listeTrajetCompose)
 
-    void RechercheAvancee(const char *depart, const char *arrivee);
+    //void RechercheAvancee(const char *depart, const char *arrivee);
     // Permet de rechercher de manière approfondie un départ et une arrivée.
     // Le programme va trouver un itinéraire en utilisant sa liste des trajets pour combiner les arrivées et les départs
     // Afin de trouver un trajet permettant de lier départ à arrivee.
@@ -74,13 +74,13 @@ public:
     //dans listeTrajetEnSimple
 
 protected:
-    Liste<TrajetSimple> *rechercheDepuisDepart(const char *depart, Liste<TrajetSimple> *listeARemplir);
+    //Liste<TrajetSimple> *rechercheDepuisDepart(const char *depart, Liste<TrajetSimple> *listeARemplir);
     // Renvoie une liste de trajets qui partent du départ passé en paramètre.
     // Mode d'emploi :
     // Utilisé dans les méthodes permettant une recherche avancee
     // Méthode privée.
 
-    bool trajetArrivantADestination(Liste<TrajetSimple> *listeTrajetParcourus, const char *arrivee, Liste<TrajetSimple> *listeARemplir);
+    //bool trajetArrivantADestination(Liste<TrajetSimple> *listeTrajetParcourus, const char *arrivee, Liste<TrajetSimple> *listeARemplir);
     // Permet de parcourir récursivement la liste des trajets et de stocker le chemin nécéssaire pour arriver à destination.
     // La liste des trajets nécéssaires est stockée dans listeARemplir.
     // Cette méthode est utilisée dans les méthodes de recherche avancee

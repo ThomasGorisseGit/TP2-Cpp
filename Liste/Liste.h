@@ -57,6 +57,11 @@ public:
     // Mode d'emploi :
     //       Appel de la méthode avec liste.Erase(index);
 
+    void ModifierToutesLesValeursEnNull();
+    //Fonction qui vide la liste avant de la supprimer, pour ne pas supprimer des trajets 
+
+
+
 protected:
     unsigned int taille;
     Maillon<T> *tete;
@@ -220,6 +225,18 @@ void Liste<T>::Erase(unsigned int index)
     precedent->setSuivant(courrent->getSuivant());
     delete courrent;
     taille--;
+}
+
+template <typename T>
+void Liste<T>::ModifierToutesLesValeursEnNull()
+{
+    Maillon<T> *courant = tete;
+
+    while (courant != nullptr)
+    {
+        courant->ModifierValeur(nullptr);
+        courant = courant->getSuivant();
+    }
 }
 
 

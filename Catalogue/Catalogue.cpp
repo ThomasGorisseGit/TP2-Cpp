@@ -159,7 +159,7 @@ Liste<TrajetSimple> * Catalogue::Rechercher(const char *depart, const char *arri
 
 } // Fin de la méthode de recherche de trajets
 
-void Catalogue::RechercheAvancee(const char *depart, const char *arrivee)
+/*void Catalogue::RechercheAvancee(const char *depart, const char *arrivee)
 // Méthode permettant la recherche avancee de trajets en combinant les arrivées et les départs afin de proposer un itinéraire optimal.
 // Algorithme :
 //      On a une liste des Trajets parcourus, que l'on remplie avec les trajets liés au point de départ.
@@ -281,7 +281,7 @@ Liste<TrajetSimple> *Catalogue::rechercheDepuisDepart(const char *depart, Liste<
         }
     }
     return listeARemplir;
-}
+}*/
 
 void Catalogue::GetTrajetSimpleEtCompose(Liste<Trajet> *listeTrajetSimple, Liste<Trajet> *listeTrajetCompose)
 {

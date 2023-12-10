@@ -32,8 +32,7 @@ int main()
         cout << BOLD_WHITE << "3. " << FIN << "Recherche d'un trajet" << endl;
         cout << BOLD_WHITE << "4. " << FIN << "Recherche avancée" << endl;
         cout << BOLD_WHITE << "5. " << FIN << DEBUT_BOLD_RED << "Quitter le programme" << FIN << endl;
-        cout << BOLD_WHITE << "6. " << FIN << DEBUT_BOLD_RED << "Recherche avancée Gabin" << FIN << endl
-             << endl;
+        
 
         int choix;
 
@@ -66,6 +65,11 @@ int main()
 
             // Affichage des trajets simples et composés
             catalogueTrajet.Afficher(listeTrajetSimple, listeTrajetCompose);
+
+            listeTrajetSimple->ModifierToutesLesValeursEnNull(); //on vide les listes
+            listeTrajetCompose->ModifierToutesLesValeursEnNull();
+            delete listeTrajetSimple; //puis on les delete
+            delete listeTrajetCompose;
 
             cout << endl;
             break;
@@ -199,23 +203,23 @@ int main()
         }
 
         // Recherche d'un trajet composé
+        // case 4:
+        // {
+
+        //     cout << BOLD_WHITE << "Veuillez rentrer le départ du trajet souhaité : " << FIN << endl;
+        //     char *depart = new char[MAX];
+        //     cin >> depart;
+        //     cout << BOLD_WHITE << "Veuillez rentrer l'arrivée du trajet souhaité : " << FIN << endl;
+        //     char *arrivee = new char[MAX];
+        //     cin >> arrivee;
+
+        //     catalogueTrajet.RechercheAvancee(depart, arrivee); // Recherche du trajet
+        //     delete[] depart;
+        //     delete[] arrivee;
+        //     break;
+        // }
+
         case 4:
-        {
-
-            cout << BOLD_WHITE << "Veuillez rentrer le départ du trajet souhaité : " << FIN << endl;
-            char *depart = new char[MAX];
-            cin >> depart;
-            cout << BOLD_WHITE << "Veuillez rentrer l'arrivée du trajet souhaité : " << FIN << endl;
-            char *arrivee = new char[MAX];
-            cin >> arrivee;
-
-            catalogueTrajet.RechercheAvancee(depart, arrivee); // Recherche du trajet
-            delete[] depart;
-            delete[] arrivee;
-            break;
-        }
-
-        case 6:
         {
 
             cout << BOLD_WHITE << "Veuillez rentrer le départ du trajet souhaité : " << FIN << endl;
@@ -234,8 +238,13 @@ int main()
             itineraires->Afficher();
             delete[] depart;
             delete[] arrivee;
-            delete itineraires;
+            cout << "Suppression d'itinéraireActuel" <<endl;
+            itineraireActuel->ModifierToutesLesValeursEnNull();
             delete itineraireActuel;
+            cout << "Suppression d'itinéraire" <<endl;
+            itineraires->ModifierToutesLesValeursEnNull();
+            delete itineraires;
+            
             break;
         }
 
