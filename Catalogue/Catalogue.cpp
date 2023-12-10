@@ -211,14 +211,13 @@ void Catalogue::RechercheAvancee(const char *depart, const char *arrivee, Liste<
 //      On retire le dernier trajet de l'itinéraire actuel (grâce à Erase()) pour explorer d'autres possibilités.
 {
 
-    cout << "Recherche d'un trajet partant de : " << DEBUT_BOLD_GREEN << depart << FIN << " à " << DEBUT_BOLD_GREEN << arrivee << FIN << endl;
+    //cout << "Recherche d'un trajet partant de : " << DEBUT_BOLD_GREEN << depart << FIN << " à " << DEBUT_BOLD_GREEN << arrivee << FIN << endl;
 
     // Si la liste d'itinéraires actuelle atteint la destination, l'ajouter à la liste complète d'itinéraires
     if (itineraireActuel.GetTaille() > 0 &&
         strcmp(itineraireActuel.GetValeur(itineraireActuel.GetTaille() - 1)->GetArrivee(), arrivee) == 0)
     {
         itineraires.Ajouter(&itineraireActuel);
-        cout << DEBUT_BOLD_GREEN << "FIN" << FIN << endl;
         return;
     }
 

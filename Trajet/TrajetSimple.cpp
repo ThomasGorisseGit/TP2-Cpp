@@ -6,19 +6,19 @@ using namespace std;
 #include <cstring>
 
 // Couleurs pour l'affichage
-#define DEBUT_BOLD_GREEN "\033[1;32m"
+#define DEBUT_BOLD_BLUE "\033[1;34m"
 #define BOLD_WHITE "\033[1m"
 #define FIN "\033[0m"
 
 void TrajetSimple::Afficher() const
 {
-    cout << "Trajet partant de " << DEBUT_BOLD_GREEN << depart << FIN << " allant à " << DEBUT_BOLD_GREEN << arrivee << FIN
+    cout << "Trajet partant de " << DEBUT_BOLD_BLUE << depart << FIN << " allant à " << DEBUT_BOLD_BLUE << arrivee << FIN
          << " en " << BOLD_WHITE << transport << FIN << endl;
 }
 
 void TrajetSimple::AfficherPetit() const
 {
-    cout << DEBUT_BOLD_GREEN << depart << FIN << " à " << DEBUT_BOLD_GREEN << arrivee << FIN << " en " << BOLD_WHITE << transport << FIN;
+    cout << DEBUT_BOLD_BLUE << depart << FIN << " à " << DEBUT_BOLD_BLUE << arrivee << FIN << " en " << BOLD_WHITE << transport << FIN;
 }
 
 TrajetSimple::TrajetSimple(const char *Depart, const char *Arrivee, char *M_transport) : Trajet(Depart, Arrivee)

@@ -32,6 +32,7 @@ public:
     // Méthode permettant d'afficher un trajet simple de manière réduite.
     // Mode d'emploi :
     //       Appel de la méthode avec trajet.AfficherPetit();
+    
 
     inline virtual unsigned int GetTailleTrajet() const { return 1; }
     // Méthode permettant d'accéder à la taille d'un trajet simple.

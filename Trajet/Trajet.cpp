@@ -28,38 +28,6 @@ Trajet::Trajet(const Trajet &ref)
     strcpy(this->arrivee, ref.arrivee);
 }
 
-char *Trajet::GetDepart() const
-{
-    return depart;
-}
-
-char *Trajet::GetArrivee() const
-{
-    return arrivee;
-}
-
-int Trajet::GetType() const
-{
-    return SansType; // SansType = Appel de GetType sur un Trajet (ni simple ni compose)
-}
-
-unsigned int Trajet::GetTailleTrajet() const
-{
-    return 0; // renvoi 0 si appelé sur un Trajet (ni simple ni compose)
-}
-
-Trajet *Trajet::GetTrajetSimple(unsigned int indice) const
-{
-    return nullptr; // renvoi nullptr si appellé sur un Trajet (ni simple ni compose)
-}
-
-char *Trajet::GetTransport() const
-{
-    return nullptr; // renvoi nullptr si appellé sur un Trajet (ni simple ni compose)
-}
-
-// int Trajet::GetType() const;
-
 Trajet::~Trajet()
 {
 #ifdef MAP

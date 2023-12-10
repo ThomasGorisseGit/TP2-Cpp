@@ -9,10 +9,13 @@
 
 // Couleurs pour l'affichage
 #define DEBUT_BOLD_RED "\033[1;31m"
+#define DEBUT_RED "\033[31m"
 #define FIN "\033[0m"
 #define DEBUT_BOLD_GREEN "\033[1;32m"
 #define BOLD_WHITE "\033[1;37m"
 #define DEBUT_BACKGROUND_GREEN "\033[42m"
+#define DEBUT_BOLD_BLUE "\033[1;34m"
+#define DOUBLE_ENDL std::endl << std::endl
 
 using namespace std;
 
@@ -24,12 +27,12 @@ int main()
 
     while (true)
     {
-        cout << BOLD_WHITE << "Que voulez-vous faire ?" << FIN << endl;
+        cout << endl << BOLD_WHITE << "Que voulez-vous faire ?" << FIN << DOUBLE_ENDL;
         cout << BOLD_WHITE << "1. " << FIN << "Afficher le catalogue " << endl;
         cout << BOLD_WHITE << "2. " << FIN << "Ajouter un trajet" << endl;
         cout << BOLD_WHITE << "3. " << FIN << "Recherche d'un trajet" << endl;
         cout << BOLD_WHITE << "4. " << FIN << "Recherche avancée" << endl;
-        cout << BOLD_WHITE << "5. " << FIN << DEBUT_BOLD_RED << "Quitter le programme" << FIN << endl;
+        cout << BOLD_WHITE << "5. " << FIN << DEBUT_RED << "Quitter le programme" << FIN << DOUBLE_ENDL;
 
         int choix;
 
@@ -93,8 +96,15 @@ int main()
 
                 cout << BOLD_WHITE << "Veuillez rentrer le départ du trajet : " << FIN << endl;
                 cin >> depart;
-                cout << BOLD_WHITE << "Veuillez rentrer l'arrivée du trajet : " << FIN << endl;
-                cin >> arrivee;
+                
+                do
+                {
+                    cout << BOLD_WHITE << "Veuillez rentrer l'arrivée du trajet : " << FIN << endl;
+                    cin >> arrivee;
+                    if (strcmp(depart,arrivee) == 0) cout << DEBUT_BOLD_RED << "Erreur de saisie, arrivée du trajet identique au départ" << FIN << endl;
+                }while (strcmp(depart,arrivee) == 0);
+
+
                 cout << BOLD_WHITE << "Veuillez rentrer le moyen de transport du trajet : " << FIN << endl;
                 cin >> moyenTransport;
 
@@ -121,9 +131,16 @@ int main()
                 cout << BOLD_WHITE << "Veuillez rentrer le départ du trajet global : " << FIN << endl
                      << endl;
                 cin >> departTrajetCompose;
-                cout << BOLD_WHITE << "Veuillez rentrer l'arrivée du trajet global : " << FIN << endl
-                     << endl;
-                cin >> arriveeTrajetCompose;
+                
+                do
+                {
+                    cout << BOLD_WHITE << "Veuillez rentrer l'arrivée du trajet global : " << FIN << endl;
+                    cin >> arriveeTrajetCompose;
+                    if (strcmp(departTrajetCompose,arriveeTrajetCompose) == 0) 
+                    {
+                        cout << DEBUT_BOLD_RED << "Erreur de saisie, arrivée du trajet identique au départ" << FIN << endl;
+                    }
+                }while (strcmp(departTrajetCompose,arriveeTrajetCompose) == 0);
 
                 char *arriveTrajetSimple = new char[MAX];
                 char *departTrajetSimple = new char[MAX];
@@ -214,9 +231,21 @@ int main()
             Liste<TrajetSimple> *itineraires = new Liste<TrajetSimple>;                         // Liste pour stocker les itinéraires trouvés
             Liste<TrajetSimple> *itineraireActuel = new Liste<TrajetSimple>;                    // Liste pour stocker l'itinéraire actuel pendant la recherche
             catalogueTrajet.RechercheAvancee(depart, arrivee, *itineraires, *itineraireActuel); // Recherche du trajet
-            cout << BOLD_WHITE << "Affichage de l'itinéraire : " << FIN << endl;
+            cout << endl << BOLD_WHITE << "Affichage de l'itinéraire : " << FIN << DOUBLE_ENDL;
 
-            itineraires->Afficher();
+            unsigned int tailleIti = itineraires->GetTaille();
+            for (unsigned int i= 0; i < tailleIti; i++)
+            {
+
+                if(strcmp(itineraires->GetValeur(i)->GetArrivee(),arrivee) == 0)
+                {
+                    cout << endl << " -------------------------------" << endl; //Séparation entre les différents itinéraires
+                }
+                else if (i>0) cout << " puis ";
+                itineraires->GetValeur(i)->AfficherPetit();
+            }
+            cout << endl;
+
             delete[] depart;
             delete[] arrivee;
 
@@ -240,6 +269,6 @@ int main()
             break;
         }
     }
-    cout << "      " << endl;
+    cout << endl;
     return 0;
 }
