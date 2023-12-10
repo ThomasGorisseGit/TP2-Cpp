@@ -20,7 +20,6 @@ public:
 
     T *GetValeur(unsigned int index) const;
     // Méthode permettant de retourner la valeur du maillon à l'index passé en paramètre
-    // Il prend en paramètre l'index du maillon dont on veut la valeur
     // Mode d'emploi :
     //       Appel de la méthode avec liste.GetValeur(index);
 
@@ -58,35 +57,24 @@ public:
     //       Appel de la méthode avec liste.Erase(index);
 
     void ModifierToutesLesValeursEnNull();
-    //Fonction qui vide la liste avant de la supprimer, pour ne pas supprimer des trajets 
+    // Fonction qui vide la liste avant de la supprimer, pour ne pas supprimer des trajets
 
-    Maillon<T> * GetMaillon(unsigned int index) const;
-
-
+    Maillon<T> *GetMaillon(unsigned int index) const;
+    // Méthode permettant de retourner le maillon à l'index passé en paramètre
 
 protected:
     unsigned int taille;
     Maillon<T> *tete;
-    
-
-private:
-    static unsigned int numero;
-    unsigned int * numPerso;
-   
-
 };
 
-template <typename T>
-unsigned int Liste<T>::numero = 0;
+// ----------------------------- Implémentation des méthodes -----------------------------
+// (on ne peut pas séparer l'implémentation de la déclaration pour une classe template)
 
 template <typename T>
 Liste<T>::Liste()
 {
-numero++;
-numPerso = new unsigned int;
-*numPerso = numero;
 #ifdef MAP
-    cout << "Appel au constructeur par défaut de <Liste>" << *numPerso << endl;
+    cout << "Appel au constructeur par défaut de <Liste>" << endl;
 #endif
 
     this->tete = nullptr;
@@ -97,7 +85,7 @@ template <typename T>
 Liste<T>::~Liste()
 {
 #ifdef MAP
-    cout << "Appel au destructeur de <Liste>" << *numPerso << endl;
+    cout << "Appel au destructeur de <Liste>" << endl;
 #endif
     // On parcourt la liste et on supprime chaque maillon
     Maillon<T> *courrent = tete;
@@ -107,7 +95,6 @@ Liste<T>::~Liste()
         delete courrent;
         courrent = suivant;
     }
-    delete numPerso;
 }
 
 template <typename T>
@@ -119,16 +106,16 @@ T *Liste<T>::GetValeur(unsigned int index) const
     {
         if (i == index)
         {
-            return courrent->getValeur();
+            return courrent->getValeur(); // Méthode getValeur() de la classe Maillon
         }
         courrent = courrent->getSuivant();
         i++;
     }
-    return nullptr;
+    return nullptr; // Si l'index est invalide, on retourne nullptr
 }
 
 template <typename T>
-Maillon<T> * Liste<T>::GetMaillon(unsigned int index) const
+Maillon<T> *Liste<T>::GetMaillon(unsigned int index) const
 {
     Maillon<T> *courrent = tete;
     unsigned int i = 0;
@@ -141,7 +128,7 @@ Maillon<T> * Liste<T>::GetMaillon(unsigned int index) const
         courrent = courrent->getSuivant();
         i++;
     }
-    return nullptr;
+    return nullptr; // Si l'index est invalide, on retourne nullptr
 }
 
 template <typename T>
@@ -155,7 +142,7 @@ void Liste<T>::Ajouter(T *valeur)
 {
     // On crée un nouveau maillon avec la valeur passée en paramètre (il sera placé à la fin de la liste)
     Maillon<T> *nouveauMaillon = new Maillon<T>(valeur, nullptr);
-    
+
     // Si la liste est vide, on ajoute le nouveau maillon en tête
     if (tete == nullptr)
     {
@@ -178,7 +165,7 @@ void Liste<T>::Ajouter(Liste<T> *liste)
 {
     for (unsigned int i = 0; i < liste->GetTaille(); i++)
     {
-        this->Ajouter(liste->GetValeur(i));
+        this->Ajouter(liste->GetValeur(i)); // On ajoute maillon par maillon
     }
 }
 
@@ -201,7 +188,7 @@ template <typename T>
 void Liste<T>::Afficher() const
 {
     Maillon<T> *courrent = tete;
-    
+
     while (courrent != nullptr)
     {
         courrent->Afficher(); // Ici, on suppose que la classe T possède une méthode afficher()
@@ -215,7 +202,7 @@ void Liste<T>::Erase(unsigned int index)
     // Vérifiez si l'index est valide
     if (index >= taille)
     {
-        cout << "Index hors de la plage de la liste." << endl;
+        cout << "Index invalide." << endl;
         return;
     }
 
@@ -258,6 +245,4 @@ void Liste<T>::ModifierToutesLesValeursEnNull()
         courant = courant->getSuivant();
     }
 }
-
-
 #endif // LISTE_H

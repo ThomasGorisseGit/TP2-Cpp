@@ -1,100 +1,72 @@
-/*************************************************************************
-                        Trajet  -  description
-                            -------------------
-    début                : $DATE$
-    copyright            : (C) $YEAR$ par $AUTHOR$
-    e-mail               : $EMAIL$
-*************************************************************************/
-
-//---------- Interface de la classe <Trajet> (fichier Trajet.h) ----------------
 #if !defined(Trajet_H)
 #define Trajet_H
 
-//--------------------------------------------------- Interfaces utilisées
-
-//------------------------------------------------------------- Constantes
-
-//------------------------------------------------------------------ Types
-
-//------------------------------------------------------------------------
-// Rôle de la classe <Trajet>
-//
-//
-//------------------------------------------------------------------------
-
 class Trajet
 {
-    //----------------------------------------------------------------- PUBLIC
-
 public:
-    //----------------------------------------------------- Méthodes publiques
-    
-    // Méthode de type Get
-    // Elle permet d'accéder au départ d'un trajet.
-    char *GetDepart() const;
-
-    // Méthode de type Get
-    //  Elle permet d'accéder à l'arrivée d'un trajet.
-    char *GetArrivee() const; // getteur de l'arrivée
-
-    //Liste<TrajetSimple> & Rechercher(const char* Depart, const char* Arrivee) const;
-
-    // Méthode de type affichage
-    // Elle permet d'afficher les attributs d'un trajet.
-    // Notamment le départ et l'arrivée.
-    // L'affichage est élaboré.
-    virtual void Afficher() const;
-
-    //------------------------------------------------- Surcharge d'opérateurs
-    // Trajet & operator = ( const Trajet & unTrajet );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
-
-    //-------------------------------------------- Constructeurs - destructeur
-    // Trajet ( const Trajet & unTrajet );
-    // Mode d'emploi (constructeur de copie) :
-    //
-    // Contrat :
-    //
-
     Trajet(const char *DepartVille, const char *ArrivéeVille);
+    // Constructeur de la classe Trajet
+    // Il prend en paramètre le départ et l'arrivée du trajet
     // Mode d'emploi :
-    //
-    // Contrat :
-    //
+    //       Appel du constructeur avec Trajet trajet(DepartVille, ArrivéeVille);
 
-    Trajet( const Trajet& ref);
+    char *GetDepart() const;
+    // Méthode permettant d'accéder au départ d'un trajet.
+    // Mode d'emploi :
+    //       Appel de la méthode avec trajet.GetDepart();
 
-    virtual unsigned int GetTailleTrajet() const; //renvoi 0 si appelé sur un Trajet (ni simple ni compose)
+    char *GetArrivee() const;
+    // Méthode permettant d'accéder à l'arrivée d'un trajet.
+    // Mode d'emploi :
+    //       Appel de la méthode avec trajet.GetArrivee();
 
-    virtual Trajet * GetTrajetSimple(unsigned int indice) const; //renvoi nullptr si appellé sur un Trajet (ni simple ni compose)
+    inline virtual void Afficher() const {};
+    // Méthode permettant d'afficher un trajet.
+    // Si cette méthode est appellée sur un trajet (ni simple ni compose), elle ne fait rien.
+    // Mode d'emploi :
+    //       Appel de la méthode avec trajet.Afficher();
 
+    Trajet(const Trajet &ref);
+    // Constructeur de copie de la classe Trajet
+    // Il prend en paramètre une référence vers un trajet
+    // Mode d'emploi :
+    //       Appel du constructeur avec Trajet trajet(_trajet);
+
+    virtual unsigned int GetTailleTrajet() const;
+    // Méthode permettant d'accéder à la taille d'un trajet.
+    // Si cette méthode est appellée sur un trajet (ni simple ni compose), elle renvoi 0.
+    // Mode d'emploi :
+    //       Appel de la méthode avec trajet.GetTailleTrajet();
+
+    virtual Trajet *GetTrajetSimple(unsigned int indice) const;
+    // Méthode permettant d'accéder au trajet simple à l'indice passé en paramètre d'un trajet composé.
+    // Si cette méthode est appellée sur un trajet (ni simple ni compose), elle renvoi nullptr.
+    // Mode d'emploi :
+    //       Appel de la méthode avec trajet.GetTrajetSimple(indice);
 
     virtual int GetType() const;
-    virtual char *GetTransport() const;
-   
+    // Méthode permettant d'accéder au type d'un trajet.
+    // Si cette méthode est appellée sur un trajet (ni simple ni compose), elle renvoi 0.
+    // Mode d'emploi :
+    //       Appel de la méthode avec trajet.GetType();
 
+    virtual char *GetTransport() const;
+    // Méthode permettant d'accéder au transport d'un trajet.
+    // Si cette méthode est appellée sur un trajet (ni simple ni compose), elle renvoi nullptr.
+    // Mode d'emploi :
+    //       Appel de la méthode avec trajet.GetTransport();
 
     virtual ~Trajet();
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
-
-    //------------------------------------------------------------------ PRIVE
+    // Destructeur de la classe Trajet
 
 protected:
-    //----------------------------------------------------- Méthodes protégées
-
-    //----------------------------------------------------- Attributs protégés
     char *depart;
     char *arrivee;
-    enum typeTrajet  {SansType = 0, Simple = 1, Compose = 2}; //SansType = Appel de GetType sur un Trajet (ni simple ni compose)
-    
+    enum typeTrajet
+    {
+        SansType = 0,
+        Simple = 1,
+        Compose = 2
+    }; // SansType = Appel de GetType sur un Trajet (ni simple ni compose)
 };
-
-//-------------------------------- Autres définitions dépendantes de <Trajet>
-
 #endif // Trajet_H

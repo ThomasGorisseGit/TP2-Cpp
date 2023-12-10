@@ -5,8 +5,6 @@
 #include "Trajet/TrajetSimple.h"
 #include "Trajet/TrajetCompose.h"
 
-
-
 #define MAX 50
 
 // Couleurs pour l'affichage
@@ -31,9 +29,7 @@ int main()
         cout << BOLD_WHITE << "2. " << FIN << "Ajouter un trajet" << endl;
         cout << BOLD_WHITE << "3. " << FIN << "Recherche d'un trajet" << endl;
         cout << BOLD_WHITE << "4. " << FIN << "Recherche avancée" << endl;
-        cout << BOLD_WHITE << "5. " << FIN << DEBUT_BOLD_RED << "Test" << FIN << endl;
-        cout << BOLD_WHITE << "6. " << FIN << DEBUT_BOLD_RED << "Quitter le programme" << FIN << endl;
-        
+        cout << BOLD_WHITE << "5. " << FIN << DEBUT_BOLD_RED << "Quitter le programme" << FIN << endl;
 
         int choix;
 
@@ -67,9 +63,9 @@ int main()
             // Affichage des trajets simples et composés
             catalogueTrajet.Afficher(listeTrajetSimple, listeTrajetCompose);
 
-            listeTrajetSimple->ModifierToutesLesValeursEnNull(); //on vide les listes
+            listeTrajetSimple->ModifierToutesLesValeursEnNull(); // on vide les listes
             listeTrajetCompose->ModifierToutesLesValeursEnNull();
-            delete listeTrajetSimple; //puis on les delete
+            delete listeTrajetSimple; // puis on les delete
             delete listeTrajetCompose;
 
             cout << endl;
@@ -105,12 +101,12 @@ int main()
                 TrajetSimple *trajetSimple = new TrajetSimple(depart, arrivee, moyenTransport); // Création du trajet simple
 
                 catalogueTrajet.Ajouter(trajetSimple); // Ajout du trajet simple au catalogue
-                // catalogueTrajet.AjouterMulti(trajetSimple); //Ajoute à la liste multi du catalogue le trajet simple (Gabin)
+
+                cout << DEBUT_BOLD_GREEN << "Fin de la création du trajet simple : " << depart << " vers " << arrivee << " ." << FIN << endl
+                     << endl;
                 delete[] depart;
                 delete[] arrivee;
                 delete[] moyenTransport;
-                cout << DEBUT_BOLD_GREEN << "Fin de la création du trajet simple" << FIN << endl
-                     << endl;
             }
             else if (choixTrajet == 2)
             {
@@ -195,31 +191,14 @@ int main()
             char *arrivee = new char[MAX];
             cin >> arrivee;
 
-            Liste<TrajetSimple> * ListeRecherche = catalogueTrajet.Rechercher(depart,arrivee,1);
- 
+            Liste<TrajetSimple> *ListeRecherche = catalogueTrajet.Rechercher(depart, arrivee);
+
             delete[] depart;
             delete[] arrivee;
             delete ListeRecherche;
             break;
         }
-
-        // Recherche d'un trajet composé
-        // case 4:
-        // {
-
-        //     cout << BOLD_WHITE << "Veuillez rentrer le départ du trajet souhaité : " << FIN << endl;
-        //     char *depart = new char[MAX];
-        //     cin >> depart;
-        //     cout << BOLD_WHITE << "Veuillez rentrer l'arrivée du trajet souhaité : " << FIN << endl;
-        //     char *arrivee = new char[MAX];
-        //     cin >> arrivee;
-
-        //     catalogueTrajet.RechercheAvancee(depart, arrivee); // Recherche du trajet
-        //     delete[] depart;
-        //     delete[] arrivee;
-        //     break;
-        // }
-
+        // Recherche avancée
         case 4:
         {
 
@@ -232,39 +211,24 @@ int main()
 
             catalogueTrajet.Simplification();
 
-            Liste<TrajetSimple> *itineraires = new Liste<TrajetSimple>;  // Liste pour stocker les itinéraires trouvés
-            Liste<TrajetSimple> *itineraireActuel = new Liste<TrajetSimple>;  // Liste pour stocker l'itinéraire actuel pendant la recherche
-            catalogueTrajet.RechercheAvanceeGabin(depart, arrivee, *itineraires, *itineraireActuel); // Recherche du trajet
-            cout << "Affichage de l'itinéraire : " << endl;
+            Liste<TrajetSimple> *itineraires = new Liste<TrajetSimple>;                         // Liste pour stocker les itinéraires trouvés
+            Liste<TrajetSimple> *itineraireActuel = new Liste<TrajetSimple>;                    // Liste pour stocker l'itinéraire actuel pendant la recherche
+            catalogueTrajet.RechercheAvancee(depart, arrivee, *itineraires, *itineraireActuel); // Recherche du trajet
+            cout << BOLD_WHITE << "Affichage de l'itinéraire : " << FIN << endl;
 
-
-            //itineraires->AfficherIti(arrivee);
             itineraires->Afficher();
             delete[] depart;
             delete[] arrivee;
-            cout << "Suppression d'itinéraireActuel" <<endl;
+
             itineraireActuel->ModifierToutesLesValeursEnNull();
             delete itineraireActuel;
-            cout << "Suppression d'itinéraire" <<endl;
             itineraires->ModifierToutesLesValeursEnNull();
             delete itineraires;
-            
+
             break;
         }
-
         // Quitter le programme
         case 5:
-        {
-               catalogueTrajet.TestErase();
-
-
-            break;
-        }
-            
-
-        case 6:
-         
-
             cout << DEBUT_BOLD_RED << "Fin du programme" << FIN << endl;
             return 0;
             break;
@@ -276,20 +240,6 @@ int main()
             break;
         }
     }
-
-    // Catalogue catalogueTrajet;
-    // catalogueTrajet.Ajouter(new TrajetSimple("Paris", "Lyon", "Train"));
-    // Liste<Trajet> * liste= new Liste<Trajet>;
-    // catalogueTrajet.Rechercher("Paris", "Lyon", *liste);
-    // liste->Afficher();
-
-    // catalogueTrajet.Ajouter(new TrajetSimple("Lyon", "Marseille", "Train"));
-    // catalogueTrajet.Ajouter(new TrajetSimple("Lyon", "Cannes", "Train"));
-    //  catalogueTrajet.Ajouter(new TrajetSimple("Troucoin", "Marseille", "Train"));
-    //  catalogueTrajet.Ajouter(new TrajetSimple("Troucoin", "Cannes", "Train"));
-    //  catalogueTrajet.Ajouter(new TrajetSimple("Marseille", "Nice", "Train"));
-    //  catalogueTrajet.Ajouter(new TrajetSimple("Nice", "Lyon", "Train"));
-    // catalogueTrajet.RechercheAvancee("Paris", "Cannes");
     cout << "      " << endl;
     return 0;
 }
