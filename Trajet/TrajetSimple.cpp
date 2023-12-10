@@ -5,21 +5,20 @@ using namespace std;
 #include "Trajet.h"
 #include <cstring>
 
-// TrajetSimple::Afficher
-
-char *TrajetSimple::GetTransport() const
-{
-    return transport;
-}
+// Couleurs pour l'affichage
+#define DEBUT_BOLD_BLUE "\033[1;34m"
+#define BOLD_WHITE "\033[1m"
+#define FIN "\033[0m"
 
 void TrajetSimple::Afficher() const
 {
-    cout << "Trajet partant de " << depart << " allant à " << arrivee << " en " << transport << endl;
+    cout << "Trajet partant de " << DEBUT_BOLD_BLUE << depart << FIN << " allant à " << DEBUT_BOLD_BLUE << arrivee << FIN
+         << " en " << BOLD_WHITE << transport << FIN << endl;
 }
 
 void TrajetSimple::AfficherPetit() const
 {
-    cout << depart << " à " << arrivee << " en " << transport;
+    cout << DEBUT_BOLD_BLUE << depart << FIN << " à " << DEBUT_BOLD_BLUE << arrivee << FIN << " en " << BOLD_WHITE << transport << FIN;
 }
 
 TrajetSimple::TrajetSimple(const char *Depart, const char *Arrivee, char *M_transport) : Trajet(Depart, Arrivee)
@@ -27,19 +26,11 @@ TrajetSimple::TrajetSimple(const char *Depart, const char *Arrivee, char *M_tran
 #ifdef MAP
     cout << "Appel au constructeur de <TrajetSimple>" << endl;
 #endif
-    transport = new char[strlen(M_transport)+ 1];
+    transport = new char[strlen(M_transport) + 1];
     strcpy(transport, M_transport);
 }
-TrajetSimple::TrajetSimple(const TrajetSimple &ref) : Trajet(ref)
-{
-#ifdef MAP
-    cout << "Appel au constructeur de copie de <TrajetSimple>" << endl;
-#endif
-    this->transport = new char[strlen(ref.transport) + 1];
-    strcpy(this->transport, ref.transport);
-}
 
-TrajetSimple::TrajetSimple(const Trajet &ref, char * trans) : Trajet(ref)
+TrajetSimple::TrajetSimple(const Trajet &ref, char *trans) : Trajet(ref)
 {
 #ifdef MAP
     cout << "Appel au constructeur de copie2 de <TrajetSimple>" << endl;
@@ -48,22 +39,7 @@ TrajetSimple::TrajetSimple(const Trajet &ref, char * trans) : Trajet(ref)
     strcpy(this->transport, trans);
 }
 
-int TrajetSimple::GetType() const 
-{
-    return Simple; //enum = 0 
-}
-
-unsigned int TrajetSimple::GetTailleTrajet() const
-{
-    return 1; //taille d'un trajet simple par défaut
-}
-
-
-
-
 TrajetSimple::~TrajetSimple()
-// Algorithme :
-//
 {
 #ifdef MAP
     cout << "Appel au destructeur de <TrajetSimple>" << endl;

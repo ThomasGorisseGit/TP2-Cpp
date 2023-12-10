@@ -20,7 +20,6 @@ public:
 
     T *GetValeur(unsigned int index) const;
     // Méthode permettant de retourner la valeur du maillon à l'index passé en paramètre
-    // Il prend en paramètre l'index du maillon dont on veut la valeur
     // Mode d'emploi :
     //       Appel de la méthode avec liste.GetValeur(index);
 
@@ -52,10 +51,24 @@ public:
     // Méthode permettant d'afficher la liste
     // Mode d'emploi :
 
+    void Erase(unsigned int index);
+    // Méthode permettant de supprimer l'élément à l'index spécifié de la liste
+    // Mode d'emploi :
+    //       Appel de la méthode avec liste.Erase(index);
+
+    void ModifierToutesLesValeursEnNull();
+    // Fonction qui vide la liste avant de la supprimer, pour ne pas supprimer des trajets
+
+    Maillon<T> *GetMaillon(unsigned int index) const;
+    // Méthode permettant de retourner le maillon à l'index passé en paramètre
+
 protected:
     unsigned int taille;
     Maillon<T> *tete;
 };
+
+// ----------------------------- Implémentation des méthodes -----------------------------
+// (on ne peut pas séparer l'implémentation de la déclaration pour une classe template)
 
 template <typename T>
 Liste<T>::Liste()
@@ -93,12 +106,29 @@ T *Liste<T>::GetValeur(unsigned int index) const
     {
         if (i == index)
         {
-            return courrent->getValeur();
+            return courrent->getValeur(); // Méthode getValeur() de la classe Maillon
         }
         courrent = courrent->getSuivant();
         i++;
     }
-    return nullptr;
+    return nullptr; // Si l'index est invalide, on retourne nullptr
+}
+
+template <typename T>
+Maillon<T> *Liste<T>::GetMaillon(unsigned int index) const
+{
+    Maillon<T> *courrent = tete;
+    unsigned int i = 0;
+    while (courrent != nullptr)
+    {
+        if (i == index)
+        {
+            return courrent;
+        }
+        courrent = courrent->getSuivant();
+        i++;
+    }
+    return nullptr; // Si l'index est invalide, on retourne nullptr
 }
 
 template <typename T>
@@ -135,7 +165,7 @@ void Liste<T>::Ajouter(Liste<T> *liste)
 {
     for (unsigned int i = 0; i < liste->GetTaille(); i++)
     {
-        this->Ajouter(liste->GetValeur(i));
+        this->Ajouter(liste->GetValeur(i)); // On ajoute maillon par maillon
     }
 }
 
@@ -158,6 +188,7 @@ template <typename T>
 void Liste<T>::Afficher() const
 {
     Maillon<T> *courrent = tete;
+
     while (courrent != nullptr)
     {
         courrent->Afficher(); // Ici, on suppose que la classe T possède une méthode afficher()
@@ -165,4 +196,53 @@ void Liste<T>::Afficher() const
     }
 }
 
+template <typename T>
+void Liste<T>::Erase(unsigned int index)
+{
+    // Vérifiez si l'index est valide
+    if (index >= taille)
+    {
+        cout << "Index invalide." << endl;
+        return;
+    }
+
+    // Cas particulier : suppression de la tête de liste
+    if (index == 0)
+    {
+        Maillon<T> *temp = tete;
+        tete = tete->getSuivant();
+        delete temp;
+        taille--;
+        return;
+    }
+
+    // Parcours de la liste pour trouver le maillon précédant celui à supprimer
+    Maillon<T> *precedent = nullptr;
+    Maillon<T> *courrent = tete;
+    unsigned int i = 0;
+
+    while (i < index)
+    {
+        precedent = courrent;
+        courrent = courrent->getSuivant();
+        i++;
+    }
+
+    // Suppression du maillon à l'index spécifié
+    precedent->setSuivant(courrent->getSuivant());
+    delete courrent;
+    taille--;
+}
+
+template <typename T>
+void Liste<T>::ModifierToutesLesValeursEnNull()
+{
+    Maillon<T> *courant = tete;
+
+    while (courant != nullptr)
+    {
+        courant->ModifierValeur(nullptr);
+        courant = courant->getSuivant();
+    }
+}
 #endif // LISTE_H

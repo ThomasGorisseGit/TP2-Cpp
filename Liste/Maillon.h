@@ -31,17 +31,24 @@ public:
 
     inline void setSuivant(Maillon<T> *suivant) { this->suivant = suivant; }
     // Méthode permettant de modifier le maillon suivant
-    // Methode définie avec inline pour optimiser le code
     // Mode d'emploi :
     //       Appel de la méthode avec maillon.setSuivant(suivant);
+
+    void ModifierValeur(T *nouvelleValeur);
+    // Permet de modifier la valeur d'un maillon
+    // Mode d'emploi :
+    //       Appel de la méthode avec maillon.ModifierValeur(nouvelleValeur);
 
     virtual ~Maillon();
     // Destructeur de la classe Maillon
 
-private:
+protected:
     T *valeur;
     Maillon *suivant;
 };
+
+// ----------------------------- Implémentation des méthodes -----------------------------
+// (on ne peut pas séparer l'implémentation de la déclaration pour une classe template)
 
 template <typename T>
 Maillon<T>::Maillon(T *valeur, Maillon *suivant)
@@ -79,6 +86,13 @@ Maillon<T> *Maillon<T>::getSuivant() const
 template <typename T>
 void Maillon<T>::Afficher() const
 {
-    valeur->Afficher();
+    valeur->Afficher(); // On considère que la méthode Afficher() existe pour la classe T
 }
+
+template <typename T>
+void Maillon<T>::ModifierValeur(T *nouvelleValeur)
+{
+    valeur = nouvelleValeur;
+}
+
 #endif // MAILLON_H

@@ -1,26 +1,20 @@
 #if !defined(Catalogue_H)
 #define Catalogue_H
-//--------------------------------------------------- Interfaces utilisées
 
 #include "../Trajet/Trajet.h"
 #include "../Liste/Liste.h"
 #include "../Trajet/TrajetSimple.h"
 #include "../Trajet/TrajetCompose.h"
 
-
-//------------------------------------------------------------------ Types
-
-//------------------------------------------------------------------------
-// Rôle de la classe <Catalogue>
-//      Gestion avancée d'une liste de trajets.
-//
-//------------------------------------------------------------------------
-
 class Catalogue
 {
 
 public:
+    Catalogue();
+    // Constructeur de la classe Catalogue. Création d'un catalogue vide.
 
+    Catalogue(const Catalogue &unCatalogue);
+    // Constructeur de copie d'un catalogue. Il recopie tous les trajets du catalogue passé en paramètre.
 
     void Ajouter(Trajet *trajet);
     // Permet d'ajouter un trajet a la liste des trajets proposés dans le catalogue
@@ -32,66 +26,40 @@ public:
     // Mode d'emploi :
     //      Appel de la méthode ajouter catalogue.Ajouter(trajet)
 
-
-
-    void Afficher();
-    // Permet d'afficher tous les trajets qui sont dans le catalogue, avec un affichage sophistiqué 
+    void Afficher(Liste<Trajet> *listeTrajetSimple, Liste<Trajet> *listeTrajetCompose) const;
+    // Permet d'afficher le catalogue de trajets (il affcihe d'abord les trajets simples puis les trajets composés)
     // Mode d'emploi :
-    //      Appel de la méthode catalogue.Afficher()
+    //      Appel de la méthode afficher catalogue.Afficher(listeTrajetSimple,listeTrajetCompose)
 
-
-    void RechercheAvancee(const char *depart, const char *arrivee);
-    // Permet de rechercher de manière approfondie un départ et une arrivée.
-    // Le programme va trouver un itinéraire en utilisant sa liste des trajets pour combiner les arrivées et les départs
-    // Afin de trouver un trajet permettant de lier départ à arrivee.
+    Liste<TrajetSimple> *Rechercher(const char *depart, const char *arrivee) const;
+    // Permet au programme de rechercher un trajet qui part d'un départ et arrive à une arrivée.
+    // La méthode renvoie une liste de trajets simples qui permettent d'aller du point A au point B.
     // Mode d'emploi :
-    //      Ajouter une liste de trajets au catalogue et entrez : catalogue.RechercheAvancee("depart","arrivee");
+    //      Ajouter une liste de trajets (simples) au catalogue et entrez : catalogue.Rechercher("depart","arrivee", verbose);
 
-
-    void Rechercher(const char *depart, const char *arrivee) const;
-    // Permet au programme de rechercher un trajet qui part d'un départ et arrive à une arrivée. 
-    //renvoi true si un trajet a été trouvé
-    // Le catalogue renverra la liste des trajets qui font exactement cet itinéraire.
-    // Il ne permettera pas de changer de Trajet pour combiner des possibilitées.
-
-    
-
-    //-------------------------------------------- Constructeurs - destructeur
-    Catalogue(const Catalogue &unCatalogue);
-    // Mode d'emploi (constructeur de copie) :
-    // Copie en profondeur d'un catalogue. Il recopie tous les trajets du catalogue passé en paramètres
-    
-    
-
-    Catalogue();
+    void RechercheAvancee(const char *depart, const char *arrivee, Liste<TrajetSimple> &itineraires, Liste<TrajetSimple> &itineraireActuel);
+    // Permet de rechercher de manière complexe un trajet et d'afficher tous les trajets possibles pour aller d'un point A à un point B.
+    // La méthode est récursive et permet de trouver tous les trajets possibles pour aller d'un point A à un point B.
     // Mode d'emploi :
-    // Construit un catalogue composé d'une liste de trajet vide. 
-    // Il faut ensuite ajouter des trajets grâce à la méthode Ajouter(trajet)
-  
+    //      Ajouter une liste de trajets au catalogue et entrez : catalogue.RechercheAvancee("depart","arrivee", itineraires, itineraireActuel);
+
+    void GetTrajetSimpleEtCompose(Liste<Trajet> *listeTrajetSimple, Liste<Trajet> *listeTrajetCompose);
+    // Permet de séparer les trajets simples et les trajets composés dans deux listes différentes.
+    // La méthode remplie les deux listes passées en paramètre.
+    // Mode d'emploi :
+    //      Appel de la méthode catalogue.getTrajetSimpleEtCompose(listeTrajetSimple,listeTrajetCompose)
+
+    void Simplification();
+    // Fonction qui prend tous les trajets composés et les transforme en trajets simples.
+    // Mode d'emploi :
+    //      Appel de la méthode catalogue.Simplification()
 
     virtual ~Catalogue();
-    // Mode d'emploi :
     // Détruit l'objet catalogue en assurant une destruction totale de chaque trajet contenus dans le catalogue.
 
 protected:
-
-    Liste<TrajetSimple> *rechercheDepuisDepart(const char *depart,Liste<TrajetSimple> *listeARemplir);
-    // Renvoie une liste de trajets qui partent du départ passé en paramètre.
-    // Mode d'emploi : 
-    // Utilisé dans les méthodes permettant une recherche avancee
-    // Méthode privée.
-
-
-    bool trajetArrivantADestination(Liste<TrajetSimple> *listeTrajetParcourus, const char *arrivee, Liste<TrajetSimple> *listeARemplir);
-    // Permet de parcourir récursivement la liste des trajets et de stocker le chemin nécéssaire pour arriver à destination.
-    // La liste des trajets nécéssaires est stockée dans listeARemplir.
-    // Cette méthode est utilisée dans les méthodes de recherche avancee
-    // Méthode privée.
-
-
     Liste<Trajet> *listeTrajet;
-    // Attribut représentant la liste des trajets contenus dans un catalogue.
-    
+    Liste<TrajetSimple> *listeTrajetEnSimple;
 };
 
 #endif // Catalogue_H
