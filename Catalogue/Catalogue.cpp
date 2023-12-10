@@ -8,6 +8,7 @@
 #define BOLD_WHITE "\033[1m"
 #define FIN "\033[0m"
 #define DEBUT_BOLD_GREEN "\033[1;32m"
+#define DOUBLE_ENDL std::endl << std::endl
 
 using namespace std;
 
@@ -66,25 +67,25 @@ void Catalogue::Afficher(Liste<Trajet> *listeTrajetSimple, Liste<Trajet> *listeT
     // Si il existe des trajets simples dans le catalogue
     if (listeTrajetSimple->GetTaille() != 0)
     {
-        cout << BOLD_WHITE << "Voici la liste des trajets simples :" << FIN << endl;
+        cout << BOLD_WHITE << "Voici la liste des trajets simples :" << FIN << DOUBLE_ENDL;
         listeTrajetSimple->Afficher();
         cout << endl;
     }
     else
     {
-        cout << BOLD_WHITE << "Il n'y a pas de trajets simples dans le catalogue" << FIN << endl;
+        cout << BOLD_WHITE << "Il n'y a pas de trajets simples dans le catalogue" << FIN << DOUBLE_ENDL;
     }
 
     // Si il existe des trajets composés dans le catalogue
     if (listeTrajetCompose->GetTaille() != 0)
     {
-        cout << BOLD_WHITE << "Voici la liste des trajets composés :" << FIN << endl;
+        cout << BOLD_WHITE << "Voici la liste des trajets composés :" << FIN << DOUBLE_ENDL;
         listeTrajetCompose->Afficher();
         cout << endl;
     }
     else
     {
-        cout << BOLD_WHITE << "Il n'y a pas de trajets composés dans le catalogue" << FIN << endl;
+        cout << BOLD_WHITE << "Il n'y a pas de trajets composés dans le catalogue" << FIN << DOUBLE_ENDL;
     }
 }
 

@@ -6,6 +6,9 @@ using namespace std;
 #include "Trajet.h"
 #include "../Liste/Liste.h"
 
+#define DEBUT_MAGENTA "\033[35m"
+#define FIN "\033[0m"
+
 void TrajetCompose::Afficher() const
 {
 
@@ -14,7 +17,7 @@ void TrajetCompose::Afficher() const
         listeTrajetCompose->GetValeur(i)->AfficherPetit();
         // si ce n'est pas le dernier trajet simple
         if (i < *taille - 1)
-            cout << " puis ";
+            cout << DEBUT_MAGENTA << " ➔ " << FIN;
         else
             cout << endl;
     }
