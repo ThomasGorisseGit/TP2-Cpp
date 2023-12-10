@@ -31,7 +31,8 @@ int main()
         cout << BOLD_WHITE << "2. " << FIN << "Ajouter un trajet" << endl;
         cout << BOLD_WHITE << "3. " << FIN << "Recherche d'un trajet" << endl;
         cout << BOLD_WHITE << "4. " << FIN << "Recherche avancée" << endl;
-        cout << BOLD_WHITE << "5. " << FIN << DEBUT_BOLD_RED << "Quitter le programme" << FIN << endl;
+        cout << BOLD_WHITE << "5. " << FIN << DEBUT_BOLD_RED << "Test" << FIN << endl;
+        cout << BOLD_WHITE << "6. " << FIN << DEBUT_BOLD_RED << "Quitter le programme" << FIN << endl;
         
 
         int choix;
@@ -235,6 +236,9 @@ int main()
             Liste<TrajetSimple> *itineraireActuel = new Liste<TrajetSimple>;  // Liste pour stocker l'itinéraire actuel pendant la recherche
             catalogueTrajet.RechercheAvanceeGabin(depart, arrivee, *itineraires, *itineraireActuel); // Recherche du trajet
             cout << "Affichage de l'itinéraire : " << endl;
+
+
+            //itineraires->AfficherIti(arrivee);
             itineraires->Afficher();
             delete[] depart;
             delete[] arrivee;
@@ -250,6 +254,17 @@ int main()
 
         // Quitter le programme
         case 5:
+        {
+               catalogueTrajet.TestErase();
+
+
+            break;
+        }
+            
+
+        case 6:
+         
+
             cout << DEBUT_BOLD_RED << "Fin du programme" << FIN << endl;
             return 0;
             break;

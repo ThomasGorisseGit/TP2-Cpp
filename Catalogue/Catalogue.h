@@ -73,6 +73,8 @@ public:
     //Fonction qui prend tous les trajets compose dans la liste et les transforme en trajet simple
     //dans listeTrajetEnSimple
 
+    void TestErase();
+
 protected:
     //Liste<TrajetSimple> *rechercheDepuisDepart(const char *depart, Liste<TrajetSimple> *listeARemplir);
     // Renvoie une liste de trajets qui partent du départ passé en paramètre.

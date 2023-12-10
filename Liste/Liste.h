@@ -60,6 +60,8 @@ public:
     void ModifierToutesLesValeursEnNull();
     //Fonction qui vide la liste avant de la supprimer, pour ne pas supprimer des trajets 
 
+    Maillon<T> * GetMaillon(unsigned int index) const;
+
 
 
 protected:
@@ -126,6 +128,23 @@ T *Liste<T>::GetValeur(unsigned int index) const
 }
 
 template <typename T>
+Maillon<T> * Liste<T>::GetMaillon(unsigned int index) const
+{
+    Maillon<T> *courrent = tete;
+    unsigned int i = 0;
+    while (courrent != nullptr)
+    {
+        if (i == index)
+        {
+            return courrent;
+        }
+        courrent = courrent->getSuivant();
+        i++;
+    }
+    return nullptr;
+}
+
+template <typename T>
 unsigned int Liste<T>::GetTaille() const
 {
     return taille;
@@ -182,6 +201,7 @@ template <typename T>
 void Liste<T>::Afficher() const
 {
     Maillon<T> *courrent = tete;
+    
     while (courrent != nullptr)
     {
         courrent->Afficher(); // Ici, on suppose que la classe T possède une méthode afficher()
