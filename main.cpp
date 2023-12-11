@@ -1,9 +1,9 @@
 #include <iostream>
 #include <cstring>
-#include "Src/Catalogue/Catalogue.h"
-#include "Src/Trajet/Trajet.h"
-#include "Src/Trajet/TrajetSimple.h"
-#include "Src/Trajet/TrajetCompose.h"
+#include "src/Catalogue/Catalogue.h"
+#include "src/Trajet/Trajet.h"
+#include "src/Trajet/TrajetSimple.h"
+#include "src/Trajet/TrajetCompose.h"
 
 #define MAX 50
 

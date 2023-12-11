@@ -14,12 +14,12 @@ public:
     // Mode d'emploi :
     //       Appel du constructeur avec Maillon<T> maillon;
 
-    T *getValeur() const;
+    T *GetValeur() const;
     // Méthode permettant de retourner la valeur du maillon
     // Mode d'emploi :
     //       Appel de la méthode avec Mailon<T> maillon = maillon.getValeur();
 
-    Maillon<T> *getSuivant() const;
+    Maillon<T> *GetSuivant() const;
     // Méthode permettant de retourner le maillon suivant
     // Mode d'emploi :
     //       Appel de la méthode avec Mailon<T> maillon = maillon.getSuivant();
@@ -29,7 +29,7 @@ public:
     // Mode d'emploi :
     //       Appel de la méthode avec Mailon<T> maillon = maillon.Afficher();
 
-    inline void setSuivant(Maillon<T> *suivant) { this->suivant = suivant; }
+    inline void SetSuivant(Maillon<T> *suivant) { this->suivant = suivant; }
     // Méthode permettant de modifier le maillon suivant
     // Mode d'emploi :
     //       Appel de la méthode avec maillon.setSuivant(suivant);
@@ -72,13 +72,13 @@ Maillon<T>::~Maillon()
 }
 
 template <typename T>
-T *Maillon<T>::getValeur() const
+T *Maillon<T>::GetValeur() const
 {
     return valeur;
 }
 
 template <typename T>
-Maillon<T> *Maillon<T>::getSuivant() const
+Maillon<T> *Maillon<T>::GetSuivant() const
 {
     return suivant;
 }

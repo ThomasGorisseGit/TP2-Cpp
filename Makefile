@@ -3,7 +3,7 @@ LISTE := Liste/
 TRAJET := Trajet/
 CATALOGUE := Catalogue/
 OBJ := obj/
-SRC := Src/
+SRC := src/
 EXE := trajets
 
 
