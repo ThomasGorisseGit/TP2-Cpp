@@ -37,7 +37,7 @@ public:
     // Mode d'emploi :
     //      Ajouter une liste de trajets (simples) au catalogue et entrez : catalogue.Rechercher("depart","arrivee", verbose);
 
-    void RechercheAvancee(const char *depart, const char *arrivee, Liste<TrajetSimple> &itineraires, Liste<TrajetSimple> &itineraireActuel);
+    void RechercheAvancee(const char *depart, const char *arrivee, Liste<TrajetSimple> &itineraires, Liste<TrajetSimple> &itineraireActuel,Liste<TrajetSimple>* listeEnTrajetSimple);
     // Permet de rechercher de manière complexe un trajet et d'afficher tous les trajets possibles pour aller d'un point A à un point B.
     // La méthode est récursive et permet de trouver tous les trajets possibles pour aller d'un point A à un point B.
     // Mode d'emploi :
@@ -49,7 +49,7 @@ public:
     // Mode d'emploi :
     //      Appel de la méthode catalogue.getTrajetSimpleEtCompose(listeTrajetSimple,listeTrajetCompose)
 
-    void Simplification();
+    void Simplification(Liste<TrajetSimple> *listeTrajetSimple);
     // Fonction qui prend tous les trajets composés et les transforme en trajets simples.
     // Mode d'emploi :
     //      Appel de la méthode catalogue.Simplification()
@@ -59,7 +59,6 @@ public:
 
 protected:
     Liste<Trajet> *listeTrajet;
-    Liste<TrajetSimple> *listeTrajetEnSimple;
 };
 
 #endif // Catalogue_H

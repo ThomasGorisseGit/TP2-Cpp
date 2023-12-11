@@ -19,7 +19,6 @@ Catalogue::Catalogue()
     cout << "Appel au constructeur de <Catalogue>" << endl;
 #endif
     this->listeTrajet = new Liste<Trajet>;
-    this->listeTrajetEnSimple = new Liste<TrajetSimple>;
 }
 
 Catalogue::Catalogue(const Catalogue &unCatalogue)
@@ -41,7 +40,6 @@ Catalogue::~Catalogue()
     cout << "Appel au destructeur de <Catalogue>" << endl;
 #endif
     delete listeTrajet;
-    delete listeTrajetEnSimple;
 }
 
 void Catalogue::Ajouter(Trajet *trajet)
@@ -180,10 +178,8 @@ void Catalogue::GetTrajetSimpleEtCompose(Liste<Trajet> *listeTrajetSimple, Liste
     }
 }
 
-void Catalogue::Simplification()
+void Catalogue::Simplification(Liste<TrajetSimple> *listeTrajetSimple)
 {
-    delete listeTrajetEnSimple; // Permet de supprimer la liste précédente pour ne pas avoir de doublons
-    listeTrajetEnSimple = new Liste<TrajetSimple>;
     unsigned int taille = listeTrajet->GetTaille();
 
     for (unsigned int i = 0; i < taille; i++)
@@ -192,7 +188,7 @@ void Catalogue::Simplification()
         if (listeTrajet->GetValeur(i)->GetType() == 1) // Trajet simple
         {
             TrajetSimple *TrajetSimpleRemplissage = new TrajetSimple(*listeTrajet->GetValeur(i), listeTrajet->GetValeur(i)->GetTransport());
-            listeTrajetEnSimple->Ajouter(TrajetSimpleRemplissage);
+            listeTrajetSimple->Ajouter(TrajetSimpleRemplissage);
         }
 
         else // Trajet composé
@@ -203,13 +199,13 @@ void Catalogue::Simplification()
             {
                 TrajetSimple *TrajetSimpleRemplissage = new TrajetSimple(*listeTrajet->GetValeur(i)->GetTrajetSimple(j),
                                                                          listeTrajet->GetValeur(i)->GetTrajetSimple(j)->GetTransport());
-                listeTrajetEnSimple->Ajouter(TrajetSimpleRemplissage);
+                listeTrajetSimple->Ajouter(TrajetSimpleRemplissage);
             }
         }
     }
 }
 
-void Catalogue::RechercheAvancee(const char *depart, const char *arrivee, Liste<TrajetSimple> &itineraires, Liste<TrajetSimple> &itineraireActuel)
+void Catalogue::RechercheAvancee(const char *depart, const char *arrivee, Liste<TrajetSimple> &itineraires, Liste<TrajetSimple> &itineraireActuel, Liste<TrajetSimple> *listeTrajetEnSimple)
 // Algorithme :
 //      On parcours tous les trajets simples du catalogue et on compare le départ du trajet simple avec le dernier point de l'itinéraire actuel.
 //      Si le départ du trajet simple correspond au dernier point de l'itinéraire actuel, on ajoute le trajet simple à l'itinéraire actuel.
@@ -248,7 +244,7 @@ void Catalogue::RechercheAvancee(const char *depart, const char *arrivee, Liste<
                 itineraireActuel.Ajouter(trajet);
 
                 // Appel récursif avec le dernier point de l'itinéraire actuel comme nouveau point de départ
-                RechercheAvancee(depart, arrivee, itineraires, itineraireActuel);
+                RechercheAvancee(depart, arrivee, itineraires, itineraireActuel, listeTrajetEnSimple);
 
                 // Retirer le trajet de l'itinéraire actuel pour explorer d'autres possibilités
                 itineraireActuel.GetMaillon(itineraireActuel.GetTaille() - 1)->ModifierValeur(nullptr); // rend nullptr le pointeur pour ne pas delete le trajet
