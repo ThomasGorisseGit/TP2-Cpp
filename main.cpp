@@ -228,6 +228,7 @@ int main()
             cout << BOLD_WHITE << "Veuillez rentrer l'arrivée du trajet souhaité : " << FIN << endl;
             char *arrivee = new char[MAX];
             cin >> arrivee;
+
             Liste<TrajetSimple> * listeTrajetSimple = new Liste<TrajetSimple>;
 
             catalogueTrajet.Simplification(listeTrajetSimple);
@@ -258,9 +259,10 @@ int main()
 
             itineraireActuel->ModifierToutesLesValeursEnNull();
             delete itineraireActuel;
+
             itineraires->ModifierToutesLesValeursEnNull();
             delete itineraires;
-            listeTrajetSimple->ModifierToutesLesValeursEnNull();
+
             delete listeTrajetSimple;
 
             break;
