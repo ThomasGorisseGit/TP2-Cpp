@@ -3,7 +3,8 @@ LISTE := Liste/
 TRAJET := Trajet/
 CATALOGUE := Catalogue/
 OBJ := obj/
-EXE := exe
+SRC := src/
+EXE := trajets
 
 
 # Si on veut utiliser la trace : 'make trace=1'
@@ -14,17 +15,17 @@ endif
 $(EXE) :  $(OBJ)Catalogue.o $(OBJ)Trajet.o $(OBJ)TrajetSimple.o $(OBJ)TrajetCompose.o $(OBJ)main.o
 	$(CC) $(OBJ)Catalogue.o $(OBJ)Trajet.o $(OBJ)TrajetSimple.o $(OBJ)TrajetCompose.o $(OBJ)main.o -o $(EXE)
 
-$(OBJ)Catalogue.o : $(CATALOGUE)Catalogue.cpp $(CATALOGUE)Catalogue.h 
-	$(CC) -c $(CATALOGUE)Catalogue.cpp -o $(OBJ)Catalogue.o 
+$(OBJ)Catalogue.o : $(SRC)$(CATALOGUE)Catalogue.cpp $(SRC)$(CATALOGUE)Catalogue.h 
+	$(CC) -c $(SRC)$(CATALOGUE)Catalogue.cpp -o $(OBJ)Catalogue.o 
 
-$(OBJ)Trajet.o : $(TRAJET)Trajet.cpp $(TRAJET)Trajet.h
-	$(CC) -c $(TRAJET)Trajet.cpp -o $(OBJ)Trajet.o
+$(OBJ)Trajet.o : $(SRC)$(TRAJET)Trajet.cpp $(SRC)$(TRAJET)Trajet.h
+	$(CC) -c $(SRC)$(TRAJET)Trajet.cpp -o $(OBJ)Trajet.o
 
-$(OBJ)TrajetSimple.o : $(TRAJET)TrajetSimple.cpp $(TRAJET)TrajetSimple.h
-	$(CC) -c $(TRAJET)TrajetSimple.cpp -o $(OBJ)TrajetSimple.o
+$(OBJ)TrajetSimple.o : $(SRC)$(TRAJET)TrajetSimple.cpp $(SRC)$(TRAJET)TrajetSimple.h
+	$(CC) -c $(SRC)$(TRAJET)TrajetSimple.cpp -o $(OBJ)TrajetSimple.o
 
-$(OBJ)TrajetCompose.o : $(TRAJET)TrajetCompose.cpp $(TRAJET)TrajetCompose.h
-	$(CC) -c $(TRAJET)TrajetCompose.cpp -o $(OBJ)TrajetCompose.o
+$(OBJ)TrajetCompose.o : $(SRC)$(TRAJET)TrajetCompose.cpp $(SRC)$(TRAJET)TrajetCompose.h
+	$(CC) -c $(SRC)$(TRAJET)TrajetCompose.cpp -o $(OBJ)TrajetCompose.o
 
 $(OBJ)main.o : main.cpp
 	$(CC) -c main.cpp -o $(OBJ)main.o

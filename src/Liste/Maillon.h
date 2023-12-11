@@ -14,35 +14,44 @@ public:
     // Mode d'emploi :
     //       Appel du constructeur avec Maillon<T> maillon;
 
-    T *getValeur() const;
+    T *GetValeur() const;
     // Méthode permettant de retourner la valeur du maillon
     // Mode d'emploi :
     //       Appel de la méthode avec Mailon<T> maillon = maillon.getValeur();
 
-    Maillon<T> *getSuivant() const;
+    Maillon<T> *GetSuivant() const;
     // Méthode permettant de retourner le maillon suivant
     // Mode d'emploi :
     //       Appel de la méthode avec Mailon<T> maillon = maillon.getSuivant();
 
-    inline void setSuivant(Maillon<T> *suivant) { this->suivant = suivant; }
+    void Afficher() const;
+    // Méthode permettant d'appeller la méthode Afficher() de la valeur en supposant quelle existe
+    // Mode d'emploi :
+    //       Appel de la méthode avec Mailon<T> maillon = maillon.Afficher();
+
+    inline void SetSuivant(Maillon<T> *suivant) { this->suivant = suivant; }
     // Méthode permettant de modifier le maillon suivant
-    // Methode définie avec inline pour optimiser le code
     // Mode d'emploi :
     //       Appel de la méthode avec maillon.setSuivant(suivant);
+
+    void ModifierValeur(T *nouvelleValeur);
+    // Permet de modifier la valeur d'un maillon
+    // Mode d'emploi :
+    //       Appel de la méthode avec maillon.ModifierValeur(nouvelleValeur);
 
     virtual ~Maillon();
     // Destructeur de la classe Maillon
 
-private:
+protected:
     T *valeur;
-    // Valeur du maillon
     Maillon *suivant;
-    // Pointeur vers le maillon suivant
 };
+
+// ----------------------------- Implémentation des méthodes -----------------------------
+// (on ne peut pas séparer l'implémentation de la déclaration pour une classe template)
 
 template <typename T>
 Maillon<T>::Maillon(T *valeur, Maillon *suivant)
-// Constructeur de la classe Maillon
 {
 #ifdef MAP
     cout << "Appel au constructeur par défaut de <Maillon>" << endl;
@@ -50,30 +59,40 @@ Maillon<T>::Maillon(T *valeur, Maillon *suivant)
 
     this->valeur = valeur;
     this->suivant = suivant;
-} //----- Fin de Maillon
+}
 
 template <typename T>
 Maillon<T>::~Maillon()
-// Destructeur de la classe Maillon
 {
 #ifdef MAP
     cout << "Appel au destructeur de <Maillon>" << endl;
 #endif
 
     delete valeur;
-} //----- Fin de ~Maillon
+}
 
 template <typename T>
-T *Maillon<T>::getValeur() const
-// Méthode permettant de retourner la valeur du maillon
+T *Maillon<T>::GetValeur() const
 {
     return valeur;
-} // Fin de la méthode GetValeur
+}
 
 template <typename T>
-Maillon<T> *Maillon<T>::getSuivant() const
-// Méthode permettant de retourner le maillon suivant
+Maillon<T> *Maillon<T>::GetSuivant() const
 {
     return suivant;
-} // Fin de la méthode GetSuivant
+}
+
+template <typename T>
+void Maillon<T>::Afficher() const
+{
+    valeur->Afficher(); // On considère que la méthode Afficher() existe pour la classe T
+}
+
+template <typename T>
+void Maillon<T>::ModifierValeur(T *nouvelleValeur)
+{
+    valeur = nouvelleValeur;
+}
+
 #endif // MAILLON_H
