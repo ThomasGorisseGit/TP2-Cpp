@@ -228,12 +228,13 @@ int main()
             cout << BOLD_WHITE << "Veuillez rentrer l'arrivée du trajet souhaité : " << FIN << endl;
             char *arrivee = new char[MAX];
             cin >> arrivee;
+            Liste<TrajetSimple> * listeTrajetSimple = new Liste<TrajetSimple>;
 
-            catalogueTrajet.Simplification();
+            catalogueTrajet.Simplification(listeTrajetSimple);
 
             Liste<TrajetSimple> *itineraires = new Liste<TrajetSimple>;                         // Liste pour stocker les itinéraires trouvés
             Liste<TrajetSimple> *itineraireActuel = new Liste<TrajetSimple>;                    // Liste pour stocker l'itinéraire actuel pendant la recherche
-            catalogueTrajet.RechercheAvancee(depart, arrivee, *itineraires, *itineraireActuel); // Recherche du trajet
+            catalogueTrajet.RechercheAvancee(depart, arrivee, *itineraires, *itineraireActuel,listeTrajetSimple); // Recherche du trajet
             cout << endl
                  << BOLD_WHITE << "Affichage de l'itinéraire : " << FIN << DOUBLE_ENDL;
 
@@ -259,6 +260,8 @@ int main()
             delete itineraireActuel;
             itineraires->ModifierToutesLesValeursEnNull();
             delete itineraires;
+            listeTrajetSimple->ModifierToutesLesValeursEnNull();
+            delete listeTrajetSimple;
 
             break;
         }
