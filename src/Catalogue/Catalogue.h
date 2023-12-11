@@ -21,10 +21,6 @@ public:
     // Mode d'emploi :
     //      Appel de la méthode ajouter catalogue.Ajouter(trajet)
 
-    void AjouterMulti(TrajetSimple *trajet);
-    // Permet d'ajouter un trajet a la liste des trajets Multi, ne peut être que des trajets simples
-    // Mode d'emploi :
-    //      Appel de la méthode ajouter catalogue.Ajouter(trajet)
 
     void Afficher(Liste<Trajet> *listeTrajetSimple, Liste<Trajet> *listeTrajetCompose) const;
     // Permet d'afficher le catalogue de trajets (il affcihe d'abord les trajets simples puis les trajets composés)
