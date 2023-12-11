@@ -91,7 +91,7 @@ Liste<T>::~Liste()
     Maillon<T> *courrent = tete;
     while (courrent != nullptr)
     {
-        Maillon<T> *suivant = courrent->getSuivant();
+        Maillon<T> *suivant = courrent->GetSuivant();
         delete courrent;
         courrent = suivant;
     }
@@ -106,9 +106,9 @@ T *Liste<T>::GetValeur(unsigned int index) const
     {
         if (i == index)
         {
-            return courrent->getValeur(); // Méthode getValeur() de la classe Maillon
+            return courrent->GetValeur(); // Méthode getValeur() de la classe Maillon
         }
-        courrent = courrent->getSuivant();
+        courrent = courrent->GetSuivant();
         i++;
     }
     return nullptr; // Si l'index est invalide, on retourne nullptr
@@ -125,7 +125,7 @@ Maillon<T> *Liste<T>::GetMaillon(unsigned int index) const
         {
             return courrent;
         }
-        courrent = courrent->getSuivant();
+        courrent = courrent->GetSuivant();
         i++;
     }
     return nullptr; // Si l'index est invalide, on retourne nullptr
@@ -151,11 +151,11 @@ void Liste<T>::Ajouter(T *valeur)
     else
     {
         Maillon<T> *courrent = tete;
-        while (courrent->getSuivant() != nullptr)
+        while (courrent->GetSuivant() != nullptr)
         {
-            courrent = courrent->getSuivant();
+            courrent = courrent->GetSuivant();
         }
-        courrent->setSuivant(nouveauMaillon);
+        courrent->SetSuivant(nouveauMaillon);
     }
     taille++;
 }
@@ -175,11 +175,11 @@ bool Liste<T>::Rechercher(const T *valeur) const
     Maillon<T> *courrent = tete;
     while (courrent != nullptr)
     {
-        if (courrent->getValeur() == valeur)
+        if (courrent->GetValeur() == valeur)
         {
             return true;
         }
-        courrent = courrent->getSuivant();
+        courrent = courrent->GetSuivant();
     }
     return false;
 }
@@ -192,7 +192,7 @@ void Liste<T>::Afficher() const
     while (courrent != nullptr)
     {
         courrent->Afficher(); // Ici, on suppose que la classe T possède une méthode afficher()
-        courrent = courrent->getSuivant();
+        courrent = courrent->GetSuivant();
     }
 }
 
@@ -210,7 +210,7 @@ void Liste<T>::Erase(unsigned int index)
     if (index == 0)
     {
         Maillon<T> *temp = tete;
-        tete = tete->getSuivant();
+        tete = tete->GetSuivant();
         delete temp;
         taille--;
         return;
@@ -224,12 +224,12 @@ void Liste<T>::Erase(unsigned int index)
     while (i < index)
     {
         precedent = courrent;
-        courrent = courrent->getSuivant();
+        courrent = courrent->GetSuivant();
         i++;
     }
 
     // Suppression du maillon à l'index spécifié
-    precedent->setSuivant(courrent->getSuivant());
+    precedent->SetSuivant(courrent->GetSuivant());
     delete courrent;
     taille--;
 }
@@ -242,7 +242,7 @@ void Liste<T>::ModifierToutesLesValeursEnNull()
     while (courant != nullptr)
     {
         courant->ModifierValeur(nullptr);
-        courant = courant->getSuivant();
+        courant = courant->GetSuivant();
     }
 }
 #endif // LISTE_H
