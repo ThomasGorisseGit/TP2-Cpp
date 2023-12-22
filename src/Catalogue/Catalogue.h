@@ -77,14 +77,23 @@ public:
     //      Appel de la méthode catalogue.SauvegardeCatalogueIntervalle("nomFichier",debut,fin)
 
     void ImporterFichierSansCritere(const char *nomFichier);
+    // La methode permet d'importer TOUS les trajets d'un fichier.
+    // Mode d'emploi :
+    //      Appel de la méthode catalogue.ImporterFichierSansCritere("nomFichier")
+
+    void ImporterFichierSelonType(const char *nomFichier, int type);
+    // La methode permet d'importer les trajets simples ou les trajets composés d'un fichier.
+    // Mode d'emploi :
+    //      Appel de la méthode catalogue.ImporterFichierSelonType("nomFichier",type)
+
 protected:
 
-    
-
     Liste<Trajet> *listeTrajet;
-    private :
-        void sauvegardeSimple( ofstream &fichier, int i ) const;
-        void sauvegardeCompose( ofstream &fichier, int i ) const;
+
+private :
+
+    void sauvegardeSimple( ofstream &fichier, int i ) const;
+    void sauvegardeCompose( ofstream &fichier, int i ) const;
 };
 
 #endif // Catalogue_H
