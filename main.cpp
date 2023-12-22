@@ -21,6 +21,17 @@
 
 using namespace std;
 
+
+
+void static GetFileName(char * nomFichier){
+    cout << "Veuillez rentrer le nom du fichier :"<<endl;
+    cin >> nomFichier;
+    if(nomFichier == nullptr){
+        cout << DEBUT_BOLD_RED << "Erreur lors de la saisie, veuillez rentrer un nom de fichier valide" << FIN
+        << endl;
+    }
+}
+
 int main()
 {
 
@@ -35,7 +46,9 @@ int main()
         cout << BOLD_WHITE << "2. " << FIN << "Ajouter un trajet" << endl;
         cout << BOLD_WHITE << "3. " << FIN << "Recherche d'un trajet" << endl;
         cout << BOLD_WHITE << "4. " << FIN << "Recherche avancée" << endl;
-        cout << BOLD_WHITE << "5. " << FIN << DEBUT_RED << "Quitter le programme" << FIN << DOUBLE_ENDL;
+        cout << BOLD_WHITE << "5. " << FIN << "Sauvegarder un fichier" << FIN << endl;
+        cout << BOLD_WHITE << "6. " << FIN << "Importer un fichier" << FIN << endl;
+        cout << BOLD_WHITE << "7. " << FIN << DEBUT_RED << "Quitter le programme" << FIN << DOUBLE_ENDL;
 
         int choix;
 
@@ -290,15 +303,117 @@ int main()
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢹⣿⣵⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣯⡁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
                      Get RickRolled                )"
                  << endl;
+                 break;
         }
 
         // Quitter le programme
         case 5:
-            cout << DEBUT_BOLD_RED << "Fin du programme" << FIN << endl;
-            cout << "Crédit : T.Gorisse - P.Brossat - G.Joussot-Dubien - C.Roubaud" << endl;
-            return 0;
-            break;
+            {
+                cout << BOLD_WHITE << "Options : " << FIN << endl;
+                cout << BOLD_WHITE << "1. " << FIN << "Sauvegarder TOUT le catalogue dans un fichier" << endl;
+                cout << BOLD_WHITE << "2. " << FIN << "Sauvegarder les trajets simples dans un fichier" << endl;
+                cout << BOLD_WHITE << "3. " << FIN << "Sauvegarder les trajets composés dans un fichier" << endl;
+                cout << BOLD_WHITE << "4. " << FIN << "Sauvegarder des trajets selon une ville de départ ou d'arrivée" << endl;
+                cout << BOLD_WHITE << "5. " << FIN << "Sauvegarder des trajets selon un intervalle" << endl;
+                int choix = 0;
+                cin >> choix;
+                if(choix == 1){
 
+                    // Récupère le nom du fichier
+                    char * nomFichier = new char[MAX];
+                    GetFileName(nomFichier);
+
+                    catalogueTrajet.SauvegardeCatalogueSansCritere(nomFichier);
+
+
+
+                    delete[] nomFichier;
+                    break;
+                }
+                else if(choix == 2){
+                     // Récupère le nom du fichier
+                    char * nomFichier = new char[MAX];
+                    GetFileName(nomFichier);
+
+                    catalogueTrajet.SauvegardeCatalogueSelonType(nomFichier,1); // 1 pour trajet simple
+                    delete[] nomFichier;
+                    break;
+                }
+                else if(choix == 3){
+                    // Récupère le nom du fichier
+                    char * nomFichier = new char[MAX];
+                    GetFileName(nomFichier);
+
+                    catalogueTrajet.SauvegardeCatalogueSelonType(nomFichier,2); // 2 pour trajet composé
+                    delete[] nomFichier;
+                    break;
+                }
+                else if(choix == 4){
+
+                    char * nomFichier = new char[MAX];
+                    GetFileName(nomFichier);
+                    cout << BOLD_WHITE << "Voulez vous recherche par ville de départ ou d'arrivée ?" << FIN << endl;
+                    cout << BOLD_WHITE << "1. Ville de départ" << FIN << endl;
+                    cout << BOLD_WHITE << "2. Ville d'arrivée" << FIN << endl;
+                    int type = 1;
+                    cin >> type;
+                    char * ville = new char[MAX];
+                    if(type == 1){
+                        cout << BOLD_WHITE << "Veuillez rentrer la ville de départ : " << FIN << endl;
+                        cin >> ville;
+                    }
+                    else if(type == 2){
+                        cout << BOLD_WHITE << "Veuillez rentrer la ville d'arrivée : " << FIN << endl;
+                        cin >> ville;
+                    }
+                    else{
+                        cout << DEBUT_BOLD_RED << "Erreur lors de la saisie, veuillez rentrer un choix valide (1 ou 2)" << FIN
+                        << endl;
+                        break;
+                    }
+
+
+                    catalogueTrajet.SauvegardeCatalogueDepartArrivee(nomFichier, ville, type);
+                    delete[] nomFichier;
+                    delete[] ville;
+                    break;
+                }
+                else if(choix == 5) {
+                    char * nomFichier = new char[MAX];
+                    GetFileName(nomFichier);
+
+                    unsigned int debut = 0;
+                    unsigned int fin = 0;
+                    cout << BOLD_WHITE << "Veuillez rentrer le début de l'intervalle : " << FIN << endl;
+                    cin >> debut;
+                    cout << BOLD_WHITE << "Veuillez rentrer la fin de l'intervalle : " << FIN << endl;
+                    cin >> fin;
+
+                    catalogueTrajet.SauvegardeCatalogueIntervalle(nomFichier, debut-1, fin-1);
+                    delete[] nomFichier;
+                    break;
+                }
+                else{
+                    cout << DEBUT_BOLD_RED << "Erreur lors de la saisie, veuillez rentrer un choix valide " << FIN
+                    << endl;
+                    break;
+                }
+            }
+        case 6:
+        {
+            char * nomFichier = new char[MAX];
+            GetFileName(nomFichier);
+            catalogueTrajet.ImporterFichierSansCritere(nomFichier);
+            delete[] nomFichier;
+            break;
+        }
+        case 7:
+            {
+                cout << DEBUT_BOLD_RED << "Fin du programme" << FIN << endl;
+                cout << "Crédit : T.Gorisse - P.Brossat - G.Joussot-Dubien - C.Roubaud" << endl;
+                return 0;
+                break;
+            }
         default:
             cout << DEBUT_BOLD_RED << "Erreur lors de la saisie, veuillez rentrer un choix valide (1, 2, 3, 4 ou 5)" << FIN
                  << endl;

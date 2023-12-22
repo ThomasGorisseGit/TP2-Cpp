@@ -5,6 +5,8 @@
 #include "../Liste/Liste.h"
 #include "../Trajet/TrajetSimple.h"
 #include "../Trajet/TrajetCompose.h"
+#include <fstream>
+ 
 
 class Catalogue
 {
@@ -53,8 +55,36 @@ public:
     virtual ~Catalogue();
     // Détruit l'objet catalogue en assurant une destruction totale de chaque trajet contenus dans le catalogue.
 
+    void SauvegardeCatalogueSansCritere(const char *nomFichier) const;
+    // La methode permet de sauvgarder TOUS les trajets du catalogue.
+    // Mode d'emploi :
+    //      Appel de la méthode catalogue.SauvegardeCatalogueSansCritere("nomFichier")
+
+    void SauvegardeCatalogueSelonType(const char *nomFichier, int type) const;
+    // La methode permet de sauvgarder les trajets simples ou les trajets composés du catalogue.
+    // Mode d'emploi :
+    //      Appel de la méthode catalogue.SauvegardeCatalogueSelonType("nomFichier",type)
+
+    void SauvegardeCatalogueDepartArrivee(const char *nomFichier, const char *ville, int type) const;
+    // La methode permet de sauvgarder les trajets qui partent d'un point de départ donné.
+    // Type=1 pour chercher avec les departs et type=2 pour chercher avec les arrivées.
+    // Mode d'emploi :
+    //      Appel de la méthode catalogue.SauvegardeCatalogueSelonDepart("nomFichier","depart")
+
+    void SauvegardeCatalogueIntervalle(const char *nomFichier, int debut, unsigned int fin) const;
+    // La methode permet de sauvgarder les trajets qui sont dans un intervalle donné.
+    // Mode d'emploi :
+    //      Appel de la méthode catalogue.SauvegardeCatalogueIntervalle("nomFichier",debut,fin)
+
+    void ImporterFichierSansCritere(const char *nomFichier);
 protected:
+
+    
+
     Liste<Trajet> *listeTrajet;
+    private :
+        void sauvegardeSimple( ofstream &fichier, int i ) const;
+        void sauvegardeCompose( ofstream &fichier, int i ) const;
 };
 
 #endif // Catalogue_H

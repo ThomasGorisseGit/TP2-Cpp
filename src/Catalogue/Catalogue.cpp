@@ -8,8 +8,10 @@
 #define BOLD_WHITE "\033[1m"
 #define FIN "\033[0m"
 #define DEBUT_BOLD_GREEN "\033[1;32m"
+#define DEBUT_BOLD_RED "\033[1;31m"
 #define DOUBLE_ENDL std::endl \
                         << std::endl
+#define TAB "\t"
 
 using namespace std;
 
@@ -251,5 +253,197 @@ void Catalogue::RechercheAvancee(const char *depart, const char *arrivee, Liste<
                 itineraireActuel.Erase(itineraireActuel.GetTaille() - 1);                               // retire le trajet de l'itinéraire actuel
             }
         }
+    }
+}
+
+
+void Catalogue::SauvegardeCatalogueSansCritere(const char *nomFichier) const{
+
+    ofstream fichier(nomFichier, ios::out | ios::trunc); // ouverture en écriture avec effacement du fichier ouvert
+
+    if(fichier)
+    {
+        unsigned int taille = listeTrajet->GetTaille();
+        for (unsigned int i = 0; i < taille; i++)
+        {
+            if (listeTrajet->GetValeur(i)->GetType() == 1) // est un trajet simple
+            {
+                this->sauvegardeSimple(fichier,i);
+            }
+            else // est un trajet compose
+            {
+                this->sauvegardeCompose(fichier,i);
+            }
+        }
+        fichier.close();
+    }
+    else
+    {
+        cerr << "Impossible d'ouvrir le fichier !" << endl;
+    }
+}
+
+void Catalogue::SauvegardeCatalogueSelonType(const char *nomFichier, int type) const{
+
+    ofstream fichier(nomFichier, ios::out | ios::trunc); // ouverture en écriture avec effacement du fichier ouvert
+
+    if(fichier)
+    {
+        unsigned int taille = listeTrajet->GetTaille();
+        for (unsigned int i = 0; i < taille; i++)
+        {
+            if (type == 1 && listeTrajet->GetValeur(i)->GetType() == type) // est un trajet simple
+            {
+                this->sauvegardeSimple(fichier,i);
+            }
+            else if (type == 2 && listeTrajet->GetValeur(i)->GetType() == type)// est un trajet compose
+            {
+                this->sauvegardeCompose(fichier,i);
+            }
+        }
+        fichier.close();
+    }
+    else
+    {
+        cerr << "Impossible d'ouvrir le fichier !" << endl;
+    }
+}
+
+void Catalogue::SauvegardeCatalogueDepartArrivee(const char *nomFichier, const char *ville, int type) const{
+    // type = 1 : depart
+    // type = 2 : arrivee
+    ofstream fichier(nomFichier, ios::out | ios::trunc); // ouverture en écriture avec effacement du fichier ouvert
+
+    if(fichier)
+    {
+        unsigned int taille = listeTrajet->GetTaille();
+        for (unsigned int i = 0; i < taille; i++)
+        {
+            if ( (strcmp(listeTrajet->GetValeur(i)->GetDepart(), ville) == 0 && type==1)||(strcmp(listeTrajet->GetValeur(i)->GetArrivee(), ville) == 0 && type==2 ) ) // est un trajet simple
+            {
+                if (listeTrajet->GetValeur(i)->GetType() == 1) // est un trajet simple
+                {
+                   this->sauvegardeSimple(fichier,i);
+                }
+                else // est un trajet compose
+                {
+                    this->sauvegardeCompose(fichier,i);
+                }
+            }
+        }
+        fichier.close();
+    }
+    else
+    {
+        cerr << "Impossible d'ouvrir le fichier !" << endl;
+    }
+}
+
+void Catalogue::sauvegardeSimple( ofstream &fichier, int i ) const{
+    fichier << "1 "<<endl<<TAB<< listeTrajet->GetValeur(i)->GetDepart() << " " << listeTrajet->GetValeur(i)->GetArrivee() << " " << listeTrajet->GetValeur(i)->GetTransport() << endl;
+}
+void Catalogue::sauvegardeCompose( ofstream &fichier, int i ) const{
+
+    fichier << "2 " << listeTrajet->GetValeur(i)->GetTailleTrajet() << endl;
+    unsigned int tailleTrajetCompose = listeTrajet->GetValeur(i)->GetTailleTrajet();
+    for (unsigned int j = 0; j < tailleTrajetCompose; j++)
+    {
+        fichier << TAB << listeTrajet->GetValeur(i)->GetTrajetSimple(j)->GetDepart() << " " << listeTrajet->GetValeur(i)->GetTrajetSimple(j)->GetArrivee() << " " << listeTrajet->GetValeur(i)->GetTrajetSimple(j)->GetTransport() << endl;
+    }
+
+}
+
+
+void Catalogue::SauvegardeCatalogueIntervalle(const char *nomFichier, int debut, unsigned int fin) const{
+
+    ofstream fichier(nomFichier, ios::out | ios::trunc); // ouverture en écriture avec effacement du fichier ouvert
+
+    if(debut < 0){
+        cout << DEBUT_BOLD_RED<< "L'indice de début doit être positif" << FIN << endl;
+        return;
+    } else if (fin >= listeTrajet->GetTaille()){
+        cout << DEBUT_BOLD_RED<< "L'indice de fin doit être inférieur à la taille du catalogue" << FIN << endl;
+        return;
+    }
+
+    if(fichier)
+    {
+        unsigned int taille = listeTrajet->GetTaille();
+        for (unsigned int i = debut; i <= fin; i++)
+        {
+            if (listeTrajet->GetValeur(i)->GetType() == 1) // est un trajet simple
+            {
+                this->sauvegardeSimple(fichier,i);
+            }
+            else // est un trajet compose
+            {
+                this->sauvegardeCompose(fichier,i);
+            }
+        }
+        fichier.close();
+    }
+    else
+    {
+        cout<< DEBUT_BOLD_RED << "Impossible d'ouvrir le fichier !" << FIN << endl;
+    }
+}
+
+void Catalogue::ImporterFichierSansCritere(const char *nomFichier)
+{
+    ifstream fichier(nomFichier, ios::in); // ouverture en lecture
+
+    if(fichier)
+    {
+        string ligne;
+        int typeTrajetSuivant = 0;
+
+
+        while(getline(fichier, ligne)) // tant que l'on peut mettre la ligne dans "contenu"
+        {
+            // Lecture du premier caractère de la ligne
+            string type = ligne.substr(0,1);
+            if(type == "1"){
+                
+                
+                // format : 
+                // \t DEPART ARRIVEE TRANSPORT
+                
+                getline(fichier, ligne) ;// parse next line
+
+                // On supprime le premier caractère de la ligne (la tabulation)
+                ligne.erase(0, 1);
+
+                int pos = ligne.find(" ");
+                string depart = ligne.substr(0, pos);
+                
+                ligne.erase(0, pos + 1);
+                
+                pos = ligne.find(" ");
+                string arrivee = ligne.substr(0, pos);
+
+                ligne.erase(0, pos + 1);
+
+                string transport = ligne;
+                
+                char * c_transport = new char[transport.length() + 1];
+                TrajetSimple *trajetSimple = new TrajetSimple(depart.c_str(), arrivee.c_str(), strcpy(c_transport, transport.c_str()));
+                
+                this->Ajouter(trajetSimple);
+
+                typeTrajetSuivant = 1;
+                break;
+            }
+
+            else{
+                // C'est un trajet
+                
+            }
+           
+        }
+        fichier.close();
+    }
+    else
+    {
+        cerr << "Impossible d'ouvrir le fichier !" << endl;
     }
 }
