@@ -6,7 +6,6 @@
 #include "../Trajet/TrajetSimple.h"
 #include "../Trajet/TrajetCompose.h"
 #include <fstream>
- 
 
 class Catalogue
 {
@@ -23,7 +22,6 @@ public:
     // Mode d'emploi :
     //      Appel de la méthode ajouter catalogue.Ajouter(trajet)
 
-
     void Afficher(Liste<Trajet> *listeTrajetSimple, Liste<Trajet> *listeTrajetCompose) const;
     // Permet d'afficher le catalogue de trajets (il affcihe d'abord les trajets simples puis les trajets composés)
     // Mode d'emploi :
@@ -35,7 +33,7 @@ public:
     // Mode d'emploi :
     //      Ajouter une liste de trajets (simples) au catalogue et entrez : catalogue.Rechercher("depart","arrivee", verbose);
 
-    void RechercheAvancee(const char *depart, const char *arrivee, Liste<TrajetSimple> &itineraires, Liste<TrajetSimple> &itineraireActuel,Liste<TrajetSimple>* listeEnTrajetSimple);
+    void RechercheAvancee(const char *depart, const char *arrivee, Liste<TrajetSimple> &itineraires, Liste<TrajetSimple> &itineraireActuel, Liste<TrajetSimple> *listeEnTrajetSimple);
     // Permet de rechercher de manière complexe un trajet et d'afficher tous les trajets possibles pour aller d'un point A à un point B.
     // La méthode est récursive et permet de trouver tous les trajets possibles pour aller d'un point A à un point B.
     // Mode d'emploi :
@@ -77,14 +75,21 @@ public:
     //      Appel de la méthode catalogue.SauvegardeCatalogueIntervalle("nomFichier",debut,fin)
 
     void ImporterFichierSansCritere(const char *nomFichier);
+    // La methode permet d'importer TOUS les trajets d'un fichier.
+    // Mode d'emploi :
+    //      Appel de la méthode catalogue.ImporterFichierSansCritere("nomFichier")
+
+    void ImporterFichierSelonType(const char *nomFichier, int type);
+    // La methode permet d'importer les trajets simples ou les trajets composés d'un fichier.
+    // Mode d'emploi :
+    //      Appel de la méthode catalogue.ImporterFichierSelonType("nomFichier",type)
+
 protected:
-
-    
-
     Liste<Trajet> *listeTrajet;
-    private :
-        void sauvegardeSimple( ofstream &fichier, int i ) const;
-        void sauvegardeCompose( ofstream &fichier, int i ) const;
+
+private:
+    void sauvegardeSimple(ofstream &fichier, int i) const;
+    void sauvegardeCompose(ofstream &fichier, int i) const;
 };
 
 #endif // Catalogue_H

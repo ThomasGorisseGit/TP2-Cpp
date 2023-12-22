@@ -185,8 +185,6 @@ int main()
                     TrajetSimple *trajetSimple = new TrajetSimple(departTrajetSimple, arriveTrajetSimple, moyenTransportTrajetSimple);
                     listeTrajetSimple.Ajouter(trajetSimple);
 
-                    // catalogueTrajet.AjouterMulti(trajetSimple); //ajoute dans la liste multi du catalogue (Gabin)
-
                     Etape++;
 
                 } while (strcmp(arriveTrajetSimple, arriveeTrajetCompose) != 0); // Tant que l'arrivée du trajet simple est différente de l'arrivée du trajet global
@@ -401,11 +399,50 @@ int main()
             }
         case 6:
         {
+
+            cout << BOLD_WHITE << "Options : " << FIN << endl;
+            cout << BOLD_WHITE << "1. " << FIN << "Importer TOUS les trajets d'un fichier." << endl;
+            cout << BOLD_WHITE << "2. " << FIN << "Importer les trajets simples d'un fichier." << endl;
+            cout << BOLD_WHITE << "3. " << FIN << "Importer les trajets composés d'un fichier." << endl;
+
+
+            int choix = 0;
+            cin >> choix;
             char * nomFichier = new char[MAX];
-            GetFileName(nomFichier);
-            catalogueTrajet.ImporterFichierSansCritere(nomFichier);
-            delete[] nomFichier;
-            break;
+            if(choix == 1){
+
+                // Récupère le nom du fichier
+                GetFileName(nomFichier);
+
+                catalogueTrajet.ImporterFichierSansCritere(nomFichier);
+
+                delete[] nomFichier;
+                break;
+            }
+            else if(choix == 2){
+
+                 // Récupère le nom du fichier
+                GetFileName(nomFichier);
+
+                catalogueTrajet.ImporterFichierSelonType(nomFichier,1); // 1 pour trajet simple
+                delete[] nomFichier;
+                break;
+            }
+            else if(choix == 3){
+                
+                // Récupère le nom du fichier
+                GetFileName(nomFichier);
+
+                catalogueTrajet.ImporterFichierSelonType(nomFichier,2); // 2 pour trajet composé
+                delete[] nomFichier;
+                break;
+            }
+            else{
+                cout << DEBUT_BOLD_RED << "Erreur lors de la saisie, veuillez rentrer un choix valide (1, 2 ou 3)" << FIN
+                << endl;
+                break;
+            }
+
         }
         case 7:
             {

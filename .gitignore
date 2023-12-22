@@ -2,6 +2,7 @@
 .idea/
 .DS_Store
 exe
+trajets
 *.o
 old.cpp
 .obj/*
