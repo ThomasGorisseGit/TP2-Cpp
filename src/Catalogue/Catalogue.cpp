@@ -346,6 +346,7 @@ void Catalogue::sauvegardeSimple(ofstream &fichier, int i) const
     fichier << "1 " << endl
             << TAB << listeTrajet->GetValeur(i)->GetDepart() << " " << listeTrajet->GetValeur(i)->GetArrivee() << " " << listeTrajet->GetValeur(i)->GetTransport() << endl;
 }
+
 void Catalogue::sauvegardeCompose(ofstream &fichier, int i) const
 {
 
@@ -564,6 +565,241 @@ void Catalogue::ImporterFichierSelonType(const char *nomFichier, int typeTrajet)
                 // Ajout du trajet composé au catalogue
                 TrajetCompose *trajetCompose = new TrajetCompose(listeTrajetSimple);
                 this->Ajouter(trajetCompose);
+            }
+        }
+        fichier.close();
+    }
+    else
+    {
+        cerr << "Impossible d'ouvrir le fichier !" << endl;
+    }
+}
+
+void Catalogue::ImporterFichierDepartArrivee(const char *nomFichier, const char *ville, int choix)
+{
+    // type = 1 : depart
+    // type = 2 : arrivee
+
+    ifstream fichier(nomFichier, ios::in); // ouverture en lecture
+
+    if (fichier)
+    {
+        string ligne;
+
+        while (getline(fichier, ligne))
+        {
+            // Lecture du premier caractère de la ligne
+            string type = ligne.substr(0, 1);
+
+            // Cas d'un trajet simple
+            if (type == "1")
+            {
+
+                // format :
+                // \t DEPART ARRIVEE TRANSPORT
+
+                getline(fichier, ligne); // On parse la ligne suivante
+
+                // On supprime le premier caractère de la ligne (la tabulation)
+                ligne.erase(0, 1);
+
+                int pos = ligne.find(" ");
+                string depart = ligne.substr(0, pos); // on récupère le depart du trajet
+
+                if ((choix == 1 && strcmp(depart.c_str(), ville) != 0))
+                {
+                    // Dans le cas où on cherche les trajets avec un depart donné et que le depart du trajet n'est pas celui recherché
+                    // On ajoute pas le trajet au catalogue
+                    continue;
+                }
+
+                ligne.erase(0, pos + 1);
+                pos = ligne.find(" ");
+                string arrivee = ligne.substr(0, pos);
+
+                if ((choix == 2 && strcmp(arrivee.c_str(), ville) != 0))
+                {
+                    // Dans le cas où on cherche les trajets avec une arrivee donnée et que l'arrivee du trajet n'est pas celle recherchée
+                    // On ajoute pas le trajet au catalogue
+                    continue;
+                }
+
+                ligne.erase(0, pos + 1);
+                string transport = ligne;
+                char *c_transport = new char[transport.length() + 1];
+
+                TrajetSimple *trajetSimple = new TrajetSimple(depart.c_str(), arrivee.c_str(), strcpy(c_transport, transport.c_str()));
+
+                this->Ajouter(trajetSimple);
+                delete[] c_transport;
+            }
+
+            // Cas d'un trajet composé
+            else if (type == "2")
+            {
+
+                int tailleTrajetComposee = stoi(ligne.substr(2, 1)); // On récupère la taille du trajet composé
+
+                // format :
+                // \t DEPART_GLOBALE ARRIVEE TRANSPORT_1
+                // \t DEPART ARRIVEE_GLOBALE TRANSPORT_2
+
+                Liste<TrajetSimple> listeTrajetSimple;
+                bool ajout = true;
+
+                for (int i = 0; i < tailleTrajetComposee; i++)
+                {
+                    getline(fichier, ligne); // On parse la ligne suivante
+
+                    // On supprime le premier caractère de la ligne (la tabulation)
+                    ligne.erase(0, 1);
+                    int pos = ligne.find(" ");
+                    string depart = ligne.substr(0, pos);
+
+                    if (i == 0 && choix == 1 && strcmp(depart.c_str(), ville) != 0)
+                    {
+                        // Dans le cas où on cherche les trajets avec un depart donné et que le depart du trajet composé n'est pas celui recherché
+                        // On ajoute pas le trajet au catalogue
+                        ajout = false;
+                        break;
+                    }
+
+                    ligne.erase(0, pos + 1);
+                    pos = ligne.find(" ");
+                    string arrivee = ligne.substr(0, pos);
+
+                    if (i == tailleTrajetComposee - 1 && choix == 2 && strcmp(arrivee.c_str(), ville) != 0)
+                    {
+                        // Dans le cas où on cherche les trajets avec une arrivee donnée et que l'arrivee du trajet composé n'est pas celle recherchée
+                        // On ajoute pas le trajet au catalogue
+                        ajout = false;
+                        break;
+                    }
+
+                    ligne.erase(0, pos + 1);
+                    string transport = ligne; // On recupère la dernière composante de la ligne
+
+                    char *c_transport = new char[transport.length() + 1];
+
+                    TrajetSimple *trajetSimple = new TrajetSimple(depart.c_str(), arrivee.c_str(), strcpy(c_transport, transport.c_str()));
+                    listeTrajetSimple.Ajouter(trajetSimple);
+
+                    delete[] c_transport;
+                }
+
+                // Si le trajet composé n'a pas été ajouté au catalogue, on passe au trajet suivant
+                if (!ajout)
+                {
+                    continue; // On passe au trajet suivant
+                }
+
+                // Ajout du trajet composé au catalogue
+                TrajetCompose *trajetCompose = new TrajetCompose(listeTrajetSimple);
+                this->Ajouter(trajetCompose);
+            }
+        }
+        fichier.close();
+    }
+    else
+    {
+        cerr << "Impossible d'ouvrir le fichier !" << endl;
+    }
+}
+
+void Catalogue::ImporterFichierIntervalle(const char *nomFichier, int debut, unsigned int fin)
+{
+    ifstream fichier(nomFichier, ios::in); // ouverture en lecture
+
+    if (fichier)
+    {
+        string ligne;
+        int cpt = 0;
+
+        // Vérification des paramètres
+        if (debut < 0)
+        {
+            cout << DEBUT_BOLD_RED << "L'indice de début doit être positif " << FIN << endl;
+            return;
+        }
+
+        while (getline(fichier, ligne))
+        {
+            // Lecture du premier caractère de la ligne
+            string type = ligne.substr(0, 1);
+
+            // Cas d'un trajet simple
+            if (type == "1")
+            {
+                if (cpt >= debut && cpt <= fin)
+                {
+                    // format :
+                    // \t DEPART ARRIVEE TRANSPORT
+
+                    getline(fichier, ligne); // On parse la ligne suivante
+
+                    // On supprime le premier caractère de la ligne (la tabulation)
+                    ligne.erase(0, 1);
+                    int pos = ligne.find(" ");
+                    string depart = ligne.substr(0, pos);
+
+                    ligne.erase(0, pos + 1);
+                    pos = ligne.find(" ");
+                    string arrivee = ligne.substr(0, pos);
+
+                    ligne.erase(0, pos + 1);
+                    string transport = ligne;
+                    char *c_transport = new char[transport.length() + 1];
+
+                    TrajetSimple *trajetSimple = new TrajetSimple(depart.c_str(), arrivee.c_str(), strcpy(c_transport, transport.c_str()));
+
+                    this->Ajouter(trajetSimple);
+                    delete[] c_transport;
+                }
+                cpt++;
+            }
+
+            // Cas d'un trajet composé
+            else if (type == "2")
+            {
+                if (cpt >= debut && cpt <= fin)
+                {
+                    int tailleTrajetComposee = stoi(ligne.substr(2, 1)); // On récupère la taille du trajet composé
+
+                    // format :
+                    // \t DEPART_GLOBALE ARRIVEE TRANSPORT_1
+                    // \t DEPART ARRIVEE_GLOBALE TRANSPORT_2
+
+                    Liste<TrajetSimple> listeTrajetSimple;
+
+                    for (int i = 0; i < tailleTrajetComposee; i++)
+                    {
+                        getline(fichier, ligne); // On parse la ligne suivante
+
+                        // On supprime le premier caractère de la ligne (la tabulation)
+                        ligne.erase(0, 1);
+                        int pos = ligne.find(" ");
+                        string depart = ligne.substr(0, pos);
+
+                        ligne.erase(0, pos + 1);
+                        pos = ligne.find(" ");
+                        string arrivee = ligne.substr(0, pos);
+
+                        ligne.erase(0, pos + 1);
+                        string transport = ligne; // On recupère la dernière composante de la ligne
+
+                        char *c_transport = new char[transport.length() + 1];
+
+                        TrajetSimple *trajetSimple = new TrajetSimple(depart.c_str(), arrivee.c_str(), strcpy(c_transport, transport.c_str()));
+                        listeTrajetSimple.Ajouter(trajetSimple);
+
+                        delete[] c_transport;
+                    }
+
+                    // Ajout du trajet composé au catalogue
+                    TrajetCompose *trajetCompose = new TrajetCompose(listeTrajetSimple);
+                    this->Ajouter(trajetCompose);
+                }
+                cpt++;
             }
         }
         fichier.close();

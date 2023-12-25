@@ -21,14 +21,15 @@
 
 using namespace std;
 
-
-
-void static GetFileName(char * nomFichier){
-    cout << "Veuillez rentrer le nom du fichier :"<<endl;
+void static GetFileName(char *nomFichier)
+{
+    cout << "Veuillez rentrer le nom du fichier :" << endl;
     cin >> nomFichier;
-    if(nomFichier == nullptr){
+    cout << endl;
+    if (nomFichier == nullptr)
+    {
         cout << DEBUT_BOLD_RED << "Erreur lors de la saisie, veuillez rentrer un nom de fichier valide" << FIN
-        << endl;
+             << endl;
     }
 }
 
@@ -240,13 +241,13 @@ int main()
             char *arrivee = new char[MAX];
             cin >> arrivee;
 
-            Liste<TrajetSimple> * listeTrajetSimple = new Liste<TrajetSimple>;
+            Liste<TrajetSimple> *listeTrajetSimple = new Liste<TrajetSimple>;
 
             catalogueTrajet.Simplification(listeTrajetSimple);
 
-            Liste<TrajetSimple> *itineraires = new Liste<TrajetSimple>;                         // Liste pour stocker les itinéraires trouvés
-            Liste<TrajetSimple> *itineraireActuel = new Liste<TrajetSimple>;                    // Liste pour stocker l'itinéraire actuel pendant la recherche
-            catalogueTrajet.RechercheAvancee(depart, arrivee, *itineraires, *itineraireActuel,listeTrajetSimple); // Recherche du trajet
+            Liste<TrajetSimple> *itineraires = new Liste<TrajetSimple>;                                            // Liste pour stocker les itinéraires trouvés
+            Liste<TrajetSimple> *itineraireActuel = new Liste<TrajetSimple>;                                       // Liste pour stocker l'itinéraire actuel pendant la recherche
+            catalogueTrajet.RechercheAvancee(depart, arrivee, *itineraires, *itineraireActuel, listeTrajetSimple); // Recherche du trajet
             cout << endl
                  << BOLD_WHITE << "Affichage de l'itinéraire : " << FIN << DOUBLE_ENDL;
 
@@ -301,156 +302,193 @@ int main()
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢹⣿⣵⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣯⡁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
                      Get RickRolled                )"
                  << endl;
-                 break;
+            break;
         }
 
         // Quitter le programme
         case 5:
+        {
+            char *nomFichier = new char[MAX];
+            // Récupère le nom du fichier
+            GetFileName(nomFichier);
+
+            cout << BOLD_WHITE << "Options : " << FIN << endl;
+            cout << BOLD_WHITE << "1. " << FIN << "Sauvegarder TOUT le catalogue dans un fichier" << endl;
+            cout << BOLD_WHITE << "2. " << FIN << "Sauvegarder les trajets simples dans un fichier" << endl;
+            cout << BOLD_WHITE << "3. " << FIN << "Sauvegarder les trajets composés dans un fichier" << endl;
+            cout << BOLD_WHITE << "4. " << FIN << "Sauvegarder des trajets selon une ville de départ ou d'arrivée" << endl;
+            cout << BOLD_WHITE << "5. " << FIN << "Sauvegarder des trajets selon un intervalle" << endl;
+            int choix = 0;
+            cin >> choix;
+            if (choix == 1)
             {
-                cout << BOLD_WHITE << "Options : " << FIN << endl;
-                cout << BOLD_WHITE << "1. " << FIN << "Sauvegarder TOUT le catalogue dans un fichier" << endl;
-                cout << BOLD_WHITE << "2. " << FIN << "Sauvegarder les trajets simples dans un fichier" << endl;
-                cout << BOLD_WHITE << "3. " << FIN << "Sauvegarder les trajets composés dans un fichier" << endl;
-                cout << BOLD_WHITE << "4. " << FIN << "Sauvegarder des trajets selon une ville de départ ou d'arrivée" << endl;
-                cout << BOLD_WHITE << "5. " << FIN << "Sauvegarder des trajets selon un intervalle" << endl;
-                int choix = 0;
-                cin >> choix;
-                if(choix == 1){
+                catalogueTrajet.SauvegardeCatalogueSansCritere(nomFichier);
 
-                    // Récupère le nom du fichier
-                    char * nomFichier = new char[MAX];
-                    GetFileName(nomFichier);
-
-                    catalogueTrajet.SauvegardeCatalogueSansCritere(nomFichier);
-
-
-
-                    delete[] nomFichier;
-                    break;
+                delete[] nomFichier;
+                break;
+            }
+            else if (choix == 2)
+            {
+                catalogueTrajet.SauvegardeCatalogueSelonType(nomFichier, 1); // 1 pour trajet simple
+                delete[] nomFichier;
+                break;
+            }
+            else if (choix == 3)
+            {
+                catalogueTrajet.SauvegardeCatalogueSelonType(nomFichier, 2); // 2 pour trajet composé
+                delete[] nomFichier;
+                break;
+            }
+            else if (choix == 4)
+            {
+                cout << BOLD_WHITE << "Voulez vous recherche par ville de départ ou d'arrivée ?" << FIN << endl;
+                cout << BOLD_WHITE << "1. Ville de départ" << FIN << endl;
+                cout << BOLD_WHITE << "2. Ville d'arrivée" << FIN << endl;
+                int type = 1;
+                cin >> type;
+                char *ville = new char[MAX];
+                if (type == 1)
+                {
+                    cout << BOLD_WHITE << "Veuillez rentrer la ville de départ : " << FIN << endl;
+                    cin >> ville;
                 }
-                else if(choix == 2){
-                     // Récupère le nom du fichier
-                    char * nomFichier = new char[MAX];
-                    GetFileName(nomFichier);
-
-                    catalogueTrajet.SauvegardeCatalogueSelonType(nomFichier,1); // 1 pour trajet simple
-                    delete[] nomFichier;
-                    break;
+                else if (type == 2)
+                {
+                    cout << BOLD_WHITE << "Veuillez rentrer la ville d'arrivée : " << FIN << endl;
+                    cin >> ville;
                 }
-                else if(choix == 3){
-                    // Récupère le nom du fichier
-                    char * nomFichier = new char[MAX];
-                    GetFileName(nomFichier);
-
-                    catalogueTrajet.SauvegardeCatalogueSelonType(nomFichier,2); // 2 pour trajet composé
-                    delete[] nomFichier;
-                    break;
-                }
-                else if(choix == 4){
-
-                    char * nomFichier = new char[MAX];
-                    GetFileName(nomFichier);
-                    cout << BOLD_WHITE << "Voulez vous recherche par ville de départ ou d'arrivée ?" << FIN << endl;
-                    cout << BOLD_WHITE << "1. Ville de départ" << FIN << endl;
-                    cout << BOLD_WHITE << "2. Ville d'arrivée" << FIN << endl;
-                    int type = 1;
-                    cin >> type;
-                    char * ville = new char[MAX];
-                    if(type == 1){
-                        cout << BOLD_WHITE << "Veuillez rentrer la ville de départ : " << FIN << endl;
-                        cin >> ville;
-                    }
-                    else if(type == 2){
-                        cout << BOLD_WHITE << "Veuillez rentrer la ville d'arrivée : " << FIN << endl;
-                        cin >> ville;
-                    }
-                    else{
-                        cout << DEBUT_BOLD_RED << "Erreur lors de la saisie, veuillez rentrer un choix valide (1 ou 2)" << FIN
-                        << endl;
-                        break;
-                    }
-
-
-                    catalogueTrajet.SauvegardeCatalogueDepartArrivee(nomFichier, ville, type);
+                else
+                {
+                    cout << DEBUT_BOLD_RED << "Erreur lors de la saisie, veuillez rentrer un choix valide (1 ou 2)" << FIN
+                         << endl;
                     delete[] nomFichier;
                     delete[] ville;
                     break;
                 }
-                else if(choix == 5) {
-                    char * nomFichier = new char[MAX];
-                    GetFileName(nomFichier);
 
-                    unsigned int debut = 0;
-                    unsigned int fin = 0;
-                    cout << BOLD_WHITE << "Veuillez rentrer le début de l'intervalle : " << FIN << endl;
-                    cin >> debut;
-                    cout << BOLD_WHITE << "Veuillez rentrer la fin de l'intervalle : " << FIN << endl;
-                    cin >> fin;
-
-                    catalogueTrajet.SauvegardeCatalogueIntervalle(nomFichier, debut-1, fin-1);
-                    delete[] nomFichier;
-                    break;
-                }
-                else{
-                    cout << DEBUT_BOLD_RED << "Erreur lors de la saisie, veuillez rentrer un choix valide " << FIN
-                    << endl;
-                    break;
-                }
+                catalogueTrajet.SauvegardeCatalogueDepartArrivee(nomFichier, ville, type);
+                delete[] nomFichier;
+                delete[] ville;
+                break;
             }
+            else if (choix == 5)
+            {
+                unsigned int debut = 0;
+                unsigned int fin = 0;
+                cout << BOLD_WHITE << "Veuillez rentrer le début de l'intervalle : " << FIN << endl;
+                cin >> debut;
+                cout << BOLD_WHITE << "Veuillez rentrer la fin de l'intervalle : " << FIN << endl;
+                cin >> fin;
+
+                catalogueTrajet.SauvegardeCatalogueIntervalle(nomFichier, debut - 1, fin - 1);
+                delete[] nomFichier;
+                break;
+            }
+            else
+            {
+                cout << DEBUT_BOLD_RED << "Erreur lors de la saisie, veuillez rentrer un choix valide " << FIN
+                     << endl;
+                delete[] nomFichier;
+                break;
+            }
+        }
         case 6:
         {
 
-            cout << BOLD_WHITE << "Options : " << FIN << endl;
-            cout << BOLD_WHITE << "1. " << FIN << "Importer TOUS les trajets d'un fichier." << endl;
-            cout << BOLD_WHITE << "2. " << FIN << "Importer les trajets simples d'un fichier." << endl;
-            cout << BOLD_WHITE << "3. " << FIN << "Importer les trajets composés d'un fichier." << endl;
+            char *nomFichier = new char[MAX];
+            // Récupère le nom du fichier
+            GetFileName(nomFichier);
 
+            cout << BOLD_WHITE << "Options : " << FIN << endl;
+            cout << BOLD_WHITE << "1. " << FIN << "Importer TOUS les trajets du fichier." << endl;
+            cout << BOLD_WHITE << "2. " << FIN << "Importer les trajets simples du fichier." << endl;
+            cout << BOLD_WHITE << "3. " << FIN << "Importer les trajets composés du fichier." << endl;
+            cout << BOLD_WHITE << "4. " << FIN << "Importer les trajets selon une ville de départ ou d'arrivée." << endl;
+            cout << BOLD_WHITE << "5. " << FIN << "Importer les trajets selon un intervalle." << endl;
 
             int choix = 0;
             cin >> choix;
-            char * nomFichier = new char[MAX];
-            if(choix == 1){
-
-                // Récupère le nom du fichier
-                GetFileName(nomFichier);
-
+            if (choix == 1)
+            {
                 catalogueTrajet.ImporterFichierSansCritere(nomFichier);
 
                 delete[] nomFichier;
                 break;
             }
-            else if(choix == 2){
-
-                 // Récupère le nom du fichier
-                GetFileName(nomFichier);
-
-                catalogueTrajet.ImporterFichierSelonType(nomFichier,1); // 1 pour trajet simple
+            else if (choix == 2)
+            {
+                catalogueTrajet.ImporterFichierSelonType(nomFichier, 1); // 1 pour trajet simple
                 delete[] nomFichier;
                 break;
             }
-            else if(choix == 3){
-                
-                // Récupère le nom du fichier
-                GetFileName(nomFichier);
-
-                catalogueTrajet.ImporterFichierSelonType(nomFichier,2); // 2 pour trajet composé
+            else if (choix == 3)
+            {
+                catalogueTrajet.ImporterFichierSelonType(nomFichier, 2); // 2 pour trajet composé
                 delete[] nomFichier;
                 break;
             }
-            else{
-                cout << DEBUT_BOLD_RED << "Erreur lors de la saisie, veuillez rentrer un choix valide (1, 2 ou 3)" << FIN
-                << endl;
+            else if (choix == 4)
+            {
+                cout << BOLD_WHITE << "Voulez vous recherche par ville de départ ou d'arrivée ?" << FIN << endl;
+                cout << BOLD_WHITE << "1. Ville de départ" << FIN << endl;
+                cout << BOLD_WHITE << "2. Ville d'arrivée" << FIN << endl;
+
+                int type = 1;
+                cin >> type;
+                char *ville = new char[MAX];
+
+                if (type == 1)
+                {
+                    cout << BOLD_WHITE << "Veuillez rentrer la ville de départ que vous souhaitez: " << FIN << endl;
+                    cin >> ville;
+                }
+                else if (type == 2)
+                {
+                    cout << BOLD_WHITE << "Veuillez rentrer la ville d'arrivée que vous souhaitez: " << FIN << endl;
+                    cin >> ville;
+                }
+                else
+                {
+                    cout << DEBUT_BOLD_RED << "Erreur lors de la saisie, veuillez rentrer un choix valide (1 ou 2)" << FIN
+                         << endl;
+                    delete[] nomFichier;
+                    delete[] ville;
+                    break;
+                }
+
+                catalogueTrajet.ImporterFichierDepartArrivee(nomFichier, ville, type);
+                delete[] nomFichier;
+                delete[] ville;
                 break;
             }
+            else if (choix == 5)
+            {
+                unsigned int debut = 0;
+                unsigned int fin = 0;
+                cout << BOLD_WHITE << "Veuillez rentrer le début de l'intervalle : " << FIN << endl;
+                cin >> debut;
+                cout << BOLD_WHITE << "Veuillez rentrer la fin de l'intervalle : " << FIN << endl;
+                cin >> fin;
 
+                catalogueTrajet.ImporterFichierIntervalle(nomFichier, debut, fin);
+                delete[] nomFichier;
+                break;
+            }
+            else
+            {
+                cout << DEBUT_BOLD_RED << "Erreur lors de la saisie, veuillez rentrer un choix valide (1, 2, 3 ou 4)" << FIN
+                     << endl;
+                delete[] nomFichier;
+                break;
+            }
         }
         case 7:
-            {
-                cout << DEBUT_BOLD_RED << "Fin du programme" << FIN << endl;
-                cout << "Crédit : T.Gorisse - P.Brossat - G.Joussot-Dubien - C.Roubaud" << endl;
-                return 0;
-                break;
-            }
+        {
+            cout << DEBUT_BOLD_RED << "Fin du programme" << FIN << endl;
+            cout << "Crédit : T.Gorisse - P.Brossat - G.Joussot-Dubien - C.Roubaud" << endl;
+            return 0;
+            break;
+        }
         default:
             cout << DEBUT_BOLD_RED << "Erreur lors de la saisie, veuillez rentrer un choix valide (1, 2, 3, 4 ou 5)" << FIN
                  << endl;

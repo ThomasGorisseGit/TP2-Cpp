@@ -64,7 +64,7 @@ public:
     //      Appel de la méthode catalogue.SauvegardeCatalogueSelonType("nomFichier",type)
 
     void SauvegardeCatalogueDepartArrivee(const char *nomFichier, const char *ville, int type) const;
-    // La methode permet de sauvgarder les trajets qui partent d'un point de départ donné.
+    // La methode permet de sauvgarder les trajets en focntion d'une ville.
     // Type=1 pour chercher avec les departs et type=2 pour chercher avec les arrivées.
     // Mode d'emploi :
     //      Appel de la méthode catalogue.SauvegardeCatalogueSelonDepart("nomFichier","depart")
@@ -83,6 +83,17 @@ public:
     // La methode permet d'importer les trajets simples ou les trajets composés d'un fichier.
     // Mode d'emploi :
     //      Appel de la méthode catalogue.ImporterFichierSelonType("nomFichier",type)
+
+    void ImporterFichierDepartArrivee(const char *nomFichier, const char *ville, int type);
+    // La methode permet d'importer les trajets en fonction d'une ville.
+    // Type=1 pour chercher avec les departs et type=2 pour chercher avec les arrivées.
+    // Mode d'emploi :
+    //      Appel de la méthode catalogue.ImporterFichierDepartArrivee("nomFichier","depart")
+
+    void ImporterFichierIntervalle(const char *nomFichier, int debut, unsigned int fin);
+    // La methode permet d'importer les trajets qui sont dans un intervalle donné.
+    // Mode d'emploi :
+    //      Appel de la méthode catalogue.ImporterFichierIntervalle("nomFichier",debut,fin)
 
 protected:
     Liste<Trajet> *listeTrajet;
