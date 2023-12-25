@@ -416,8 +416,6 @@ void Catalogue::ImporterFichierSansCritere(const char *nomFichier)
 
                 getline(fichier, ligne); // On parse la ligne suivante
 
-                getline(fichier, ligne); // On parse la ligne suivante
-
                 // On supprime le premier caractère de la ligne (la tabulation)
                 ligne.erase(0, 1);
                 int pos = ligne.find(" ");
